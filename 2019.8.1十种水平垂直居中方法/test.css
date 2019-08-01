@@ -1,0 +1,99 @@
+/* *******************以下为居中元素定宽高情况下的方法******************** */
+/* 方法一：absolut+负margin*/
+/* .parent {
+  position: relative;
+}
+.child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -50px;
+} */
+
+/* 方法二：使用calc计算absolute的值 */
+/* .parent {
+  position: relative;
+}
+.child {
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 100px);
+} */
+
+/* 方法三：absolute + margin auto */
+/* position:absolte的四个方位上的数据缺一不可 */
+/* .parent {
+  position: relative;
+}
+.child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+} */
+
+/* *******************以下为居中元素不定宽高的方法******************** */
+
+/* 方法四： line-height text-align */
+/* 注意，使用line-height时，可能会存在基线问题，所以需要将待居中元素的vertical-align也设为居中 */
+/* .parent {
+  line-height: 300px;
+  text-align: center;
+}
+.child {
+  display: inline-block;
+  vertical-align: middle;
+} */
+
+/* 方法五：absolute + transform:translate */
+/* translate为相对当前位置的位置移动(若参数传百分比，则取的是当前移动元素的百分比) */
+/* .parent {
+  position: relative;
+}
+.child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+
+/* 方法六：writing-mode */
+/* .child {
+  writing-mode: vertical-lr;
+} */
+
+/* 方法七：flex */
+/* .parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* 方法八：grid */
+/* .parent {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+} */
+
+/* 方法九：css的table属性 */
+/* 将父组件当做表格的一个cell，将子组件当做cell中的内容  */
+/* .parent {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.child {
+  display: inline-block;
+} */
+
+/* 方法十： 将DOM结构修改为table */
+.parent {
+  text-align: center;
+}
+.child {
+  display: inline-block;
+}

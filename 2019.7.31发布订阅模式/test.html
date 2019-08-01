@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发布订阅模式</title>
+</head>
+
+<body>
+    <script>
+        // ****************第一版****************
+        // 问题：所有订阅的方法全部都会被发布一遍
+        // let obj = {}
+        // obj.fnList = []
+        // obj.on = function (fn) {
+        //     this.fnList.push(fn)
+        // }
+        // obj.emit = function () {
+        //     this.fnList.forEach(cb => {
+        //         cb.apply(this, arguments)
+        //     })
+        // }
+        // // 测试用例
+        // obj.on('me', function (name, age) {
+        //     console.log('你叫什么名字？', name)
+        //     console.log('你今年多大？', age)
+        // })
+
+        // obj.emit('me', 'Jaya', 18)
+        // obj.on('he', function (name, age) {
+        //     console.log('你喜欢的人叫什么名字？', name)
+        //     console.log('他今年多大？', age)
+        // })
+        // obj.emit('he', 'ZYL', 31)
+        // ****************第二版****************
+        // 问题：不通用
+        // let obj = {}
+        // obj.fnList = {}
+        // obj.on = function (key, fn) {
+        //     if (!this.fnList[key]) {
+        //         this.fnList[key] = []
+        //     }
+        //     this.fnList[key].push(fn)
+        //     // this.fnList.push(fn)
+        // }
+        // obj.emit = function () {
+        //     // let key = arguments[0]
+        //     // arguments.shift()
+        //     // 获取key值，并将key值从参数数组中去掉
+        //     let key = [].shift.call(arguments)
+        //     if (!this.fnList[key]) {
+        //         return false
+        //     }
+        //     this.fnList[key].forEach(cb => {
+        //         cb.apply(this, arguments)
+        //     })
+        // }
+        // // 测试用例
+        // obj.on('me', function (name, age) {
+        //     console.log('你叫什么名字？', name)
+        //     console.log('你今年多大？', age)
+        // })
+
+
+        // obj.on('he', function (name, age) {
+        //     console.log('你喜欢的人叫什么名字？', name)
+        //     console.log('他今年多大？', age)
+        // })
+        // obj.emit('me', 'Jaya', 18)
+        // obj.emit('he', 'ZYL', 31)
+        // ****************第三版****************
+        // 更为通用版， 增加移除订阅事件功能
+        let event = {
+            fnList: {},
+            on: function (key, fn) {
+                if (!this.fnList[key]) {
+                    this.fnList[key] = []
+                }
+                this.fnList[key].push(fn)
+            },
+            emit: function () {
+                let key = [].shift.call(arguments)
+                if (!this.fnList[key] || !this.fnList[key].length) {
+                    return false
+                }
+                this.fnList[key].forEach(cb => {
+                    cb.apply(this, arguments)
+                })
+            },
+            remove: function (key, fn) {
+                if (!this.fnList[key] || !this.fnList[key].length) {
+                    return false
+                }
+                if (!fn) {
+                    this.fnList[key].length = 0
+                }
+                this.fnList[key].forEach((cb, i) => {
+                    if (cb === fn) {
+                        this.fnList[key].splice(i, 1)
+                    }
+                })
+            }
+        }
+        // 测试用例
+        let a = function (name, age) {
+            console.log('是朱一龙嘛，请告诉我你的名字', name)
+            console.log('那你多大了', age)
+        }
+        let b = function (name, age) {
+            console.log('不想告诉你我的名字', name)
+            console.log('也不想告诉你我的年龄', age)
+        }
+        let c = function () {
+            console.log(11111111)
+        }
+        event.on('zyl', a)
+        event.on('zyl', c)
+        // event.remove('zyl', c)
+        event.on('notzyl', b)
+        event.emit('zyl', 'zyl1', 31)
+        event.emit('zyl', 'happy, happy')
+        event.emit('notzyl', 'kim shanho', 33)
+    </script>
+</body>
+
+</html>
