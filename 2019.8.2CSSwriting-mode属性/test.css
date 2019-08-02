@@ -1,0 +1,39 @@
+/* **********文字垂直排版********** */
+.box-container1 {
+  border: 1px solid #000;
+  /* css规范属性 */
+  writing-mode: vertical-rl;
+  /* IE语法 从上到下，从右往左 */
+  writing-mode: tb-rl;
+}
+
+/* **********使用writing-mode实现垂直居中********** */
+/* 注意：在IE下无法使用margin:auto来实现垂直居中，我们可以使用text-align：center来使内联元素在垂直方向上居中 */
+.box-container2 {
+  border: 1px solid #000;
+  width: 500px;
+  height: 400px;
+  writing-mode: vertical-rl;
+  writing-mode: tb-rl;
+  /* text-align: center; */
+}
+.box-inner {
+  background: palegoldenrod;
+  width: 200px;
+  height: 100px;
+  margin: auto;
+  /* display: inline-block; */
+}
+
+/* **********使用writing-mode与text-indent文字下沉效果********** */
+.box-container3 {
+}
+.btn {
+  font-size: 30px;
+  color: plum;
+  text-decoration: none;
+  writing-mode: vertical-lr;
+}
+.btn:active {
+  text-indent: 10px;
+}
