@@ -60,10 +60,21 @@
   transform: translate(-50%, -50%);
 } */
 
-/* 方法六：writing-mode */
-/* .child {
-  writing-mode: vertical-lr;
-} */
+/* 方法六：writing-mode + margin:auto */
+.parent {
+  writing-mode: vertical-rl;
+  writing-mode: tb-rl;
+}
+
+.parent-inner {
+  margin: auto;
+  writing-mode: horizontal-tb;
+  width: 100%;
+}
+
+.child {
+  margin: auto;
+}
 
 /* 方法七：flex */
 /* .parent {
@@ -91,9 +102,9 @@
 } */
 
 /* 方法十： 将DOM结构修改为table */
-.parent {
+/* .parent {
   text-align: center;
 }
 .child {
   display: inline-block;
-}
+} */
