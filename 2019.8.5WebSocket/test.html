@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket学习</title>
+</head>
+
+<body>
+
+</body>
+<script type="text/javascript">
+    let ws = new WebSocket('ws://localhost:9999')
+    // 客户端和服务端连接成功后触发
+    ws.onopen = function () {
+        // 连接后给服务端发条消息
+        ws.send('已经连接上了哈,给你发条消息')
+    }
+    // 接收到服务端发来的消息
+    ws.onmessage = function (res) {
+        console.log('我在前端，接收到消息：', res.data)
+    }
+</script>
+
+</html>
