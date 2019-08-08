@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用代码写一首曲子</title>
+    <style>
+        .btn {
+            cursor: pointer;
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            user-select: none;
+            text-align: center;
+            border: 1px #a12d21 solid;
+            margin: 2px;
+        }
+
+        .level0::after {
+            content: ".";
+            position: relative;
+            top: 4px;
+            left: -7px;
+        }
+
+        .level2::before {
+            content: ".";
+            position: relative;
+            top: -16px;
+            left: 7px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <h1>来一首EXO的咆哮吧~~嘻嘻</h1> -->
+</body>
+<script type="text/javascript">
+    // 创建音频上下文
+    const audioCtx = new AudioContext()
+    // 简谱映射（0：低音1~7  1：中音1~7  2：高音1~7）
+    const VOICE_MAP = {
+        0: [261.63, 293.67, 329.63, 349.23, 391.99, 440, 493.88],
+        1: [523.25, 587.33, 659.26, 698.46, 783.99, 880, 987.77],
+        2: [1046.5, 1174.66, 1318.51, 1396.92, 1567.98, 1760, 1975.52]
+    }
+    // 播放
+    function playAudio(index, level) {
+        // 如果之前正在播，就清掉之前的音频
+        this.gainNode && this.gainNode.gain.setValueAtTime(0, audioCtx.currentTime)
+        this.oscillator && this.oscillator.stop(audioCtx.currentTime + 1)
+
+        // 创建音调控制对象
+        this.oscillator = audioCtx.createOscillator()
+        // 创建音量控制对象
+        this.gainNode = audioCtx.createGain()
+        // 音调关联音量
+        this.oscillator.connect(this.gainNode)
+        // 音量关联设备
+        this.gainNode.connect(audioCtx.destination)
+        // 音调类型指定为正弦波
+        this.oscillator.type = "sine"
+        // 设置音调频率（重要）
+        // oscillator.frequency.value = 400
+        // 读取相应的简谱频率
+        this.oscillator.frequency.value = VOICE_MAP[level][index]
+        // 将音量设为0
+        this.gainNode.gain.setValueAtTime(0, audioCtx.currentTime)
+        // 0.01秒时间内音量从0线性变化到1，实现渐进增强
+        this.gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.01)
+        // 声音开始
+        this.oscillator.start(audioCtx.currentTime)
+        // oscillator.stop(audioCtx.currentTime)
+    }
+
+    // 停止播放
+    function stopAudio() {
+        // this.oscillator.stop(audioCtx.currentTime)
+        this.gainNode && this.gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8)
+        // 0.8秒内停止声音
+        // if (this.oscillator) {
+        //     console.log(11111)
+        //     this.oscillator.stop(audioCtx.currentTime + 0.8)
+        // }
+        this.oscillator && this.oscillator.stop(audioCtx.currentTime + 0.8)
+        this.oscillator = this.gainNode = null
+    }
+
+    // *************下面为操作键盘*************
+
+
+    // 音频开始
+    function handleStart({
+        target
+    }, level) {
+        const {
+            dataset: {
+                index
+            }
+        } = target
+        if (index !== undefined) {
+            playAudio.call(target, index, level)
+        }
+    }
+
+    // 停止音频
+    function handleStop({
+        target
+    }) {
+        const {
+            dataset: {
+                index
+            }
+        } = target
+        if (index !== undefined) {
+            stopAudio.call(target)
+        }
+    }
+    // 渲染键盘（模拟钢琴）
+    function renderBtns(level) {
+        let i = 0
+        let res = ""
+        while (i < 7) {
+            res += `<span class="btn level${level}" data-index=${i}>${i+1}</span>`
+            i++
+        }
+        const container = document.createElement("section")
+        container.className = `container${level}`
+        // 传入e和level，level指的是低中高音
+        const particalStart = e => handleStart(e, level)
+        container.addEventListener("mousedown", e => {
+            particalStart(e);
+            container.addEventListener('mouseout', handleStop)
+        })
+        container.addEventListener('mouseup', handleStop)
+        container.innerHTML += res
+        document.body.appendChild(container)
+    }
+
+    renderBtns(0)
+    renderBtns(1)
+    renderBtns(2)
+</script>
+
+
+</html>
