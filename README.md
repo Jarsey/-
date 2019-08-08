@@ -17,3 +17,5 @@
 《游戏（学习flex）：FLEXBOX FROGGY》 http://flexboxfroggy.com/
 ## 2019.08.07
 《[译] JavaScript 如何工作：对引擎、运行时、调用堆栈的概述》 https://juejin.im/post/5a05b4576fb9a04519690d42
+## 2019.08.08
+《七夕了，用代码给心爱的人写一首曲子吧》 https://juejin.im/post/5d499855f265da03cf7a764e
