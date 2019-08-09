@@ -20,4 +20,6 @@
 ## 2019.08.08
 《七夕了，用代码给心爱的人写一首曲子吧》 https://juejin.im/post/5d499855f265da03cf7a764e
 
-ps:很有意思的代码，改改样式能做个钢琴出来嘻嘻。由此，我单独开了一个项目，专门来玩这个AudioContext，项目戳这里
+ps:很有意思的代码，改改样式能做个钢琴出来嘻嘻。由此，我单独开了一个项目，专门来玩这个AudioContext，项目戳这里[AudioPlay](https://github.com/Jarsey/AudioPlay)
+## 2019.08.09 
+《Vuejs建议和最佳实践》 https://juejin.im/post/5d48f3b7e51d4561e224a2c8
