@@ -23,5 +23,7 @@
 ps:很有意思的代码，改改样式能做个钢琴出来嘻嘻。由此，我单独开了一个项目，专门来玩这个AudioContext，项目戳这里[AudioPlay](https://github.com/Jarsey/AudioPlay)
 ## 2019.08.09 
 《Vuejs建议和最佳实践》 https://juejin.im/post/5d48f3b7e51d4561e224a2c8
+
 《JavaScript: ES2019更新了什么呢？》 https://juejin.im/post/5d4c3bec5188254bb70164e2
+
 《JS中轻松遍历对象属性的几种方式》 https://juejin.im/post/5d48c275f265da03b12032a1
