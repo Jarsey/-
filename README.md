@@ -27,3 +27,5 @@ ps:很有意思的代码，改改样式能做个钢琴出来嘻嘻。由此，�
 《JavaScript: ES2019更新了什么呢？》 https://juejin.im/post/5d4c3bec5188254bb70164e2
 
 《JS中轻松遍历对象属性的几种方式》 https://juejin.im/post/5d48c275f265da03b12032a1
+## 2019.08.13
+《socket.io让每个人都可以开发属于自己的即时通讯》 https://juejin.im/post/5bce886af265da0ac07c8ef8
