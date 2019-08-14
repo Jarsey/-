@@ -20,7 +20,7 @@
 ## 2019.08.08
 《七夕了，用代码给心爱的人写一首曲子吧》 https://juejin.im/post/5d499855f265da03cf7a764e
 
-ps:很有意思的代码，改改样式能做个钢琴出来嘻嘻。由此，我单独开了一个项目，专门来玩这个AudioContext，项目戳这里[AudioPlay](https://github.com/Jarsey/AudioPlay)
+PS:很有意思的代码，改改样式能做个钢琴出来嘻嘻。由此，我单独开了一个项目，专门来玩这个AudioContext，项目戳这里[AudioPlay](https://github.com/Jarsey/AudioPlay)
 ## 2019.08.09 
 《Vuejs建议和最佳实践》 https://juejin.im/post/5d48f3b7e51d4561e224a2c8
 
@@ -29,3 +29,7 @@ ps:很有意思的代码，改改样式能做个钢琴出来嘻嘻。由此，�
 《JS中轻松遍历对象属性的几种方式》 https://juejin.im/post/5d48c275f265da03b12032a1
 ## 2019.08.13
 《socket.io让每个人都可以开发属于自己的即时通讯》 https://juejin.im/post/5bce886af265da0ac07c8ef8
+## 2019.08.14
+《这一次，彻底弄懂 JavaScript 执行机制》 https://juejin.im/post/59e85eebf265da430d571f89
+
+PS:很棒的一篇文章，对于我这种菜鸟来说通俗易懂。
