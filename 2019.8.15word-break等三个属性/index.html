@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>彻底搞懂word-break、word-wrap、white-space</title>
+    <style>
+        /* 默认情况下，代码中用键盘敲出来的空格，不管敲了几个空格，都合成一个空格；默认情况下，用键盘敲出来的换行符无效 */
+        .box {
+            border: 1px solid rosybrown;
+            width: 200px;
+            font-size: 20px;
+        }
+
+        /* white-space:控制空白字符的显示，同时还能控制是否自动换行 */
+        #box1 {
+            /* white-space: nowrap 永不换行，在代码中的空格和换行符都无效（这里指用键盘敲出来的空格和回车换行，&nbsp和<br/>还是有效果的） */
+            /* white-space: nowrap; */
+
+            /* white-space: pre 保留空格和换行符，但没有自动换行。pre其实是preserve的缩写，保留 */
+            /* white-space: pre; */
+
+            /* white-space:pre-wrap  保留空格和换行符，并自动换行*/
+            /* white-space: pre-wrap； */
+
+            /* white-space:pre-line 空格无效，但所有换行都有效（换行符和自动换行） */
+            white-space: pre-line
+        }
+
+        /* word-break 控制单词（包括连续的中文字符（还有日文、韩文等））的拆分和换行 */
+        #box2 {
+            /* word-break:keep-all 所有的单词一律不拆分换行，也就是只有空格（键盘打上的）才可以出发换行 */
+            /* word-break:keep-all; */
+
+            /* word-break:break-all 所有单词碰到边界（视容器宽度而定）一律拆分换行，这里不管是否为完整的单词，遇到边界都会被拆分换行 */
+            word-break: break-all
+        }
+
+        /* 这里我们能看到，word-break无法做到既能遇到边界换行又不用把完整的单词拆开。若想实现这种效果，可以用word-wrap */
+        /* word-wrap（overflow-wrap）同样控制单词的拆分和换行，和word-break是互补关系 */
+        #box3 {
+            /* word-wrap: break-word 在一句话中，若触及边界，则拆分换行，完整的单词不拆分；但如果这个完整的单词本身的长度大于边界宽度，则也会进行拆分 */
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box1">
+        Hi&nbsp;&nbsp;,
+        This is a incomprehensibilities long word.And this is my first time to use this attribute.
+        </br>
+        你好&nbsp;&nbsp;，
+        这 是一个不可思议的长单词，而且这是我第一次用这个属性。
+    </div>
+    <div class="box" id="box2">
+        Hi&nbsp;&nbsp;,
+        This is a incomprehensibilities long word.And this is my first time to use this attribute.
+        </br>
+        你好&nbsp;&nbsp;，
+        这 是一个不可思议的长单词，而且这是我第一次用这个属性。
+    </div>
+    <div class="box" id="box3">
+        Hi&nbsp;&nbsp;,
+        This is a incomprehensibilities long word.And this is my first time to use this attribute.
+        </br>
+        你好&nbsp;&nbsp;，
+        这 是一个不可思议的长单词，而且这是我第一次用这个属性。
+    </div>
+</body>
+
+</html>
