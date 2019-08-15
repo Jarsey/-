@@ -33,3 +33,5 @@ PS:很有意思的代码，改改样式能做个钢琴出来嘻嘻。由此，�
 《这一次，彻底弄懂 JavaScript 执行机制》 https://juejin.im/post/59e85eebf265da430d571f89
 
 PS:很棒的一篇文章，对于我这种菜鸟来说通俗易懂。
+## 2019.08.15
+《彻底搞懂word-break、word-wrap、white-space》 https://juejin.im/post/5b8905456fb9a01a105966b4
