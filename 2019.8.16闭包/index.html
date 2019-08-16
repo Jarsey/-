@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>闭包</title>
+</head>
+
+<body>
+    <p>具体结果看控制台</p>
+    <p>一共有三题哦，每题可能有不同解法</p>
+    <script type="text/javascript">
+        // 第一题 下列代码的运行过程
+
+        // for (var i = 0; i < 5; i++) {
+        //     setTimeout(function () {
+        //         console.log(new Date(), i)
+        //     }, 1000)
+        // }
+        // console.log(new Date(), i)
+
+        // 第一题输出结果 5,5,5,5,5,5
+        // 而且输出时，先输出5，隔一秒之后，再输出后面的5，后面的5几乎可以忽略时间间隔
+        // 根据前天看的JavaScript运行机制，我们可以这么分析
+        // 1.首先，程序遇到循环，开始循环，这个在同步的主线程中；
+        // 2.进入循环后遇到setTimeout，开始异步，setTimeout中的函数进入Event Table并注册，计时开始
+        // 3.等待主线程执行完。主线程这时执行到最后打印5，计时仍在继续。
+        // 4.1秒到了，计时事件timeout完成，setTimeout中的函数进入Event Queue，这时主线程也执行完了，连续输出5个5
+
+
+
+
+        // 第二题 如果希望代码输出变成5,0,1,2,3,4应该怎么修改
+
+        // 方法一，利用闭包
+        // for (var i = 0; i < 5; i++) {
+        //     (function (i) {
+        //         setTimeout(function () {
+        //             console.log(new Date(), i)
+        //         }, 1000)
+        //     })(i)
+        // }
+        // console.log(new Date(), i)
+        // 这时输出的就是5,0,1,2,3,4了，输出的时间与上面一样，先输出5，然后隔一秒输出0，接着无时差挨个输出1，2，3，4
+        // 可以这样分析：
+        // 1.首先，进入循环，执行循环内自执行函数，记下i的值
+        // 2.向下执行，遇到settimeout，开始异步，setTimeout中的函数进入Event Table并注册，计时开始。这时setTimeout中打印的i是它的“父环境”自执行函数中的i
+        // 3.主线程继续执行，打印5
+        // 4.1秒到了，计时事件timeout完成，setTimeout中的函数进入Event Queue，这时若主线程执行完了（这里是执行完了的），则执行Event Queue中的回调函数，若主线程没执行完，则等待
+
+        // 方法二，setTimeout API支持闭包写法
+        // for (var i = 0; i < 5; i++) {
+        //     setTimeout(function (j) {
+        //         console.log(new Date(), j)
+        //     }, 1000, i)
+        // }
+        // console.log(new Date(), i)
+
+        // 方法三，利用函数参数按值传递的特征
+        // var output = function (i) {
+        //     setTimeout(function () {
+        //         console.log(new Date(), i)
+        //     }, 1000)
+        // }
+        // for (var i = 0; i < 5; i++) {
+        //     output(i)
+        // }
+        // console.log(new Date(), i)
+
+        // 提问：若将问题一for循环中的“var i = 0”换成“let i = 0”会怎么样？会实现问题二的效果嘛？
+        // 回答：如果没有最后一个console会实现0，1，2，3，4的打印效果，但在for循环外有一个console则会报错。
+
+
+
+
+        // 第三题 如果想要这样的效果：每隔一秒输出0，1，2，3，4，5，且不改变console的位置，该如何修改代码
+
+        // 方法一 利用循环内闭包和循环外settimeout
+        // for (var i = 0; i < 5; i++) {
+        //     (function (i) {
+        //         setTimeout(function () {
+        //             console.log(new Date(), i)
+        //         }, 1000 * i)
+        //     })(i)
+
+        // }
+        // setTimeout(function () {
+        //     console.log(new Date(), i)
+        // }, 1000 * i)
+        // 这个也比较好理解：
+        // 这里的1000*i其实是控制的setTimeout中的函数进入Event Queue的时间，第一个1秒过后，输出0的那个函数进入Event Queue；2秒过后，输出1的进入；3秒过后，输出2的进入……
+
+
+        // 方法二 Promise
+        // var tasks = []
+        // for (var i = 0; i < 5; i++) {
+        //     ((i) => {
+        //         tasks.push(new Promise((resolve) => {
+        //             setTimeout(function () {
+        //                 console.log(new Date(), i)
+        //                 resolve(); // 一定要resolve
+        //             }, 1000 * i)
+        //         }))
+        //     })(i)
+        // }
+        // Promise.all(tasks).then(() => {
+        //     setTimeout(() => {
+        //         console.log(new Date(), i)
+        //     }, 1000) // 这里1000就可以啦，因为是Promise.all
+        // })
+
+        // 整理下方法二代码，如下：
+        // var tasks = []
+        // var output = (i) => {
+        //     return new Promise((resolve) => {
+        //         setTimeout(() => {
+        //             console.log(new Date(), i)
+        //             resolve()
+        //         }, 1000 * i)
+        //     })
+        // }
+        // for (var i = 0; i < 5; i++) {
+        //     tasks.push(output(i))
+        // }
+        // Promise.all(tasks).then(() => {
+        //     setTimeout(() => {
+        //         console.log(new Date(), i)
+        //     }, 1000)
+        // })
+
+
+        // 方法三 async/await
+        // function output(i) {
+        //     return new Promise((resolve) => {
+        //         setTimeout(() => {
+        //             console.log(new Date(), i)
+        //             resolve()
+        //         }, 1000)
+        //     })
+        // }
+        // (async () => {
+        //     for (var i = 0; i < 5; i++) {
+        //             await output(i)
+        //     }
+        //     setTimeout(() => {
+        //         console.log(new Date(), i)
+        //     }, 1000)
+        // })()
+        // 方法三另一种思路（更简洁）
+        // var output = () => new Promise((resolve) => {
+        //     setTimeout(resolve, 1000)
+        // })
+
+        // (async () => {
+        //     for (var i = 0; i < 5; i++) {
+        //         if (i > 0) {
+        //             await output()
+        //         }
+        //         console.log(new Date(), i)
+        //     }
+        //     await output();
+        //     console.log(new Date, i);
+        // })()
+    </script>
+</body>
+
+</html>
