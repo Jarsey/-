@@ -37,3 +37,5 @@ PS:很棒的一篇文章，对于我这种菜鸟来说通俗易懂。
 《彻底搞懂word-break、word-wrap、white-space》 https://juejin.im/post/5b8905456fb9a01a105966b4
 ## 2019.08.16
 《破解前端面试（80% 应聘者不及格系列）：从闭包说起》 https://juejin.im/post/58f1fa6a44d904006cf25d22#heading-0
+## 2019.08.19
+《JavaScript 复杂判断的更优雅写法》 https://juejin.im/post/5bdfef86e51d453bf8051bf8
