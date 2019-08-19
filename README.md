@@ -40,4 +40,6 @@ PS:很棒的一篇文章，对于我这种菜鸟来说通俗易懂。
 ## 2019.08.19
 《JavaScript 复杂判断的更优雅写法》 https://juejin.im/post/5bdfef86e51d453bf8051bf8
 
+PS：很实用的一篇文章，代码简洁还是很重要滴~
+
 《都9102年了，还问GET和POST的区别》 https://segmentfault.com/a/1190000018129846
