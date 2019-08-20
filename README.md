@@ -45,4 +45,5 @@ PS：很实用的一篇文章，代码简洁还是很重要滴~
 《都9102年了，还问GET和POST的区别》 https://segmentfault.com/a/1190000018129846
 ## 2019.08.20
 《require时，exports和module.exports的区别你真的懂吗？》 https://juejin.im/post/5d5639c7e51d453b5c1218b4
+
 《CommonJS规范》 http://javascript.ruanyifeng.com/nodejs/module.html
