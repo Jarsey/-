@@ -37,3 +37,17 @@ PS:很棒的一篇文章，对于我这种菜鸟来说通俗易懂。
 《彻底搞懂word-break、word-wrap、white-space》 https://juejin.im/post/5b8905456fb9a01a105966b4
 ## 2019.08.16
 《破解前端面试（80% 应聘者不及格系列）：从闭包说起》 https://juejin.im/post/58f1fa6a44d904006cf25d22#heading-0
+## 2019.08.19
+《JavaScript 复杂判断的更优雅写法》 https://juejin.im/post/5bdfef86e51d453bf8051bf8
+
+PS：很实用的一篇文章，代码简洁还是很重要滴~
+
+《都9102年了，还问GET和POST的区别》 https://segmentfault.com/a/1190000018129846
+## 2019.08.20
+《require时，exports和module.exports的区别你真的懂吗？》 https://juejin.im/post/5d5639c7e51d453b5c1218b4
+
+《CommonJS规范》 http://javascript.ruanyifeng.com/nodejs/module.html
+## 2019.08.21
+《性感的Promise，拥抱ta然后扒光ta》 https://juejin.im/post/5ab20c58f265da23a228fe0f
+
+emm……虽然文章题目有点内啥，但是内容还是不错的。今天太忙，文章略长，留一半手写promise留给明天吧~
