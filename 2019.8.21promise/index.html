@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>完全掌握promise</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // let promise1 = new Promise()
+        // console.log(promise)
+        // 这里会报错：Uncaught TypeError: Promise resolver undefined is not a function
+        // 由此我们知道，实例化Promise的时候需要一个参数，即一个函数（执行器），而函数有两个参数resolve和reject
+
+        let promise2 = new Promise(function (resolve, reject) {
+            if (false) {
+                resolve('成功')
+            } else {
+                reject('失败')
+            }
+        })
+        // console.log(promise2)
+
+        // then方法
+        // Promise实例上有一个then方法，该方法有两个参数，一个是成功的回调函数，另一个是reject即失败的回调
+        // promise2.then(function (data) {
+        //     console.log('data', data)
+        // }, function (err) {
+        //     console.log('err', err)
+        // })
+
+        // 链式调用
+        // 除此之外，每一个then方法都会返回一个Promise实例，我们可以继续使用then来使用链式调用，通过返回值将参数传给下一个then
+        // 链式调用时，reject的结果用catch, catch方法等同于.then(null, reject)
+        promise2.then(function (data) {
+            return '成功链式1'
+        }).then(function (data) {
+            console.log('data', data)
+        }).catch(function (data) {
+            console.log('data', data)
+        })
+
+
+        // Promise.all()
+        // Promise.all()能将多个Promise实例包装成一个Promise实例
+        // 组合后的Promise实例和普通的Promise实例是一样的
+        // let p1 = new Promise(function (resolve, reject) {})
+        // let p2 = new Promise(function (resolve, reject) {})
+        // let p3 = new Promise(function (resolve, reject) {})
+        // let promise3 = Promise.all([p1, p2, p3]) // 注意，这里是直接使用类的方法，不用new来实例化
+        // p.then(function () {
+        //     // 三者都成功  
+        // }, function () {
+        //     // 有一个失败就失败
+        // })
+
+
+        // Promise.race()
+        // Promise.race()的用法和Promise.all()的一样
+        // Promise.race()的状态取决于第一个完成的小promise，第一个promise完成后，若成功则组合promise的状态就是成功，若失败，则组合promise的状态是失败
+
+
+
+        // Promise.resolve()
+        // Promise.resolve()可以生成一个成功的promise
+        // Promise.resolve('成功')等同于new Promise(function(resolve, reject){resolve('成功')})
+        Promise.resolve('成功').then(function (data) {
+            console.log('.resolve', data)
+        })
+
+        // Promise.reject()
+        // 用法同上，可以生成一个失败的Promise
+    </script>
+</body>
+
+</html>
