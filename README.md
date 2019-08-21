@@ -47,3 +47,7 @@ PS：很实用的一篇文章，代码简洁还是很重要滴~
 《require时，exports和module.exports的区别你真的懂吗？》 https://juejin.im/post/5d5639c7e51d453b5c1218b4
 
 《CommonJS规范》 http://javascript.ruanyifeng.com/nodejs/module.html
+## 2019.08.21
+《性感的Promise，拥抱ta然后扒光ta》 https://juejin.im/post/5ab20c58f265da23a228fe0f
+
+emm……虽然文章题目有点内啥，但是内容还是不错的。今天太忙，文章略长，留一半手写promise留给明天吧~
