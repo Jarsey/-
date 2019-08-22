@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手写实现promise</title>
+</head>
+
+<body>
+    <h1>结果看控制台呀</h1>
+    <script type="text/javascript" src="./promise.js"></script>
+    <script type="text/javascript">
+        let promise = new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                if (true) {
+                    resolve('成功啦')
+                } else {
+                    reject('失败了呢')
+                }
+            }, 1000)
+
+        })
+        promise.then(res => {
+            console.log(res)
+            return 1
+        }, err => {
+            console.log(err)
+        }).then(res => {
+            console.log('res1', res)
+        })
+    </script>
+</body>
+
+</html>
