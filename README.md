@@ -51,3 +51,7 @@ PS：很实用的一篇文章，代码简洁还是很重要滴~
 《性感的Promise，拥抱ta然后扒光ta》 https://juejin.im/post/5ab20c58f265da23a228fe0f
 
 emm……虽然文章题目有点内啥，但是内容还是不错的。今天太忙，文章略长，留一半手写promise留给明天吧~
+## 2019.08.22
+《性感的Promise，拥抱ta然后扒光ta》 https://juejin.im/post/5ab20c58f265da23a228fe0f
+
+跟着手写了一下Promise，加深了理解，还有一点点遗留问题，明天再解决吧~~
