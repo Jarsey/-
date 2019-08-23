@@ -25,6 +25,7 @@ function Promise(executor) {
         if (_this.status === 'pending') {
             _this.status = 'rejected'
             _this.result = result
+
             _this.onRejectedCallbacks.forEach(fn => {
                 fn()
             })
@@ -47,8 +48,9 @@ Promise.prototype.then = function (onFulfilled, onRjected) {
         return result
     }
     let _this = this
+    let promise2
     if (_this.status === 'resolved') {
-        let promise2 = new Promise(function (resolve, reject) {
+        promise2 = new Promise(function (resolve, reject) {
             // 当成功或者失败执行时有异常那么返回的promise应该处于失败状态
             setTimeout(function () {
                 try {
@@ -62,7 +64,7 @@ Promise.prototype.then = function (onFulfilled, onRjected) {
         })
     }
     if (_this.status === 'rejected') {
-        let promise2 = new Promise(function (resolve, reject) {
+        promise2 = new Promise(function (resolve, reject) {
             setTimeout(function () {
                 try {
                     let x = onRjected(_this.result)
@@ -75,7 +77,7 @@ Promise.prototype.then = function (onFulfilled, onRjected) {
     }
     // 异步时，因为Promise会立即执行，所以到then这里。status还是pending的状态，异步结束，status的状态才会被改变
     if (_this.status === 'pending') {
-        let promise2 = new Promise(function (resolve, reject) {
+        promise2 = new Promise(function (resolve, reject) {
             _this.onResolvedCallbacks.push(function () {
                 setTimeout(function () {
                     try {
@@ -98,10 +100,10 @@ Promise.prototype.then = function (onFulfilled, onRjected) {
             })
         })
     }
+    return promise2
 }
 
 function resolvePromise(promise2, x, resolve, reject) {
-    console.log(11111)
     // 对于then中的函数return结果x做出各种判断，有以下几种情况
     // p.then(function(res) {
     //     return new Promise(function(){})
@@ -115,7 +117,6 @@ function resolvePromise(promise2, x, resolve, reject) {
     // }, function(err) {
     //     ……
     // })
-    debugger
     if (promise2 === x) {
         return reject('循环引用')
     }
@@ -150,4 +151,58 @@ function resolvePromise(promise2, x, resolve, reject) {
         resolve(x)
     }
 }
-// module.exports = Promise
+
+
+
+// catch方法
+// 捕获错误的方法，在原型上有catch方法，返回一个没有resolve的then结果即可
+Promise.prototype.catch = function (onRjected) {
+    return this.then(null, onRjected)
+}
+
+// Promise.all
+// 解析全部方法，接收一个Promise数组promises,返回新的Promise，遍历数组，都完成再resolve
+Promise.all = function (promises) {
+    return new Promise(function (resolve, reject) {
+        let i = 0
+        let successTimes = []
+
+        function processData(i, res) {
+            successTimes[i] = res
+            if (++i === promises.length) {
+                resolve(successTimes)
+            }
+        }
+        for (let i = 0; i < promises.length; i++) {
+            promises[i].then(function (res) {
+                processData(i, res)
+            }, reject)
+        }
+    })
+}
+
+// Promise.race
+// 只要有一个promise成功了 就算成功。如果第一个失败了就失败了
+Promise.race = function (promises) {
+    return new Promise(function (resolve, reject) {
+        promises.forEach(p => {
+            p.then(resolve, reject)
+        })
+    })
+}
+
+// Promise.resolve
+// 生成一个成功的promise
+Promise.resolve = function (value) {
+    return new Promise(function (resolve, reject) {
+        resolve(value)
+    })
+}
+
+// Promise.reject
+// 生成一个失败的promise
+Promise.reject = function (result) {
+    return new Promise(function (resolve, reject) {
+        reject(result)
+    })
+}
