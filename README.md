@@ -56,6 +56,10 @@ emm……虽然文章题目有点内啥，但是内容还是不错的。今天�
 
 跟着手写了一下Promise，加深了理解，还有一点点遗留问题，明天再解决吧~~
 ## 2019.08.23
+《性感的Promise，拥抱ta然后扒光ta》 https://juejin.im/post/5ab20c58f265da23a228fe0f
+
+今天完善了手写promise，增加all,race等方法
+
 《JS 在获取当前月的最后一天遇到的坑》 https://juejin.im/post/5d5dd889f265da03f77e6ea4
 
 文中获取上个月的最后一天：
