@@ -74,3 +74,5 @@ let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 let monthNum = new Date(currentYear, currentMonth, 0).getDate();
 ```
+## 2019.08.26
+《近一万字的ES6语法知识点补充》 https://juejin.im/post/5c6234f16fb9a049a81fcca5
