@@ -78,3 +78,7 @@ let monthNum = new Date(currentYear, currentMonth, 0).getDate();
 《近一万字的ES6语法知识点补充》 https://juejin.im/post/5c6234f16fb9a049a81fcca5
 
 文章太长了，分两天看，还剩一半留给明天吧……
+
+《[翻译]JavaScript中的解构赋值》 https://baijiahao.baidu.com/s?id=1617543062218965336&wfr=spider&for=pc
+
+《小邵教你玩转ES6》 https://juejin.im/post/5b7b95206fb9a019bd2463d8
