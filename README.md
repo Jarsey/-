@@ -86,3 +86,5 @@ let monthNum = new Date(currentYear, currentMonth, 0).getDate();
 《近一万字的ES6语法知识点补充》 https://juejin.im/post/5c6234f16fb9a049a81fcca5
 
 今天看完剩下的一半啦，很棒的文章，推荐推荐！！
+
+《Webpack 大法之 Code Splitting》 https://zhuanlan.zhihu.com/p/26710831
