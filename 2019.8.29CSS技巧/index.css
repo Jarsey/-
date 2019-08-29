@@ -1,0 +1,89 @@
+.test1 ul li {
+  /* 要加display:block才有用 */
+  display: block;
+  background: palevioletred;
+  margin: 10px;
+  text-align-last: justify;
+  width: 100px;
+}
+.test2 ul {
+  background: pink;
+  width: 200px;
+  border: 1px solid slategray;
+}
+/* 除了最后一个元素，其他的都有margin */
+.test2 ul li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.test3 img {
+  width: 300px;
+  height: 300px;
+}
+.test3 .none {
+  object-fit: none;
+}
+.test3 .contain {
+  object-fit: contain;
+}
+.test3 .cover {
+  object-fit: cover;
+}
+.test3 .fill {
+  object-fit: fill;
+}
+.test3 .scale-down {
+  object-fit: scale-down;
+}
+
+.test4 div {
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  margin: 10px;
+}
+.test4 .normal {
+  border: 1px solid purple;
+}
+.test4 .transform {
+  position: relative;
+}
+.test4 .transform::after {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: 0;
+  left: 0;
+  border: 1px solid purple;
+  content: "";
+  transform: scale(0.5);
+  transform-origin: left top;
+}
+
+.test5 div {
+  font-weight: bold;
+  font-size: 20px;
+  color: red;
+  /* 设置字体大小的两倍 */
+  letter-spacing: -40px;
+  width: 200px;
+  margin-left: 200px;
+}
+
+.test6 .container {
+  width: 600px;
+  display: flex;
+  background: palegoldenrod;
+}
+.test6 .container li {
+  list-style: none;
+  border: 1px solid salmon;
+  margin-left: 20px;
+}
+.test6 .container li:last-child {
+  margin-left: auto;
+}
+/* 倒数第二个 */
+.test6 .container li:nth-last-child(2) {
+  /* margin-left: auto; */
+}

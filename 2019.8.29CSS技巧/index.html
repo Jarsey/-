@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>CSS小技巧</title>
+    <link href="./index.css" type="text/css" rel="styleSheet" />
+  </head>
+
+  <body>
+    <div class="test1">
+      <h3>一、使用text-align-last:justify设置文本两端对齐</h3>
+      <ul>
+        <li>都暻秀</li>
+        <li>伯贤</li>
+        <li>金钟大</li>
+      </ul>
+    </div>
+
+    <div class="test2">
+      <h3>二、使用:not()去除无用属性</h3>
+      <ul>
+        <li>第一个</li>
+        <li>第二个</li>
+        <li>第三个</li>
+      </ul>
+    </div>
+
+    <div class="test3">
+      <h3>三、使用object-fit规定图像尺寸</h3>
+      <p>
+        图片使用的效果分别是：什么都不加，object-fit:none|contain|cover|fill|scale-down
+      </p>
+      <div>
+        <img
+          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567650095&di=ed13f205097f470842e2b2e61e296eb5&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201708%2F29%2F20170829152033_dwE4e.jpeg"
+          alt=""
+        />
+        <img
+          class="none"
+          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567650095&di=ed13f205097f470842e2b2e61e296eb5&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201708%2F29%2F20170829152033_dwE4e.jpeg"
+          alt=""
+        />
+        <img
+          class="contain"
+          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567650095&di=ed13f205097f470842e2b2e61e296eb5&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201708%2F29%2F20170829152033_dwE4e.jpeg"
+          alt=""
+        />
+        <img
+          class="cover"
+          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567650095&di=ed13f205097f470842e2b2e61e296eb5&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201708%2F29%2F20170829152033_dwE4e.jpeg"
+          alt=""
+        />
+        <img
+          class="fill"
+          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567650095&di=ed13f205097f470842e2b2e61e296eb5&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201708%2F29%2F20170829152033_dwE4e.jpeg"
+          alt=""
+        />
+        <img
+          class="scale-down"
+          src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567650095&di=ed13f205097f470842e2b2e61e296eb5&imgtype=jpg&er=1&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201708%2F29%2F20170829152033_dwE4e.jpeg"
+          alt=""
+        />
+      </div>
+    </div>
+
+    <div class="test4">
+      <h3>四、使用transform描绘1px边框</h3>
+      <div class="normal">
+        1px
+      </div>
+      <div class="transform">
+        0.5px
+      </div>
+    </div>
+
+    <div class="test5">
+      <h3>五、通过letter-spacing设置负值字体间距将文本倒序</h3>
+      <div>
+        新年快乐
+      </div>
+    </div>
+
+    <div class="test6">
+      <h3>
+        六、使用flexbox横向布局时，最后一个元素通过margin-left:auto实现向右对齐
+      </h3>
+      <ul class="container">
+        <li>菜单栏</li>
+        <li>管理栏</li>
+        <li>帮助栏</li>
+        <li>添加栏</li>
+        <li>登录</li>
+        <li>举报</li>
+      </ul>
+    </div>
+  </body>
+</html>
