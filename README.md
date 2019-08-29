@@ -74,3 +74,25 @@ let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 let monthNum = new Date(currentYear, currentMonth, 0).getDate();
 ```
+## 2019.08.26
+《近一万字的ES6语法知识点补充》 https://juejin.im/post/5c6234f16fb9a049a81fcca5
+
+文章太长了，分两天看，还剩一半留给明天吧……
+
+《[翻译]JavaScript中的解构赋值》 https://baijiahao.baidu.com/s?id=1617543062218965336&wfr=spider&for=pc
+
+《小邵教你玩转ES6》 https://juejin.im/post/5b7b95206fb9a019bd2463d8
+## 2019.08.27
+《近一万字的ES6语法知识点补充》 https://juejin.im/post/5c6234f16fb9a049a81fcca5
+
+今天看完剩下的一半啦，很棒的文章，推荐推荐！！
+
+《Webpack 大法之 Code Splitting》 https://zhuanlan.zhihu.com/p/26710831
+## 2019.08.28
+《彻底搞懂CSS层叠上下文、层叠等级、层叠顺序、z-index》 https://juejin.im/post/5b876f86518825431079ddd6
+
+不错的文章，以前在项目中也遇到过index层级的问题，跟着文章又梳理了一遍。
+## 2019.08.29
+《灵活运用CSS开发技巧(66个实用技巧，值得收藏)》 https://juejin.im/post/5d4d0ec651882549594e7293
+
+文章也很棒，其中有一些技巧平时是没有用到过的，很方便。
