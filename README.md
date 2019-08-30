@@ -99,4 +99,4 @@ let monthNum = new Date(currentYear, currentMonth, 0).getDate();
 ## 2019.08.30
 《灵活运用CSS开发技巧(66个实用技巧，值得收藏)》 https://juejin.im/post/5d4d0ec651882549594e7293
 
-今天把剩下的看完了，很神奇，有时间会再回来重温哒~~
+今天把剩下的看完了，很神奇，可以基于这些小技巧做很多炫酷的效果，有时间会再回来重温哒~~
