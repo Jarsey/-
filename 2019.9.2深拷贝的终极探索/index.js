@@ -197,3 +197,4 @@ console.log(
   testObjTarget.f === testObjTarget.d
 )
 console.log('testObjTarget && testObjSource1', testObjTarget === testObjSource1)
+// 仔细分析会发现，cloneDeep对于对象的个数是有要求的，如果对象个数过多，那么需要一次次地遍历来判断是否引用了已经引用过的对象，对于运行速度很不友好
