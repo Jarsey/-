@@ -106,3 +106,9 @@ let monthNum = new Date(currentYear, currentMonth, 0).getDate();
 [《前端路由跳转基本原理》](https://segmentfault.com/a/1190000018081475)
 
 [《JS 外观模式》](https://segmentfault.com/a/1190000012431621)
+## 2019.09.04
+[《从青铜到王者10个css3伪类使用技巧和运用，了解一哈》](https://juejin.im/post/5b6d0c5cf265da0f504a837f)
+
+Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
+
+[《Javascript 面试中经常被问到的三个问题！》](https://segmentfault.com/a/1190000018257074)
