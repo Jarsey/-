@@ -112,3 +112,5 @@ let monthNum = new Date(currentYear, currentMonth, 0).getDate();
 Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 
 [《Javascript 面试中经常被问到的三个问题！》](https://segmentfault.com/a/1190000018257074)
+## 2019.09.05
+[《[译]发现 JavaScript 中闭包的强大威力》](https://juejin.im/post/5c4e6a90e51d4552266576d2)
