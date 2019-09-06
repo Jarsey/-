@@ -1,6 +1,10 @@
 # 每日阅读
 
 
+## 2019.07.29
+[《css加载会造成阻塞吗》](https://segmentfault.com/a/1190000018130499)
+## 2019.07.30
+[《不可思议的纯 CSS 滚动进度条效果》](https://juejin.im/post/5c35953ce51d45523f04b6d2)
 ## 2019.07.31 
 [《发布订阅模式，在工作中它的能量超乎你的想象》](https://juejin.im/post/5b125ad3e51d450688133f22) 
 ## 2019.08.01 
@@ -117,4 +121,6 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 ## 2019.09.06
 [《CSS性能优化的8个技巧》](https://juejin.im/post/5b6133a351882519d346853f?utm_source=gold_browser_extension)
 
-挺棒的文章，以前没有注意过CSS优化，学习啦~
+[《嗨，送你一张Web性能优化地图》](https://mp.weixin.qq.com/s/C2Zx3KPNPkgj-aHnOY43Iw)
+
+这两篇文章应该结合以前看过的一篇文章——[《css加载会造成阻塞吗》](https://segmentfault.com/a/1190000018130499)一起看，更容易理解
