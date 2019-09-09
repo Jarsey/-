@@ -124,3 +124,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《嗨，送你一张Web性能优化地图》](https://mp.weixin.qq.com/s/C2Zx3KPNPkgj-aHnOY43Iw)
 
 这两篇文章应该结合以前看过的一篇文章——[《css加载会造成阻塞吗》](https://segmentfault.com/a/1190000018130499)一起看，更容易理解
+## 2019.09.09
+[《你可能不熟悉的JS总结》](https://segmentfault.com/a/1190000018113011)
