@@ -130,3 +130,6 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《Proxy 的巧用》](https://juejin.im/post/5d2e657ae51d4510b71da69d)
 
 [《你可能不熟悉的JS总结》](https://segmentfault.com/a/1190000018113011)
+## 2019.09.12
+[《逐步优雅的表单验证》](https://juejin.im/post/5d5b4525e51d4561bb33fb4d)
+
