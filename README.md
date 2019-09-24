@@ -154,3 +154,7 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 这篇不是技术文章啦，但是对于跳槽换工作来说应该很有用。
 
 [《使用 Proxy 构建响应式系统》](https://juejin.im/post/5d86eb52f265da03ee6a9449)
+## 2019.09.24
+今天回顾了以前的两篇文章：分别是[《Proxy 的巧用》](https://juejin.im/post/5d2e657ae51d4510b71da69d)和[《使用 Proxy 构建响应式系统》](https://juejin.im/post/5d86eb52f265da03ee6a9449)
+
+来写一遍，深刻认识认识Proxy。
