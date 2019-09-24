@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Proxy实现数据响应式</title>
+</head>
+
+<body>
+    <h1>结果在控制台呀</h1>
+    <script type="text/javascript">
+        // ********************Part 1***********************
+        // let handler = {
+        //     get: function (target, name) {
+        //         return name in target ? target[name] : 37
+        //     }
+        // }
+        // let p = new Proxy({}, handler)
+        // p.a = 1
+        // p.b = undefined
+        // console.log(p.a, p.b)
+        // // 'c' in obj :找到对象本身极其原型链上的所有属性
+        // console.log('c' in p, p.c)
+
+        // ********************Part 2***********************
+        class Dep {
+            constructor() {
+                // 把所有的目标收集到订阅里
+                this.subscribers = []
+            }
+            // 当有可观察目标时，添加到订阅里
+            addSub(sub) {
+                if (sub && !this.subscribers.includes(sub)) {
+                    this.subscribers.push(sub)
+                }
+            }
+            // 当被观察的目标属性发生变化时，通知所有依赖于它的对象
+            notify() {
+                this.subscribers.forEach(fn => fn())
+            }
+        }
+        const dataObj = {
+            price: 3,
+            quantity: 10
+        }
+        let total = 0
+        let target = null
+        const dep = new Dep()
+
+        let handler = {
+            get: function (obj, key) {
+                // 将目标添加到订阅中
+                dep.addSub(target)
+                console.log('target', target)
+                return obj[key]
+            },
+            set: function (obj, key, newVal) {
+                // 将新值赋值给旧值，引起值的变化
+                obj[key] = newVal
+                console.log('newVal', newVal)
+                // 通知依赖于改对象的其他对象
+                dep.notify()
+            }
+        }
+        let data = new Proxy(dataObj, handler)
+        total = data.price * data.quantity
+        console.log('first total', total)
+        console.log('first dep', dep)
+        // 触发了set
+        data.price = 5
+        console.log('second total', total)
+        console.log('second dep', dep)
+        target = () => {
+            total = data.price * data.quantity
+        }
+        target()
+        target = null
+        // data.price = 10
+        console.log('third total', total)
+        console.log('third dep', dep)
+    </script>
+</body>
+
+</html>
