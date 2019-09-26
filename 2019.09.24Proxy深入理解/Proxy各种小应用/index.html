@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Proxy巧用</title>
+  </head>
+
+  <body>
+    <h1>Proxy巧用（结果在控制台）</h1>
+    <p>1.为对象设置默认值</p>
+    <p>2.隐藏属性</p>
+    <script type="text/javascript">
+      // ****************设置默认值*****************
+      const withZeroValue = (target, defaultValue) =>
+        new Proxy(target, {
+          get: (obj, key) => {
+            return key in obj ? obj[key] : defaultValue
+          }
+        })
+      let person = {
+        name: '小明',
+        age: 18,
+        height: 185,
+        weight: 60
+      }
+      let p = withZeroValue(person, '抱歉，暂无信息')
+      console.log('p.name', p.name)
+      console.log('p.weight', p.weight)
+      console.log('p.address', p.address)
+      console.log('p.tel', p.tel)
+
+      // ******************隐藏属性**********************
+      // 这里用到了.has和.ownKeys方法
+      // has，该方法是针对in操作符的代理方法
+      // ownKeys，该方法用于拦截 Reflect.ownKeys()
+      const hide = (target, prefix = '_') =>
+        new Proxy(target, {
+          // 这一步操作会影响第三步get中的in操作
+          has: (obj, key) => !key.startsWith('_') && key in obj,
+          // 这一步操作会更改Proxy集成的对象，即第三步get中的rec参数（receiver）
+          ownKeys: (obj, key) =>
+            Reflect.ownKeys(obj).filter(
+              key => typeof key !== 'string' || !key.startsWith('_')
+            ),
+          get: (obj, key, rec) => (key in rec ? obj[key] : undefined)
+        })
+      let panda = {
+        name: '笑笑',
+        symbol: '掉色',
+        _isCute: true
+      }
+      let pandeP = hide(panda)
+      console.log('pandeP.name', pandeP.name)
+      console.log('pandeP._isCute', pandeP._isCute)
+      console.log('pandeP.age', pandeP.age)
+
+      // ******************缓存*********************
+      const ephemeral = (target, ttl = 60) => {
+        // 这里先定义了一个第一次进来的初始时间
+        const CREATED_AT = Date.now()
+        const isExpired = () => Date.now() - CREATED_AT < ttl * 1000
+        // 每次访问对象时，都会比较访问时的时间和初始的时间
+        return new Proxy(target, {
+          get: (obj, key) => (isExpired() ? obj[key] : '超时了，请重新打开')
+        })
+      }
+      // 首次创建
+      // 所以其实这里的缓存，是缓存了第一次创建的时间，后面每次访问对象就直接走proxy
+      let bank = ephemeral(
+        {
+          account: 10000,
+          price: 10
+        },
+        10
+      )
+      console.log('first => bank.account', bank.account)
+      // 银行帐户余额在10秒后无法访问
+      setTimeout(() => {
+        console.log('ten sencond later => bank.account', bank.account)
+      }, 10000)
+
+      //   // *******************只读视图********************
+      //   const NOPE = () => {
+      //     throw new Error("can't modify read-only view")
+      //   }
+      //   const NOPE_HANDLER = {
+      //     set: NOPE,
+      //     defineProperty: NOPE,
+      //     deleteProperty: NOPE,
+      //     preventExtensions: NOPE,
+      //     setPrototypeOf: NOPE
+      //   }
+      //   const readOnlyView = target => new Proxy(target, NOPE_HANDLER)
+
+      //   let objTest2 = readOnlyView({
+      //     name: 'John',
+      //     age: 18
+      //   })
+      //   console.log('read objTest2.name', objTest2.name)
+      //   console.log('set objTest2 name:::::')
+      //   objTest2.name = 'Mark'
+
+      //   // *******************枚举视图********************
+      //   // 以下是基于可枚举的只读视图
+      //   const createEnum = target =>
+      //     readOnlyView(
+      //       new Proxy(target, {
+      //         get: (obj, key) => {
+      //           if (key in obj) {
+      //             return Reflect.get(obj, key)
+      //           }
+      //           throw new ReferenceError(`Unknown key "${key}"`)
+      //         }
+      //       })
+      //     )
+      //   let objTest3 = createEnum({
+      //     name: 'Sarah',
+      //     age: 8
+      //   })
+      //   console.log('read objTest3.name', objTest3.name)
+      //   console.log('read objTest3.tel', objTest3.tel)
+      //   console.log('set objTest3 name:::::')
+      //   objTest3.name = 'Mark'
+
+      // *******************运算符重载**********************
+      const range = (min, max) =>
+        new Proxy(Object.create(null), {
+          has: (_, key) => {
+            return +key >= min && +key <= max
+          }
+        })
+      const X = 10.5
+      const nums = [1, 5, X, 50, 100]
+      if (X in range(1, 100)) {
+        console.log('1和100之间的数')
+      }
+      console.log('filter', nums.filter(item => item in range(1, 10)))
+    </script>
+  </body>
+</html>
