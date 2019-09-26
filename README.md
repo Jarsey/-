@@ -158,3 +158,7 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 今天回顾了以前的两篇文章：分别是[《Proxy 的巧用》](https://juejin.im/post/5d2e657ae51d4510b71da69d)和[《使用 Proxy 构建响应式系统》](https://juejin.im/post/5d86eb52f265da03ee6a9449)
 
 来写一遍，深刻认识认识Proxy。
+## 2019.09.26
+[《JS 中的 Reflect 和 Proxy》](https://juejin.im/post/5c7e6857e51d4542194f8c6f)
+
+这两天把proxy系统地学习了下，确实是项目中没注意的但是实际很好用。
