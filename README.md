@@ -162,3 +162,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《JS 中的 Reflect 和 Proxy》](https://juejin.im/post/5c7e6857e51d4542194f8c6f)
 
 这两天把proxy系统地学习了下，确实是项目中没注意的但是实际很好用。
+## 2019.09.27
+[《聊一聊几种常用web图片格式：gif、jpg、png、webp》](https://juejin.im/post/5d8c1b166fb9a04dda70855b)
