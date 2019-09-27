@@ -166,6 +166,7 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《聊一聊几种常用web图片格式：gif、jpg、png、webp》](https://juejin.im/post/5d8c1b166fb9a04dda70855b)
 
 最近大佬们经常提到“埋点”这个词，筛选了几篇还不错的文章：
+
 [《前端埋点统计方案思考》](https://juejin.im/post/5c178aaaf265da6147702108)（这篇有些实战内容）
 
-[《前端-埋点-理念-通识-浅谈》](https://juejin.im/post/5d182a3bf265da1b667bf0be)（这篇是知识问答）
+[《前端-埋点-理念-通识-浅谈》](https://juejin.im/post/5d182a3bf265da1b667bf0be)和[《前端监控和前端埋点方案设计》](https://juejin.im/post/5b62d68df265da0f9d1a1cd6)（这两篇是知识问答）
