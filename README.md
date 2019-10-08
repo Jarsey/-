@@ -171,4 +171,4 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 
 [《前端-埋点-理念-通识-浅谈》](https://juejin.im/post/5d182a3bf265da1b667bf0be)和[《前端监控和前端埋点方案设计》](https://juejin.im/post/5b62d68df265da0f9d1a1cd6)（这两篇是知识问答）
 ## 2019.10.08
-最近“中台”在业内很火，这几篇文章写得比较清晰啦，来了解了解：[《漫画：什么是中台？》](https://juejin.im/post/5d995f82f265da5ba308389d)；
+最近“中台”在业内很火，这几篇文章写得比较清晰啦，来了解了解：[《漫画：什么是中台？》](https://juejin.im/post/5d995f82f265da5ba308389d)；[《我看中台》](https://mp.weixin.qq.com/s/fQ98fe3XH6imxzNhwiNaNA)
