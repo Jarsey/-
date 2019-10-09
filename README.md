@@ -176,3 +176,6 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《漫画：什么是中台？》](https://juejin.im/post/5d995f82f265da5ba308389d)
 
 [《我看中台》](https://mp.weixin.qq.com/s/fQ98fe3XH6imxzNhwiNaNA)
+## 2019.10.09
+本周撸完JS几种设计模式吧~
+[《JavaScript 中常见设计模式整理》](https://juejin.im/post/5afe6430518825428630bc4d)
