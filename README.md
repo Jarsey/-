@@ -181,3 +181,7 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《JavaScript 中常见设计模式整理》](https://juejin.im/post/5afe6430518825428630bc4d)
 ## 2019.10.10
 [《详解 JS 中 new 调用函数原理》](https://juejin.im/post/5b397b526fb9a00e5d7999a4)
+
+[《使用装饰者模式做有趣的事情》](https://juejin.im/post/5b95db5c5188255c451e8d7f)
+
+[《ES7-Decorator-装饰者模式》](https://juejin.im/post/5ce754b5e51d4555fc1acc0d)
