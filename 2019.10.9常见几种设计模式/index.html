@@ -1,152 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JS开发中常见的几种设计模式</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h3>结果见控制台</h3>
     <script type="text/javascript">
-        // ***************单例模式：一个类只有一个实例对象*******************
-        class CreateUser {
-            constructor(name) {
-                this.name = name
-                this.getName()
-            }
-            getName() {
-                return this.name
-            }
+      // ***************单例模式：一个类只有一个实例对象*******************
+      class CreateUser {
+        constructor(name) {
+          this.name = name
+          this.getName()
         }
-        // 采用闭包的方式
-        // 利用的就是闭包引用着外部环境的变量，所以闭包一直存在，所以闭包里面的状态也一直存在
-        var ProxyMode = (function () {
-            var instance = null
-            console.log(1)
-            return function (name) {
-                console.log(12)
-                if (!instance) {
-                    console.log(13)
-                    instance = new CreateUser(name)
-                }
-                return instance
-            }
-        })()
-        // 到这里，变量ProxyMode直接就是function (name){}这个函数，所以只打印一次1
-
-        var a = new ProxyMode('jiajia')
-        // 这里instance已经存在，所以直接返回
-        var b = new ProxyMode('dodo')
-        console.log('a', a)
-        console.log('b', b)
-        // 打印结果：
-        // 1 12 13 12
-        // a CreateUser {name: "jiajia"}
-        // b CreateUser {name: "jiajia"}
-
-
-        // ***************策略模式：实现和使用分开，可减少if判断*******************
-        let levelList = {
-            'A': function (flower) {
-                return flower * 4
-            },
-            'B': function (flower) {
-                return flower * 3
-            },
-            'C': function (flower) {
-                return flower * 2
-            }
+        getName() {
+          return this.name
         }
-
-        function calculateF1(level, flower) {
-            return levelList[level](flower)
+      }
+      // 采用闭包的方式
+      // 利用的就是闭包引用着外部环境的变量，所以闭包一直存在，所以闭包里面的状态也一直存在
+      var ProxyMode = (function() {
+        var instance = null
+        console.log(1)
+        return function(name) {
+          console.log(12)
+          if (!instance) {
+            console.log(13)
+            instance = new CreateUser(name)
+          }
+          return instance
         }
-        console.log('A班的同学', calculateF1('A', 5))
-        console.log('B班的同学', calculateF1('B', 4))
+      })()
+      // 到这里，变量ProxyMode直接就是function (name){}这个函数，所以只打印一次1
 
-        // 也可以这么写：
-        function A(flower) {
-            return flower * 4
+      var a = new ProxyMode('jiajia')
+      // 这里instance已经存在，所以直接返回
+      var b = new ProxyMode('dodo')
+      console.log('a', a)
+      console.log('b', b)
+      // 打印结果：
+      // 1 12 13 12
+      // a CreateUser {name: "jiajia"}
+      // b CreateUser {name: "jiajia"}
+
+      // ***************策略模式：实现和使用分开，可减少if判断*******************
+      let levelList = {
+        A: function(flower) {
+          return flower * 4
+        },
+        B: function(flower) {
+          return flower * 3
+        },
+        C: function(flower) {
+          return flower * 2
         }
+      }
 
-        function B(flower) {
-            return flower * 3
+      function calculateF1(level, flower) {
+        return levelList[level](flower)
+      }
+      console.log('A班的同学', calculateF1('A', 5))
+      console.log('B班的同学', calculateF1('B', 4))
+
+      // 也可以这么写：
+      function A(flower) {
+        return flower * 4
+      }
+
+      function B(flower) {
+        return flower * 3
+      }
+
+      function C(flower) {
+        return flower * 2
+      }
+
+      function calculateF2(level, flower) {
+        return level(flower)
+      }
+      console.log('A班的同学', calculateF2(A, 5))
+      console.log('B班的同学', calculateF2(B, 4))
+
+      // ***************代理模式：用一个代用品对原对象实现控制*******************
+      // JS中常见的是虚拟代理和缓存代理
+
+      // 一、虚拟代理实现图片预加载：（当图片未加载完，在页面显示本地loading图，加载完之后显示完整图片）
+
+      // imageFunc为原对象:表示将某一图片插入到dom中
+      var imageFunc = (function() {
+        // 先创建img标签
+        var imgNode = document.createElement('img')
+        document.body.appendChild(imgNode)
+        return {
+          setSrc: function(src) {
+            imgNode.src = src
+          }
         }
-
-        function C(flower) {
-            return flower * 2
+      })()
+      // proxyImage为代理对象：将图片分别分为loading和完整图片显示在页面中
+      var proxyImage = (function() {
+        const img = new Image()
+        // 图片加载完成后才会执行
+        img.onload = function() {
+          console.log(1)
+          imageFunc.setSrc(this.src)
         }
-
-        function calculateF2(level, flower) {
-            return level(flower)
+        return {
+          setSrc: function(src) {
+            console.log(2)
+            imageFunc.setSrc('loading.gif') // 本地loading图片
+            img.src = src // http图片
+          }
         }
-        console.log('A班的同学', calculateF2(A, 5))
-        console.log('B班的同学', calculateF2(B, 4))
+      })()
+      proxyImage.setSrc(
+        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3240075065,3793995044&fm=26&gp=0.jpg'
+      )
 
+      // 二、缓存代理实现乘积计算
+      const mult = function() {
+        let a = 1
+        for (let i = 0, l; (l = arguments[i++]); ) {
+          a = a * l
+        }
+        return a
+      }
+      const proxyMult = (function() {
+        const cache = {}
+        return function() {
+          const tag = Array.prototype.join.call(arguments, ',')
+          if (cache[tag]) {
+            return cache[tag]
+          }
+          cache[tag] = mult.apply(this, arguments)
+          console.log(6666)
+          return cache[tag]
+        }
+      })()
+      console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
+      console.log('proxyMult(5, 6)', proxyMult(5, 6))
+      console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
 
-        // ***************代理模式：用一个代用品对原对象实现控制*******************
-        // JS中常见的是虚拟代理和缓存代理
+      // ***************中介者模式：所有对象只用和中介者联系（通信）即可，不用和每个对象联系*******************
 
-        // 一、虚拟代理实现图片预加载：（当图片未加载完，在页面显示本地loading图，加载完之后显示完整图片）
-
-        // imageFunc为原对象:表示将某一图片插入到dom中
-        var imageFunc = (function () {
-            // 先创建img标签
-            var imgNode = document.createElement('img')
-            document.body.appendChild(imgNode)
-            return {
-                setSrc: function (src) {
-                    imgNode.src = src
-                }
+      // 一场测试结束后, 公布结果: 告知解答出题目的人挑战成功, 否则挑战失败。
+      const player = function(name) {
+        this.name = name
+        playerMiddle.add(name)
+      }
+      player.prototype.win = function() {
+        playerMiddle.win(this.name)
+      }
+      player.prototype.lose = function() {
+        playerMiddle.lose(this.name)
+      }
+      const playerMiddle = (function() {
+        const players = []
+        const winArr = []
+        const loseArr = []
+        return {
+          add: function(name) {
+            players.push(name)
+          },
+          win: function(name) {
+            winArr.push(name)
+            if (winArr.length + loseArr.length === players.length) {
+              this.show()
             }
-        })()
-        // proxyImage为代理对象：将图片分别分为loading和完整图片显示在页面中
-        var proxyImage = (function () {
-            const img = new Image()
-            // 图片加载完成后才会执行
-            img.onload = function () {
-                console.log(1)
-                imageFunc.setSrc(this.src)
+          },
+          lose: function(name) {
+            loseArr.push(name)
+            if (winArr.length + loseArr.length === players.length) {
+              this.show()
             }
-            return {
-                setSrc: function (src) {
-                    console.log(2)
-                    imageFunc.setSrc('loading.gif') // 本地loading图片
-                    img.src = src // http图片
-                }
+          },
+          show: function() {
+            for (let i in winArr) {
+              console.log(`${winArr[i]}挑战成功`)
             }
-        })()
-        proxyImage.setSrc(
-            'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3240075065,3793995044&fm=26&gp=0.jpg')
-
-        // 二、缓存代理实现乘积计算
-        const mult = function () {
-            let a = 1
-            for (let i = 0, l; l = arguments[i++];) {
-                a = a * l
+            for (let i in loseArr) {
+              console.log(`${loseArr[i]}挑战失败`)
             }
-            return a
+          }
         }
-        const proxyMult = (function () {
-            const cache = {}
-            return function () {
-                const tag = Array.prototype.join.call(arguments, ',')
-                if (cache[tag]) {
-                    return cache[tag]
-                }
-                cache[tag] = mult.apply(this, arguments)
-                console.log(6666)
-                return cache[tag]
-            }
-        })()
-        console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
-        console.log('proxyMult(5, 6)', proxyMult(5, 6))
-        console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
+      })()
+      let player1 = new player('朱一龙')
+      let player2 = new player('都暻秀')
+      player1.lose()
+      player2.win()
+
+      // ***************装饰者模式：动态地给函数赋值*******************
     </script>
-
-</body>
-
+  </body>
 </html>
