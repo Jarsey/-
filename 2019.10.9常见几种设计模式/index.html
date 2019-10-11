@@ -192,7 +192,111 @@
       player1.lose()
       player2.win()
 
-      // ***************装饰者模式：动态地给函数赋值*******************
+      // ***************装饰者模式：动态地给对象增添特性（不修改原对象的代码和其调用方式）*******************
+      // 理解起来也很简单，就是写个装饰，然后应用在原对象上
+      // es7中的装饰着模式（需要配置es7相关，不然无法使用）
+      // 装饰
+      // function decorateArmour(target, key, descriptor) {
+      //   const method = descriptor.value
+      //   let moreDef = 100
+      //   let ret
+      //   descriptor.value = (...args) => {
+      //     args[0] += moreDef
+      //     ret = method.apply(target, args)
+      //     return ret
+      //   }
+      //   return descriptor
+      // }
+      // class Man {
+      //   constructor(def = 2, atk = 3, hp = 3) {
+      //     this.init(def, atk, hp)
+      //   }
+      //   @decorateArmour
+      //   init(def, atk, hp) {
+      //     this.def = def
+      //     this.atk = atk
+      //     this.hp = hp
+      //   }
+      //   // 对象转成json时的json序列化
+      //   toString() {
+      //     return `防御力:${this.def},攻击力:${this.atk},血量:${this.hp}`
+      //   }
+      // }
+      // var tony = new Man()
+      // console.log(`当前状态 ===> ${tony}`)
+
+      // 普通装饰者模式的说明
+      // 应用在函数上（为某一函数写一个装饰器，来测试其执行时间）：
+      function func() {
+        var num = 10
+        var res = 0
+        for (let i = 0; i++; i < num) {
+          res = res + i
+        }
+        setTimeout(() => 1, 1000)
+        console.log('decoration test')
+      }
+      // 注意这里，装饰者返回的是一个方法，因为装饰着不是直接执行的，而是需要有一个装饰的过程
+      function timeProfileDecorator(func) {
+        return function(...args) {
+          const startTime = new Date().getTime()
+          func.call(this, ...args)
+          const elapserdTime = new Date().getTime() - startTime
+          console.log(`该函数消耗了${elapserdTime}ms`)
+        }
+      }
+      // timeProfileDecorator(func)就是装饰的过程，newFunc就是被装饰过的
+      const newFunc = timeProfileDecorator(func)
+      newFunc()
+
+      // 应用在类上（实现自行车装饰）：
+      // 自行车基类
+      class Bicycle {
+        wash() {}
+        ride() {}
+        getPrice() {
+          return 200
+        }
+      }
+      // 自行车装饰基类（便于各种装饰类的扩展）
+      class BicycleDecoration {
+        constructor(bicycle) {
+          this.bicycle = bicycle
+        }
+        wash() {
+          return this.bicycle.wash()
+        }
+        ride() {
+          return this.bicycle.ride()
+        }
+        getPrice() {
+          return this.bicycle.getPrice()
+        }
+      }
+      // 前车灯装饰类（扩展于装饰者基类）
+      class HeadLightDecorator extends BicycleDecoration {
+        constructor(bicycle) {
+          super(bicycle)
+        }
+        getPrice() {
+          return this.bicycle.getPrice() * 2
+        }
+      }
+      // 尾灯
+      class TailLightDecorator extends BicycleDecoration {
+        constructor(bicycle) {
+          super(bicycle)
+        }
+        getPrice() {
+          return this.bicycle.getPrice() * 3
+        }
+      }
+      let bicycle = new Bicycle()
+      console.log('低配版的：', bicycle.getPrice())
+      let newBicycle1 = new HeadLightDecorator(bicycle)
+      console.log('中配版的：', newBicycle1.getPrice())
+      let newBicycle2 = new TailLightDecorator(bicycle)
+      console.log('中高配版的：', newBicycle2.getPrice())
     </script>
   </body>
 </html>
