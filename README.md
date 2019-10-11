@@ -185,3 +185,9 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《使用装饰者模式做有趣的事情》](https://juejin.im/post/5b95db5c5188255c451e8d7f)
 
 [《ES7-Decorator-装饰者模式》](https://juejin.im/post/5ce754b5e51d4555fc1acc0d)
+## 2019.10.11
+[《如何写出一个惊艳面试官的深拷贝?》](https://juejin.im/post/5d6aa4f96fb9a06b112ad5b1)
+
+[《js 深拷贝 vs 浅拷贝》](https://juejin.im/post/59ac1c4ef265da248e75892b)
+
+突然发现自己把“赋值”和“拷贝”的概念弄混了……
