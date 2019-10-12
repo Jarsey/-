@@ -297,6 +297,72 @@
       console.log('中配版的：', newBicycle1.getPrice())
       let newBicycle2 = new TailLightDecorator(bicycle)
       console.log('中高配版的：', newBicycle2.getPrice())
+
+      // ***************迭代器模式：能访问聚合对象的顺序与元素*******************
+      // 内部迭代器
+      // 缺点：遍历在内部实现，有时可能需要运用遍历，这时使用者只能在回调函数中做文章，不能直接使用遍历
+      function each(arr, func) {
+        // 迭代器
+        for (let i = 0; i < arr.length; i++) {
+          func(i, arr[i])
+        }
+      }
+      each([1, 2, 3], function(index, value) {
+        console.log(`这是第个${index}元素，值为${value}`)
+      })
+
+      // const compare = function(arr1, arr2) {
+      //   each(arr1, function(i, n) {
+      //     if (arr2[i] !== n) {
+      //       console.log('两数组不等')
+      //       return
+      //     }
+      //   })
+      //   console.log('两数组相等')
+      // }
+
+      // const insideArr1 = [1, 2, 4]
+      // const insideArr2 = [1, 2, 3]
+      // compare(insideArr1, insideArr2) // 两数组相等
+
+      // 外部迭代器
+      // 特点：将遍历的权利转移到外部
+      function iterator(arr) {
+        // 迭代器
+        let current = 0
+        const next = function() {
+          current = current + 1
+        }
+        const done = function() {
+          return current >= arr.length
+        }
+        const value = function() {
+          return arr[current]
+        }
+        return {
+          next,
+          done,
+          value
+        }
+      }
+      let arr1 = [1, 2, 3, 4]
+      let arr2 = [1, 2, 3, 5]
+      let iterator1 = iterator(arr1)
+      let iterator2 = iterator(arr2)
+      // 判断arr1和arr2是否相等
+      function judgingEquel() {
+        while (!iterator1.done() && !iterator2.done()) {
+          if (iterator1.value() !== iterator2.value()) {
+            console.log('arr1和arr2不相等')
+            return
+          }
+          // 将遍历权限放在迭代器外面
+          iterator1.next()
+          iterator2.next()
+        }
+        console.log('arr1和arr2相等')
+      }
+      judgingEquel()
     </script>
   </body>
 </html>
