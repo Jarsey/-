@@ -1,368 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>JS开发中常见的几种设计模式</title>
-  </head>
 
-  <body>
-    <h3>结果见控制台</h3>
-    <script type="text/javascript">
-      // ***************单例模式：一个类只有一个实例对象*******************
-      class CreateUser {
-        constructor(name) {
-          this.name = name
-          this.getName()
-        }
-        getName() {
-          return this.name
-        }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>JS开发中常见的几种设计模式</title>
+</head>
+
+<body>
+  <h3>结果见控制台</h3>
+  <script type="text/javascript">
+    // ***************单例模式：一个类只有一个实例对象*******************
+    class CreateUser {
+      constructor(name) {
+        this.name = name
+        this.getName()
       }
-      // 采用闭包的方式
-      // 利用的就是闭包引用着外部环境的变量，所以闭包一直存在，所以闭包里面的状态也一直存在
-      var ProxyMode = (function() {
-        var instance = null
-        console.log(1)
-        return function(name) {
-          console.log(12)
-          if (!instance) {
-            console.log(13)
-            instance = new CreateUser(name)
-          }
-          return instance
-        }
-      })()
-      // 到这里，变量ProxyMode直接就是function (name){}这个函数，所以只打印一次1
-
-      var a = new ProxyMode('jiajia')
-      // 这里instance已经存在，所以直接返回
-      var b = new ProxyMode('dodo')
-      console.log('a', a)
-      console.log('b', b)
-      // 打印结果：
-      // 1 12 13 12
-      // a CreateUser {name: "jiajia"}
-      // b CreateUser {name: "jiajia"}
-
-      // ***************策略模式：实现和使用分开，可减少if判断*******************
-      let levelList = {
-        A: function(flower) {
-          return flower * 4
-        },
-        B: function(flower) {
-          return flower * 3
-        },
-        C: function(flower) {
-          return flower * 2
-        }
+      getName() {
+        return this.name
       }
-
-      function calculateF1(level, flower) {
-        return levelList[level](flower)
+    }
+    // 采用闭包的方式
+    // 利用的就是闭包引用着外部环境的变量，所以闭包一直存在，所以闭包里面的状态也一直存在
+    var ProxyMode = (function () {
+      var instance = null
+      console.log(1)
+      return function (name) {
+        console.log(12)
+        if (!instance) {
+          console.log(13)
+          instance = new CreateUser(name)
+        }
+        return instance
       }
-      console.log('A班的同学', calculateF1('A', 5))
-      console.log('B班的同学', calculateF1('B', 4))
+    })()
+    // 到这里，变量ProxyMode直接就是function (name){}这个函数，所以只打印一次1
 
-      // 也可以这么写：
-      function A(flower) {
+    var a = new ProxyMode('jiajia')
+    // 这里instance已经存在，所以直接返回
+    var b = new ProxyMode('dodo')
+    console.log('a', a)
+    console.log('b', b)
+    // 打印结果：
+    // 1 12 13 12
+    // a CreateUser {name: "jiajia"}
+    // b CreateUser {name: "jiajia"}
+
+    // ***************策略模式：实现和使用分开，可减少if判断*******************
+    let levelList = {
+      A: function (flower) {
         return flower * 4
-      }
-
-      function B(flower) {
+      },
+      B: function (flower) {
         return flower * 3
-      }
-
-      function C(flower) {
+      },
+      C: function (flower) {
         return flower * 2
       }
+    }
 
-      function calculateF2(level, flower) {
-        return level(flower)
+    function calculateF1(level, flower) {
+      return levelList[level](flower)
+    }
+    console.log('A班的同学', calculateF1('A', 5))
+    console.log('B班的同学', calculateF1('B', 4))
+
+    // 也可以这么写：
+    function A(flower) {
+      return flower * 4
+    }
+
+    function B(flower) {
+      return flower * 3
+    }
+
+    function C(flower) {
+      return flower * 2
+    }
+
+    function calculateF2(level, flower) {
+      return level(flower)
+    }
+    console.log('A班的同学', calculateF2(A, 5))
+    console.log('B班的同学', calculateF2(B, 4))
+
+    // ***************代理模式：用一个代用品对原对象实现控制*******************
+    // JS中常见的是虚拟代理和缓存代理
+
+    // 一、虚拟代理实现图片预加载：（当图片未加载完，在页面显示本地loading图，加载完之后显示完整图片）
+
+    // imageFunc为原对象:表示将某一图片插入到dom中
+    var imageFunc = (function () {
+      // 先创建img标签
+      var imgNode = document.createElement('img')
+      document.body.appendChild(imgNode)
+      return {
+        setSrc: function (src) {
+          imgNode.src = src
+        }
       }
-      console.log('A班的同学', calculateF2(A, 5))
-      console.log('B班的同学', calculateF2(B, 4))
-
-      // ***************代理模式：用一个代用品对原对象实现控制*******************
-      // JS中常见的是虚拟代理和缓存代理
-
-      // 一、虚拟代理实现图片预加载：（当图片未加载完，在页面显示本地loading图，加载完之后显示完整图片）
-
-      // imageFunc为原对象:表示将某一图片插入到dom中
-      var imageFunc = (function() {
-        // 先创建img标签
-        var imgNode = document.createElement('img')
-        document.body.appendChild(imgNode)
-        return {
-          setSrc: function(src) {
-            imgNode.src = src
-          }
-        }
-      })()
-      // proxyImage为代理对象：将图片分别分为loading和完整图片显示在页面中
-      var proxyImage = (function() {
-        const img = new Image()
-        // 图片加载完成后才会执行
-        img.onload = function() {
-          console.log(1)
-          imageFunc.setSrc(this.src)
-        }
-        return {
-          setSrc: function(src) {
-            console.log(2)
-            imageFunc.setSrc('loading.gif') // 本地loading图片
-            img.src = src // http图片
-          }
-        }
-      })()
-      proxyImage.setSrc(
-        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3240075065,3793995044&fm=26&gp=0.jpg'
-      )
-
-      // 二、缓存代理实现乘积计算
-      const mult = function() {
-        let a = 1
-        for (let i = 0, l; (l = arguments[i++]); ) {
-          a = a * l
-        }
-        return a
+    })()
+    // proxyImage为代理对象：将图片分别分为loading和完整图片显示在页面中
+    var proxyImage = (function () {
+      const img = new Image()
+      // 图片加载完成后才会执行
+      img.onload = function () {
+        console.log(1)
+        imageFunc.setSrc(this.src)
       }
-      const proxyMult = (function() {
-        const cache = {}
-        return function() {
-          const tag = Array.prototype.join.call(arguments, ',')
-          if (cache[tag]) {
-            return cache[tag]
-          }
-          cache[tag] = mult.apply(this, arguments)
-          console.log(6666)
+      return {
+        setSrc: function (src) {
+          console.log(2)
+          imageFunc.setSrc('loading.gif') // 本地loading图片
+          img.src = src // http图片
+        }
+      }
+    })()
+    proxyImage.setSrc(
+      'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3240075065,3793995044&fm=26&gp=0.jpg'
+    )
+
+    // 二、缓存代理实现乘积计算
+    const mult = function () {
+      let a = 1
+      for (let i = 0, l;
+        (l = arguments[i++]);) {
+        a = a * l
+      }
+      return a
+    }
+    const proxyMult = (function () {
+      const cache = {}
+      return function () {
+        const tag = Array.prototype.join.call(arguments, ',')
+        if (cache[tag]) {
           return cache[tag]
         }
-      })()
-      console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
-      console.log('proxyMult(5, 6)', proxyMult(5, 6))
-      console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
+        cache[tag] = mult.apply(this, arguments)
+        console.log(6666)
+        return cache[tag]
+      }
+    })()
+    console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
+    console.log('proxyMult(5, 6)', proxyMult(5, 6))
+    console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
 
-      // ***************中介者模式：所有对象只用和中介者联系（通信）即可，不用和每个对象联系*******************
+    // ***************中介者模式：所有对象只用和中介者联系（通信）即可，不用和每个对象联系*******************
 
-      // 一场测试结束后, 公布结果: 告知解答出题目的人挑战成功, 否则挑战失败。
-      const player = function(name) {
-        this.name = name
-        playerMiddle.add(name)
-      }
-      player.prototype.win = function() {
-        playerMiddle.win(this.name)
-      }
-      player.prototype.lose = function() {
-        playerMiddle.lose(this.name)
-      }
-      const playerMiddle = (function() {
-        const players = []
-        const winArr = []
-        const loseArr = []
-        return {
-          add: function(name) {
-            players.push(name)
-          },
-          win: function(name) {
-            winArr.push(name)
-            if (winArr.length + loseArr.length === players.length) {
-              this.show()
-            }
-          },
-          lose: function(name) {
-            loseArr.push(name)
-            if (winArr.length + loseArr.length === players.length) {
-              this.show()
-            }
-          },
-          show: function() {
-            for (let i in winArr) {
-              console.log(`${winArr[i]}挑战成功`)
-            }
-            for (let i in loseArr) {
-              console.log(`${loseArr[i]}挑战失败`)
-            }
+    // 一场测试结束后, 公布结果: 告知解答出题目的人挑战成功, 否则挑战失败。
+    const player = function (name) {
+      this.name = name
+      playerMiddle.add(name)
+    }
+    player.prototype.win = function () {
+      playerMiddle.win(this.name)
+    }
+    player.prototype.lose = function () {
+      playerMiddle.lose(this.name)
+    }
+    const playerMiddle = (function () {
+      const players = []
+      const winArr = []
+      const loseArr = []
+      return {
+        add: function (name) {
+          players.push(name)
+        },
+        win: function (name) {
+          winArr.push(name)
+          if (winArr.length + loseArr.length === players.length) {
+            this.show()
+          }
+        },
+        lose: function (name) {
+          loseArr.push(name)
+          if (winArr.length + loseArr.length === players.length) {
+            this.show()
+          }
+        },
+        show: function () {
+          for (let i in winArr) {
+            console.log(`${winArr[i]}挑战成功`)
+          }
+          for (let i in loseArr) {
+            console.log(`${loseArr[i]}挑战失败`)
           }
         }
-      })()
-      let player1 = new player('朱一龙')
-      let player2 = new player('都暻秀')
-      player1.lose()
-      player2.win()
+      }
+    })()
+    let player1 = new player('朱一龙')
+    let player2 = new player('都暻秀')
+    player1.lose()
+    player2.win()
 
-      // ***************装饰者模式：动态地给对象增添特性（不修改原对象的代码和其调用方式）*******************
-      // 理解起来也很简单，就是写个装饰，然后应用在原对象上
-      // es7中的装饰着模式（需要配置es7相关，不然无法使用）
-      // 装饰
-      // function decorateArmour(target, key, descriptor) {
-      //   const method = descriptor.value
-      //   let moreDef = 100
-      //   let ret
-      //   descriptor.value = (...args) => {
-      //     args[0] += moreDef
-      //     ret = method.apply(target, args)
-      //     return ret
-      //   }
-      //   return descriptor
-      // }
-      // class Man {
-      //   constructor(def = 2, atk = 3, hp = 3) {
-      //     this.init(def, atk, hp)
-      //   }
-      //   @decorateArmour
-      //   init(def, atk, hp) {
-      //     this.def = def
-      //     this.atk = atk
-      //     this.hp = hp
-      //   }
-      //   // 对象转成json时的json序列化
-      //   toString() {
-      //     return `防御力:${this.def},攻击力:${this.atk},血量:${this.hp}`
-      //   }
-      // }
-      // var tony = new Man()
-      // console.log(`当前状态 ===> ${tony}`)
+    // ***************装饰者模式：动态地给对象增添特性（不修改原对象的代码和其调用方式）*******************
+    // 理解起来也很简单，就是写个装饰，然后应用在原对象上
+    // es7中的装饰着模式（需要配置es7相关，不然无法使用）
+    // 装饰
+    // function decorateArmour(target, key, descriptor) {
+    //   const method = descriptor.value
+    //   let moreDef = 100
+    //   let ret
+    //   descriptor.value = (...args) => {
+    //     args[0] += moreDef
+    //     ret = method.apply(target, args)
+    //     return ret
+    //   }
+    //   return descriptor
+    // }
+    // class Man {
+    //   constructor(def = 2, atk = 3, hp = 3) {
+    //     this.init(def, atk, hp)
+    //   }
+    //   @decorateArmour
+    //   init(def, atk, hp) {
+    //     this.def = def
+    //     this.atk = atk
+    //     this.hp = hp
+    //   }
+    //   // 对象转成json时的json序列化
+    //   toString() {
+    //     return `防御力:${this.def},攻击力:${this.atk},血量:${this.hp}`
+    //   }
+    // }
+    // var tony = new Man()
+    // console.log(`当前状态 ===> ${tony}`)
 
-      // 普通装饰者模式的说明
-      // 应用在函数上（为某一函数写一个装饰器，来测试其执行时间）：
-      function func() {
-        var num = 10
-        var res = 0
-        for (let i = 0; i++; i < num) {
-          res = res + i
-        }
-        setTimeout(() => 1, 1000)
-        console.log('decoration test')
+    // 普通装饰者模式的说明
+    // 应用在函数上（为某一函数写一个装饰器，来测试其执行时间）：
+    function func() {
+      var num = 10
+      var res = 0
+      for (let i = 0; i++; i < num) {
+        res = res + i
       }
-      // 注意这里，装饰者返回的是一个方法，因为装饰着不是直接执行的，而是需要有一个装饰的过程
-      function timeProfileDecorator(func) {
-        return function(...args) {
-          const startTime = new Date().getTime()
-          func.call(this, ...args)
-          const elapserdTime = new Date().getTime() - startTime
-          console.log(`该函数消耗了${elapserdTime}ms`)
-        }
+      setTimeout(() => 1, 1000)
+      console.log('decoration test')
+    }
+    // 注意这里，装饰者返回的是一个方法，因为装饰着不是直接执行的，而是需要有一个装饰的过程
+    function timeProfileDecorator(func) {
+      return function (...args) {
+        const startTime = new Date().getTime()
+        func.call(this, ...args)
+        const elapserdTime = new Date().getTime() - startTime
+        console.log(`该函数消耗了${elapserdTime}ms`)
       }
-      // timeProfileDecorator(func)就是装饰的过程，newFunc就是被装饰过的
-      const newFunc = timeProfileDecorator(func)
-      newFunc()
+    }
+    // timeProfileDecorator(func)就是装饰的过程，newFunc就是被装饰过的
+    const newFunc = timeProfileDecorator(func)
+    newFunc()
 
-      // 应用在类上（实现自行车装饰）：
-      // 自行车基类
-      class Bicycle {
-        wash() {}
-        ride() {}
-        getPrice() {
-          return 200
-        }
+    // 应用在类上（实现自行车装饰）：
+    // 自行车基类
+    class Bicycle {
+      wash() {}
+      ride() {}
+      getPrice() {
+        return 200
       }
-      // 自行车装饰基类（便于各种装饰类的扩展）
-      class BicycleDecoration {
-        constructor(bicycle) {
-          this.bicycle = bicycle
-        }
-        wash() {
-          return this.bicycle.wash()
-        }
-        ride() {
-          return this.bicycle.ride()
-        }
-        getPrice() {
-          return this.bicycle.getPrice()
-        }
+    }
+    // 自行车装饰基类（便于各种装饰类的扩展）
+    class BicycleDecoration {
+      constructor(bicycle) {
+        this.bicycle = bicycle
       }
-      // 前车灯装饰类（扩展于装饰者基类）
-      class HeadLightDecorator extends BicycleDecoration {
-        constructor(bicycle) {
-          super(bicycle)
-        }
-        getPrice() {
-          return this.bicycle.getPrice() * 2
-        }
+      wash() {
+        return this.bicycle.wash()
       }
-      // 尾灯
-      class TailLightDecorator extends BicycleDecoration {
-        constructor(bicycle) {
-          super(bicycle)
-        }
-        getPrice() {
-          return this.bicycle.getPrice() * 3
-        }
+      ride() {
+        return this.bicycle.ride()
       }
-      let bicycle = new Bicycle()
-      console.log('低配版的：', bicycle.getPrice())
-      let newBicycle1 = new HeadLightDecorator(bicycle)
-      console.log('中配版的：', newBicycle1.getPrice())
-      let newBicycle2 = new TailLightDecorator(bicycle)
-      console.log('中高配版的：', newBicycle2.getPrice())
+      getPrice() {
+        return this.bicycle.getPrice()
+      }
+    }
+    // 前车灯装饰类（扩展于装饰者基类）
+    class HeadLightDecorator extends BicycleDecoration {
+      constructor(bicycle) {
+        super(bicycle)
+      }
+      getPrice() {
+        return this.bicycle.getPrice() * 2
+      }
+    }
+    // 尾灯
+    class TailLightDecorator extends BicycleDecoration {
+      constructor(bicycle) {
+        super(bicycle)
+      }
+      getPrice() {
+        return this.bicycle.getPrice() * 3
+      }
+    }
+    let bicycle = new Bicycle()
+    console.log('低配版的：', bicycle.getPrice())
+    let newBicycle1 = new HeadLightDecorator(bicycle)
+    console.log('中配版的：', newBicycle1.getPrice())
+    let newBicycle2 = new TailLightDecorator(bicycle)
+    console.log('中高配版的：', newBicycle2.getPrice())
 
-      // ***************迭代器模式：能访问聚合对象的顺序与元素*******************
-      // 内部迭代器
-      // 缺点：遍历在内部实现，有时可能需要运用遍历，这时使用者只能在回调函数中做文章，不能直接使用遍历
-      function each(arr, func) {
-        // 迭代器
+    // ***************迭代器模式：能访问聚合对象的顺序与元素*******************
+    // 内部迭代器
+    // 缺点：遍历在内部实现，有时可能需要运用遍历，这时使用者只能在回调函数中做文章，不能直接使用遍历
+    function each(arr, func) {
+      // 迭代器
+      for (let i = 0; i < arr.length; i++) {
+        func(i, arr[i])
+      }
+    }
+    each([1, 2, 3], function (index, value) {
+      console.log(`这是第个${index}元素，值为${value}`)
+    })
+
+    // const compare = function(arr1, arr2) {
+    //   each(arr1, function(i, n) {
+    //     if (arr2[i] !== n) {
+    //       console.log('两数组不等')
+    //       return
+    //     }
+    //   })
+    //   console.log('两数组相等')
+    // }
+
+    // const insideArr1 = [1, 2, 4]
+    // const insideArr2 = [1, 2, 3]
+    // compare(insideArr1, insideArr2) // 两数组相等
+
+    // 外部迭代器
+    // 特点：将遍历的权利转移到外部
+    function iterator(arr) {
+      // 迭代器
+      let current = 0
+      const next = function () {
+        current = current + 1
+      }
+      const done = function () {
+        return current >= arr.length
+      }
+      const value = function () {
+        return arr[current]
+      }
+      return {
+        next,
+        done,
+        value
+      }
+    }
+    let arr1 = [1, 2, 3, 4]
+    let arr2 = [1, 2, 3, 5]
+    let iterator1 = iterator(arr1)
+    let iterator2 = iterator(arr2)
+    // 判断arr1和arr2是否相等
+    function judgingEquel() {
+      while (!iterator1.done() && !iterator2.done()) {
+        if (iterator1.value() !== iterator2.value()) {
+          console.log('arr1和arr2不相等')
+          return
+        }
+        // 将遍历权限放在迭代器外面
+        iterator1.next()
+        iterator2.next()
+      }
+      console.log('arr1和arr2相等')
+    }
+    judgingEquel()
+
+    // ***************发布订阅模式：在异步编程中实现更深的解耦*******************
+    // 用类的方式实现一个发布订阅模式
+    class Event {
+      constructor() {
+        this.obj = {}
+      }
+      on(eventType, fn) {
+        if (!this.obj[eventType]) {
+          this.obj[eventType] = []
+        }
+        this.obj[eventType].push(fn)
+      }
+      emit() {
+        let eventType = Array.prototype.shift.call(arguments)
+        let arr = this.obj[eventType]
         for (let i = 0; i < arr.length; i++) {
-          func(i, arr[i])
+          arr[i].apply(arr[i], arguments)
         }
       }
-      each([1, 2, 3], function(index, value) {
-        console.log(`这是第个${index}元素，值为${value}`)
-      })
+    }
+    let event = new Event()
+    event.on('click', function (a) {
+      console.log(a)
+    })
+    event.emit('click', '触发了点击事件')
 
-      // const compare = function(arr1, arr2) {
-      //   each(arr1, function(i, n) {
-      //     if (arr2[i] !== n) {
-      //       console.log('两数组不等')
-      //       return
-      //     }
-      //   })
-      //   console.log('两数组相等')
-      // }
-
-      // const insideArr1 = [1, 2, 4]
-      // const insideArr2 = [1, 2, 3]
-      // compare(insideArr1, insideArr2) // 两数组相等
-
-      // 外部迭代器
-      // 特点：将遍历的权利转移到外部
-      function iterator(arr) {
-        // 迭代器
-        let current = 0
-        const next = function() {
-          current = current + 1
+    // 按照常理，应该先订阅后发布，但是由于异步编程特性，有时候订阅在发布之后执行完成
+    // 模拟发布在订阅之后：
+    class Event2 {
+      constructor() {
+        this.obj = {}
+        this.cacheList = []
+      }
+      on(eventType, fn) {
+        if (!this.obj[eventType]) {
+          this.obj[eventType] = []
         }
-        const done = function() {
-          return current >= arr.length
-        }
-        const value = function() {
-          return arr[current]
-        }
-        return {
-          next,
-          done,
-          value
+        console.log('on', this.cacheList)
+        this.obj[eventType].push(fn)
+        for (let i = 0; i < this.cacheList.length; i++) {
+          this.cacheList[i]()
         }
       }
-      let arr1 = [1, 2, 3, 4]
-      let arr2 = [1, 2, 3, 5]
-      let iterator1 = iterator(arr1)
-      let iterator2 = iterator(arr2)
-      // 判断arr1和arr2是否相等
-      function judgingEquel() {
-        while (!iterator1.done() && !iterator2.done()) {
-          if (iterator1.value() !== iterator2.value()) {
-            console.log('arr1和arr2不相等')
-            return
+      emit() {
+        let arg = arguments
+        let that = this
+
+        function cache() {
+          let eventType = Array.prototype.shift.call(arg)
+          let arr = that.obj[eventType]
+          for (let i = 0; i < arr.length; i++) {
+            arr[i].apply(arr[i], arg)
           }
-          // 将遍历权限放在迭代器外面
-          iterator1.next()
-          iterator2.next()
         }
-        console.log('arr1和arr2相等')
+        this.cacheList.push(cache)
       }
-      judgingEquel()
-    </script>
-  </body>
+    }
+    // 以上代码实现思路就是把原本在 emit 里触发的函数存到 cacheList, 再转交到 on 中触发。从而实现了发布函数先于订阅函数执行。
+    // 但是上述思路有缺陷，把原本在 emit 里触发的函数存到 cacheList，并不能触发on的再次运行，只能通过再次代码触发on
+    let event2 = new Event2()
+    event2.on('click', function (a) {
+      console.log(a)
+    })
+    event2.emit('click', '在发布中才触发了点击事件')
+    event2.on('click', function (a) {
+      console.log(a)
+    })
+  </script>
+</body>
+
 </html>
