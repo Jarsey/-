@@ -191,3 +191,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《js 深拷贝 vs 浅拷贝》](https://juejin.im/post/59ac1c4ef265da248e75892b)
 
 突然发现自己把“赋值”和“拷贝”的概念弄混了……
+## 2019.10.12
+[《【THE LAST TIME】彻底吃透 JavaScript 执行机制》](https://mp.weixin.qq.com/s/qek45SyvT2QK7qCaF6V3Eg)
