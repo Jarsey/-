@@ -434,27 +434,114 @@
 
       // ***************命令模式：将界面代码和功能代码分离*******************
       // 界面代码
-      const setCommand = function(button, command) {
-        button.onclick = function() {
-          command.excute()
-        }
-      }
-      // 功能代码
-      const menu = {
-        updateMenu: function() {
-          console.log('更新菜单')
-        }
-      }
-      const UpdateCommand = function(receive) {
-        return {
-          excute: receive.updateMenu
-        }
-      }
-      const updateCommand = UpdateCommand(menu)
-      const button1 = document.getElementById('button1')
-      setCommand(button1, updateCommand)
+      // const setCommand = function(button, command) {
+      //   button.onclick = function() {
+      //     command.excute()
+      //   }
+      // }
+      // // 功能代码
+      // const menu = {
+      //   updateMenu: function() {
+      //     console.log('更新菜单')
+      //   }
+      // }
+      // const UpdateCommand = function(receive) {
+      //   return {
+      //     excute: receive.updateMenu
+      //   }
+      // }
+      // const updateCommand = UpdateCommand(menu)
+      // const button1 = document.getElementById('button1')
+      // setCommand(button1, updateCommand)
 
       // 感觉这个模式在现在的代码中用的不多，况且像上面这样写，感觉很鸡肋啊
+
+      // ***************组合模式：在对象间形成树形结构，不管对象有多少层，只在根部进行调用*******************
+      // demo1：宏命令，按下开关，执行这三件事：
+      // 1. 煮咖啡
+      // 2. 打开电视、打开音响
+      // 3. 打开空调、打开电脑
+      // 如上可看出：每一件大事可能后面还有几项小事
+      class MacroCommand {
+        constructor() {
+          this.list = []
+        }
+        add(task) {
+          this.list.push(task)
+        }
+        excute() {
+          for (let i in this.list) {
+            this.list[i].excute()
+          }
+        }
+      }
+      // 将每个根对象下面的各个子任务添加进去
+      const command1 = new MacroCommand()
+      command1.add({
+        excute: () => console.log('煮咖啡')
+      })
+      const command2 = new MacroCommand()
+      command2.add({
+        excute: () => console.log('打开电视')
+      })
+      command2.add({
+        excute: () => console.log('打开音响')
+      })
+      const command3 = new MacroCommand()
+      command3.add({
+        excute: () => console.log('打开空调')
+      })
+      command3.add({
+        excute: () => console.log('打开电脑')
+      })
+      // 执行每个根对象
+      command1.excute()
+      command2.excute()
+      command3.excute()
+
+      // demo2：扫描文件夹，文件夹中还可以再嵌套文件夹
+      class Folder {
+        constructor(folder) {
+          this.folder = folder
+          this.folderList = []
+        }
+        add(resource) {
+          this.folderList.push(resource)
+        }
+        scan() {
+          console.log('开始扫描文件夹:', this.folder)
+          for (let i in this.folderList) {
+            this.folderList[i].scan()
+          }
+        }
+      }
+      class File {
+        constructor(file) {
+          this.file = file
+        }
+        add() {
+          throw Error('文件下不能添加其它文件夹或文件')
+        }
+        scan() {
+          console.log('开始扫描文件:', this.file)
+        }
+      }
+      const folder1 = new Folder('程序设计')
+      const file1 = new File('《JavaScript高级程序语言设计》')
+      const file2 = new File('《JavaScript设计模式》')
+      folder1.add(file1)
+      folder1.add(file2)
+      const folder2 = new Folder('小说')
+      const file3 = new File('《十年一品温如言》')
+      const file4 = new File('《然后，爱情随遇而安》')
+      folder2.add(file3)
+      folder2.add(file4)
+
+      // 执行组合对象方法
+      folder1.scan()
+      folder2.scan()
+
+      // 组合模式，在我的理解就是，将对象中的每个对象的子对象公共的方法抽出来统一在根部调用，组合对象和基本对象一致对待，即每一个小对象都是一样的。
     </script>
   </body>
 </html>
