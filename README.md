@@ -193,3 +193,9 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 突然发现自己把“赋值”和“拷贝”的概念弄混了……
 ## 2019.10.12
 [《【THE LAST TIME】彻底吃透 JavaScript 执行机制》](https://mp.weixin.qq.com/s/qek45SyvT2QK7qCaF6V3Eg)
+## 2019.10.16
+用node写了一阵子的项目了，最近在做系统的学习，每天来搜刮一下知识：
+
+这一篇总结得很好：[《为什么要使用 Node.js》](https://juejin.im/post/57b54f151532bc0063ebfe31)
+
+这一篇有些概念：[《Node.js 技术架构简述》](https://juejin.im/post/5da5c8da6fb9a04e1325e79c)
