@@ -540,8 +540,55 @@
       // 执行组合对象方法
       folder1.scan()
       folder2.scan()
-
       // 组合模式，在我的理解就是，将对象中的每个对象的子对象公共的方法抽出来统一在根部调用，组合对象和基本对象一致对待，即每一个小对象都是一样的。
+
+      // ***************模板方法模式：在继承的基础上，在父类定义好执行的算法，有区别的直接在子类修改*******************
+      class Drinks {
+        firstStep() {
+          console.log('烧开水')
+        }
+        secondStep() {}
+        thirdStep() {
+          console.log('倒入杯子')
+        }
+        forthStep() {}
+        ifNeedFlavour() {
+          return true
+        }
+        // 模板方法模式核心: 在父类上定义好所有的执行算法
+        init() {
+          this.firstStep()
+          this.secondStep()
+          this.thirdStep()
+          if (this.ifNeedFlavour()) {
+            this.forthStep()
+          }
+        }
+      }
+      class Tea extends Drinks {
+        secondStep() {
+          console.log('浸泡茶叶')
+        }
+        forthStep() {
+          console.log('加柠檬')
+        }
+      }
+      class Coffee extends Drinks {
+        secondStep() {
+          console.log('冲泡咖啡')
+        }
+        forthStep() {
+          console.log('加糖')
+        }
+        ifNeedFlavour() {
+          return window.confirm('是否需要佐料吗？')
+        }
+      }
+      const tea = new Tea()
+      const coffee = new Coffee()
+      tea.init()
+      coffee.init()
+      // 引入钩子，假如客人不想加佐料(糖、柠檬)怎么办, 这时可以引人钩子来实现之, 即在上面代码中加入ifNeedFlavour方法:
     </script>
   </body>
 </html>
