@@ -199,3 +199,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 这一篇总结得很好：[《为什么要使用 Node.js》](https://juejin.im/post/57b54f151532bc0063ebfe31)
 
 这一篇有些概念：[《Node.js 技术架构简述》](https://juejin.im/post/5da5c8da6fb9a04e1325e79c)
+## 2019.10.17
+[《如何通过饿了么 Node.js 面试》](https://github.com/ElemeFE/node-interview/tree/master/sections/zh-cn)之JavaScript 基础问题
