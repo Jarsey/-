@@ -588,7 +588,90 @@
       const coffee = new Coffee()
       tea.init()
       coffee.init()
-      // 引入钩子，假如客人不想加佐料(糖、柠檬)怎么办, 这时可以引人钩子来实现之, 即在上面代码中加入ifNeedFlavour方法:
+      // 引入钩子，假如客人不想加佐料(糖、柠檬)怎么办, 这时可以引人钩子来实现之, 即在上面代码中加入ifNeedFlavour方法
+
+      // ***************享元模式：减少对象的创建，优化程序性能*******************
+      // demo：某商家有50款男内衣和50款女内衣，要展示他们：
+      // 下面不用class来写，用原型的方法实现
+      // 方案一：分别创建50个男模特和50个女模特来展示这些内衣
+      function Model1(gender, underwear) {
+        this.gender = gender
+        this.underwear = underwear
+      }
+      Model1.prototype.takePhoto = function() {
+        console.log(`${this.gender}穿着${this.underwear}`)
+      }
+      for (let i = 0; i < 50; i++) {
+        const maleModel = new Model1('male', `第${i}款衣服`)
+        maleModel.takePhoto()
+      }
+      for (let i = 0; i < 50; i++) {
+        const femaleModel = new Model1('female', `第${i}款衣服`)
+        femaleModel.takePhoto()
+      }
+      // 方案二，只创建一个男模和一个女模
+      // gender是内部属性，underwear是外部属性
+      function Model2(gender) {
+        this.gender = gender
+      }
+      Model2.prototype.takePhoto = function() {
+        console.log(`${this.gender}穿着${this.underwear}`)
+      }
+      const maleModel2 = new Model2('male')
+      const femaleModel2 = new Model2('female')
+      for (let i = 0; i < 50; i++) {
+        maleModel2.underwear = `第${i}款衣服`
+        maleModel2.takePhoto()
+      }
+      for (let i = 0; i < 50; i++) {
+        femaleModel2.underwear = `第${i}款衣服`
+        femaleModel2.takePhoto()
+      }
+      // 在方案二的基础上进行修改
+      // 1.一开始就通过构造函数显示地创建实例，可用工厂模式将其升级为可控生成
+      // 2.在实例上手动添加underwear不是很优雅，可以在外部单独写个manager函数
+      const Model3 = function(gender) {
+        this.gender = gender
+      }
+      Model3.prototype.takePhoto = function() {
+        console.log(`${this.gender}穿着${this.underwear}`)
+      }
+      const modelFactory = (function() {
+        const modelGender = {}
+        return {
+          createModel: function(gender) {
+            if (modelGender[gender]) {
+              return modelGender[gender]
+            }
+            return (modelGender[gender] = new Model3(gender))
+          }
+        }
+      })()
+      const modelManager = (function() {
+        const modelObj = {}
+        return {
+          add: function(gender, i) {
+            modelObj[i] = {
+              underwear: `第${i}款衣服`
+            }
+            return modelFactory.createModel(gender)
+          },
+          copy: function(model, i) {
+            model.underwear = modelObj[i].underwear
+          }
+        }
+      })()
+      for (let i = 0; i < 50; i++) {
+        const maleModel3 = modelManager.add('male', i)
+        modelManager.copy(maleModel3, i)
+        maleModel3.takePhoto()
+      }
+      for (let i = 0; i < 50; i++) {
+        const femaleModel3 = modelManager.add('female', i)
+        modelManager.copy(femaleModel3, i)
+        femaleModel3.takePhoto()
+      }
+      // 这样写，扩展性更强
     </script>
   </body>
 </html>
