@@ -203,3 +203,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《如何通过饿了么 Node.js 面试》](https://github.com/ElemeFE/node-interview/tree/master/sections/zh-cn)之JavaScript 基础问题
 ## 2019.10.18
 [《如何通过饿了么 Node.js 面试》](https://github.com/ElemeFE/node-interview/tree/master/sections/zh-cn)之模块，看了之后，开启日常怀疑自己模式……
+## 2019.10.21
+[《如何通过饿了么 Node.js 面试》](https://github.com/ElemeFE/node-interview/tree/master/sections/zh-cn)之事件/异步
