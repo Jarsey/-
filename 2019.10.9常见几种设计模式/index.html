@@ -672,6 +672,130 @@
         femaleModel3.takePhoto()
       }
       // 这样写，扩展性更强
+
+      // ***************职责链模式：强调链式反应，常用来简化嵌套的条件判断语句*******************
+      // 场景 demo
+      // 场景: 某电商针对已付过定金的用户有优惠政策, 在正式购买后, 已经支付过 500 元定金的用户会收到 100 元的优惠券, 200 元定金的用户可以收到 50 元优惠券, 没有支付过定金的用户只能正常购买。
+      // orderType: 表示订单类型, 1: 500 元定金用户；2: 200 元定金用户；3: 普通购买用户
+      // pay: 表示用户是否已经支付定金, true: 已支付；false: 未支付
+      // stock: 表示当前用于普通购买的手机库存数量, 已支付过定金的用户不受此限制
+      const order = function(orderType, pay, stock) {
+        if (orderType === 1) {
+          if (pay) {
+            console.log('500 元定金预购, 得到 100 元优惠券')
+          } else {
+            if (stock > 0) {
+              console.log('普通购买, 无优惠券')
+            } else {
+              console.log('库存不够, 无法购买')
+            }
+          }
+        } else if (orderType === 2) {
+          if (pay) {
+            console.log('200 元定金预购, 得到 50 元优惠券')
+          } else {
+            if (stock > 0) {
+              console.log('普通购买, 无优惠券')
+            } else {
+              console.log('库存不够, 无法购买')
+            }
+          }
+        } else if (orderType === 3) {
+          if (stock > 0) {
+            console.log('普通购买, 无优惠券')
+          } else {
+            console.log('库存不够, 无法购买')
+          }
+        }
+      }
+      order(3, true, 500)
+
+      // 改造成职责链模式
+      const order500 = function(orderType, pay, stock) {
+        if (orderType === 1 && pay) {
+          console.log('500 元定金预购, 得到 100 元优惠券')
+        } else {
+          order200(orderType, pay, stock)
+        }
+      }
+      const order200 = function(orderType, pay, stock) {
+        if (orderType === 2 && pay) {
+          console.log('200 元定金预购, 得到 50 元优惠券')
+        } else {
+          orderCommon(orderType, pay, stock)
+        }
+      }
+      const orderCommon = function(orderType, pay, stock) {
+        if (orderType === 3 && stock > 0) {
+          console.log('普通购买, 无优惠券')
+        } else {
+          console.log('库存不够, 无法购买')
+        }
+      }
+      order500(3, true, 500)
+
+      // 如上代码，已经实现了链式调用，但是链路代码和业务代码依然耦合在一起，进一步优化：
+      // 业务代码
+      const order500Update = function(orderType, pay, stock) {
+        if (orderType === 1 && pay) {
+          console.log('500 元定金预购, 得到 100 元优惠券')
+        } else {
+          return 'next'
+        }
+      }
+      const order200Update = function(orderType, pay, stock) {
+        if (orderType === 2 && pay) {
+          console.log('200 元定金预购, 得到 50 元优惠券')
+        } else {
+          return 'next'
+        }
+      }
+      const orderCommonUpdate = function(orderType, pay, stock) {
+        if (orderType === 3 && stock > 0) {
+          console.log('普通购买, 无优惠券')
+        } else {
+          console.log('库存不够, 无法购买')
+        }
+      }
+
+      // 链路代码
+      const chain = function(fn) {
+        this.fn = fn
+        this.next = null
+      }
+      chain.prototype.setNext = function(sucessor) {
+        this.sucessor = sucessor
+      }
+      chain.prototype.init = function() {
+        const result = this.fn.apply(this, arguments)
+        if (result === 'next') {
+          this.sucessor.init.apply(this.sucessor, arguments)
+        }
+      }
+      // 这一步初始化
+      const order500UpdateChain = new chain(order500Update)
+      const order200UpdateChain = new chain(order200Update)
+      const orderCommonUpdateChain = new chain(orderCommonUpdate)
+
+      order500UpdateChain.setNext(order200UpdateChain)
+      order200UpdateChain.setNext(orderCommonUpdateChain)
+      order500UpdateChain.init(3, true, 500)
+
+      // 当然，在链路代码这里，我们还可以进行改造，结合AOP还能简化上述链路代码
+      Function.prototype.after = function(fn) {
+        const self = this
+        return function() {
+          const result = self.apply(self, arguments)
+          if (result === 'next') {
+            return fn.apply(self, arguments)
+          }
+        }
+      }
+
+      const orderNew = order500Update
+        .after(order200Update)
+        .after(orderCommonUpdate)
+      orderNew(3, true, 500)
     </script>
   </body>
 </html>
