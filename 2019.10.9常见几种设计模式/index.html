@@ -796,6 +796,88 @@
         .after(order200Update)
         .after(orderCommonUpdate)
       orderNew(3, true, 500)
+
+      // ***************状态模式：将事物内部的每个状态分别封装成类, 内部状态改变会产生不同行为。*******************
+      // 场景 demo
+      // 某某牌电灯, 按一下按钮打开弱光, 按两下按钮打开强光, 按三下按钮关闭灯光。
+      // 不要用传统的观念：用if来判断点击次数，这样很容易出错，用链式的反应很棒
+      const weakLight = function(light) {
+        this.light = light
+      }
+      weakLight.prototype.press = function() {
+        console.log('打开强光')
+        this.light.setState(this.light.strongLight)
+      }
+      const strongLight = function(light) {
+        this.light = light
+      }
+      strongLight.prototype.press = function() {
+        console.log('关闭灯光')
+        this.light.setState(this.light.offLight)
+      }
+      const offLight = function(light) {
+        this.light = light
+      }
+      offLight.prototype.press = function() {
+        console.log('打开弱光')
+        this.light.setState(this.light.weakLight)
+      }
+      const Light = function() {
+        this.weakLight = new weakLight(this)
+        this.strongLight = new strongLight(this)
+        this.offLight = new offLight(this)
+        this.currentState = this.offLight
+      }
+      Light.prototype.init = function() {
+        const btn = document.createElement('button')
+        btn.innerHTML = '按钮'
+        document.body.append(btn)
+        const self = this
+        btn.addEventListener('click', function() {
+          self.currentState.press()
+        })
+      }
+      Light.prototype.setState = function(state) {
+        this.currentState = state
+      }
+      const light = new Light()
+      light.init()
+
+      // 非面向对象实现的状态模式
+      const obj = {
+        weakLight: {
+          press: function() {
+            console.log('打开强光')
+            this.currentState = obj.strongLight
+          }
+        },
+        strongLight: {
+          press: function() {
+            console.log('关闭灯光')
+            this.currentState = obj.offLight
+          }
+        },
+        offLight: {
+          press: function() {
+            console.log('打开弱光')
+            this.currentState = obj.weakLight
+          }
+        }
+      }
+      const Light1 = function() {
+        this.currentState = obj.offLight
+      }
+      Light1.prototype.init = function() {
+        const btn = document.createElement('button')
+        btn.innerHTML = '按钮(新)'
+        document.body.append(btn)
+        const self = this
+        btn.addEventListener('click', function() {
+          self.currentState.press.call(self)
+        })
+      }
+      const light1 = new Light1()
+      light1.init()
     </script>
   </body>
 </html>
