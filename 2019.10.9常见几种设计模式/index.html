@@ -878,6 +878,39 @@
       }
       const light1 = new Light1()
       light1.init()
+
+      // ***************适配者模式：主要解决两个接口之间不匹配的问题*******************
+      // 老接口
+      const zhejiangCityOld = (function() {
+        return [
+          {
+            name: 'hangzhou',
+            id: 11
+          },
+          {
+            name: 'jinhua',
+            id: 12
+          }
+        ]
+      })()
+
+      console.log(getZhejiangCityOld())
+
+      // 新接口希望是下面形式
+      // {
+      //   hangzhou: 11,
+      //   jinhua: 12,
+      // }
+
+      // 适配者模式
+      const adaptor = (function() {
+        const obj = {}
+        for (let city of zhejiangCityOld) {
+          obj[city.name] = city.id
+        }
+        return obj
+      })()
+      // 适配器的理念应该就是：不改动接口代码，只在外层将一个接口适配为其他接口的形式
     </script>
   </body>
 </html>
