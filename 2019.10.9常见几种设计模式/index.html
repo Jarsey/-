@@ -894,7 +894,7 @@
         ]
       })()
 
-      console.log(getZhejiangCityOld())
+      console.log(zhejiangCityOld)
 
       // 新接口希望是下面形式
       // {
@@ -911,6 +911,79 @@
         return obj
       })()
       // 适配器的理念应该就是：不改动接口代码，只在外层将一个接口适配为其他接口的形式
+
+      // ***************观察者模式：顾名思义，观察某一数据对象发生变化或反应，做出相应的操作*******************
+      // 用Object.defineProperty方式：
+      var objWatcher = {
+        data: 1
+      }
+      let value
+      Object.defineProperty(objWatcher, 'data', {
+        get() {
+          return value
+        },
+        set(val) {
+          console.log('值改变了')
+          // 可以在这里面做一些操作
+          value = val
+        }
+      })
+      objWatcher.data = 123
+      console.log('改变后的值：', objWatcher.data)
+
+      // 用proxy方式：
+      var objWatcher1 = {
+        data: 2,
+        test: {
+          data: 3
+        },
+        arr: [1]
+      }
+      var proxy = new Proxy(objWatcher1, {
+        set: function(target, key, value, receiver) {
+          console.log('proxy中改变了值')
+          // 一定要加Reflect.set，不然值不会改变
+          Reflect.set(target, key, value, receiver)
+        }
+      })
+      // 可以监听
+      proxy.data = 123456
+      // 不能监听
+      proxy.test.data = 156
+      // 不能监听
+      proxy.arr.push(2)
+      // 可以监听
+      proxy.arr = [123]
+      console.log('proxy.test.data', proxy.arr)
+
+      // 实现 sinon 框架的 spy 函数:
+      const sinon = {
+        analyze: {},
+        spy: function(obj, fnName) {
+          const that = this
+          const oldFn = Object.getOwnPropertyDescriptor(obj, fnName).name
+          Object.defineProperty(obj, fnName, {
+            // 这里不能用get，get是取值，而这里是函数执行
+            value() {
+              if (that.analyze[fnName]) {
+                that.analyze[fnName].num = that.analyze[fnName].num + 1
+              } else {
+                that.analyze[fnName] = {}
+                that.analyze[fnName].num = 1
+              }
+              console.log(`${fnName} 被调用了 ${that.analyze[fnName].num} 次`)
+            }
+          })
+        }
+      }
+      const objWatcher3 = {
+        someFn: () => {
+          console.log('testing function')
+        }
+      }
+      sinon.spy(objWatcher3, 'someFn')
+      objWatcher3.someFn()
+      objWatcher3.someFn()
     </script>
   </body>
 </html>
