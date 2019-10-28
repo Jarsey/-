@@ -213,4 +213,4 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《JS对象的 rest/spread 属性指南》](https://juejin.im/post/5db23d155188257deb2f29c8)
 ## 2019.10.28
 今天开始系统学习算法和数据结构啦~~
-[《JavaScript 算法与数据结构》](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
+[《JavaScript 算法与数据结构》](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)之链表
