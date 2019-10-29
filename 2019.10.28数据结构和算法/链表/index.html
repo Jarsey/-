@@ -10,54 +10,194 @@
   <body>
     <h1>使用JavaScript创建一个链表类（结果见控制台）</h1>
     <script type="text/javascript">
+      // // *******************以下为单向链表*********************
+      //   class Node {
+      //     constructor(element) {
+      //       // 链表中的每一个节点保存元素本身和指向下一个元素的引用
+      //       this.element = element
+      //       this.next = null
+      //     }
+      //   }
+      //   class LinkedList {
+      //     constructor() {
+      //       this.head = null
+      //       this.length = 0
+      //     }
+      //     // 追加元素（在末尾添加）
+      //     append(element) {
+      //       const node = new Node(element)
+      //       let current = null
+      //       if (this.head === null) {
+      //         this.head = node
+      //       } else {
+      //         current = this.head
+      //         while (current.next) {
+      //           // 一直遍历链表，直到当前元素的下一个为null（即当前元素是最后一个元素）
+      //           current = current.next
+      //         }
+      //         // 在当前元素后面（即下一个）添加一个元素
+      //         current.next = node
+      //       }
+      //       // 手动扩张长度
+      //       this.length++
+      //     }
+      //     // 插入元素
+      //     insert(position, element) {
+      //       if (position >= 0 && position <= this.length) {
+      //         const node = new Node(element)
+      //         let previous = null
+      //         let current = this.head
+      //         let index = 0
+      //         if (position === 0) {
+      //           // 直接在链表最前面插入
+      //           this.head = node
+      //         } else {
+      //           // 从头开始找位置
+      //           while (index++ < position) {
+      //             previous = current
+      //             current = current.next
+      //           }
+      //           node.next = current
+      //           previous.next = node
+      //         }
+      //         this.length++
+      //         return true
+      //       }
+      //       return false
+      //     }
+      //     // 移除指定位置元素
+      //     removeAt(position) {
+      //       if (position > -1 && position < length) {
+      //         let current = this.head
+      //         let previous = null
+      //         let index = 0
+      //         if (position === 0) {
+      //           this.head = current.next
+      //         } else {
+      //           while (index++ < position) {
+      //             previous = current
+      //             current = current.next
+      //           }
+      //           // 通过引用的指向，删除current这个节点
+      //           previous.next = current.next
+      //         }
+
+      //         this.length--
+      //         // 返回删除的元素
+      //         return current.element
+      //       }
+      //       return null
+      //     }
+      //     // 寻找元素下标
+      //     findIndex(element) {
+      //       let current = this.head
+      //       let index = -1
+      //       while (current) {
+      //         if (element === current.element) {
+      //           return index + 1
+      //         }
+      //         index++
+      //         current = current.next
+      //       }
+      //       return -1
+      //     }
+      //     // 删除指定文档
+      //     remove(element) {
+      //       const index = this.indexOf(element)
+      //       return this.removeAt(index)
+      //     }
+      //     isEmpty() {
+      //       return !this.length
+      //     }
+      //     size() {
+      //       return this.length
+      //     }
+      //     toString() {
+      //       let current = this.head
+      //       let string = ''
+      //       while (current) {
+      //         string += ` ${current.element}`
+      //         current = current.next
+      //       }
+      //       return string
+      //     }
+      //   }
+
+      //   // 链表类的使用
+      //   const linkedList = new LinkedList()
+      //   console.log('linkedList1', linkedList)
+      //   linkedList.append(2)
+      //   linkedList.append(3)
+      //   linkedList.append(4)
+      //   linkedList.append('555')
+      //   console.log('linkedList2', linkedList)
+      //   linkedList.insert(2, 3.5)
+      //   console.log('linkedList3', linkedList)
+      //   console.log(linkedList.findIndex(4))
+
+      // *******************以下为双向链表*********************
+
       class Node {
         constructor(element) {
-          // 链表中的每一个节点保存元素本身和指向下一个元素的引用
           this.element = element
           this.next = null
+          this.prev = null
         }
       }
-      class LinkedList {
+      class doublyLinkedList {
         constructor() {
           this.head = null
+          this.trail = null
           this.length = 0
         }
-        // 追加元素（在末尾添加）
+        // 添加一个元素
         append(element) {
           const node = new Node(element)
           let current = null
-          if (this.head === null) {
+          if (!this.head) {
             this.head = node
           } else {
             current = this.head
             while (current.next) {
-              // 一直遍历链表，直到当前元素的下一个为null（即当前元素是最后一个元素）
               current = current.next
             }
-            // 在当前元素后面（即下一个）添加一个元素
             current.next = node
           }
-          // 手动扩张长度
           this.length++
         }
-        // 插入元素
+        // 任意位置插入元素
         insert(position, element) {
           if (position >= 0 && position <= this.length) {
-            const node = new Node(element)
             let previous = null
             let current = this.head
+            let node = new Node(element)
             let index = 0
             if (position === 0) {
-              // 直接在链表最前面插入
-              this.head = node
+              // 在头部插入
+              if (!this.head) {
+                this.head = node
+                this.trail = node
+              } else {
+                node.next = current
+                this.head = node
+                current.prev = node
+              }
+            } else if (position === this.length) {
+              // 在尾部插入
+              current = this.trail
+              current.next = node
+              node.prev = current
+              this.trail = node
             } else {
-              // 从头开始找位置
+              // 在除头尾的中部插入
               while (index++ < position) {
                 previous = current
                 current = current.next
               }
-              node.next = current
               previous.next = node
+              node.next = current
+              node.prev = previous
+              current.prev = node
             }
             this.length++
             return true
@@ -65,74 +205,50 @@
           return false
         }
         // 移除指定位置元素
-        removeAt(position) {
-          if (position > -1 && position < length) {
+        remove(position) {
+          if (position > -1 && position < this.length) {
             let current = this.head
             let previous = null
             let index = 0
+
             if (position === 0) {
-              this.head = current.next
+              // 删除头部元素
+              current = current.next
+              current.prev = null
+              this.head = current
+              if (this.length === 1) {
+                // 如果只有一个节点，将尾结点也置空
+                this.trail = null
+              }
+            } else if (position === this.length - 1) {
+              // 删除尾部元素
+              this.trail = this.trail.prev
+              this.trail.next = null
             } else {
+              // 删除中间元素
               while (index++ < position) {
                 previous = current
                 current = current.next
               }
-              // 通过引用的指向，删除current这个节点
               previous.next = current.next
+              current.next.prev = previous
             }
-
             this.length--
-            // 返回删除的元素
             return current.element
           }
           return null
         }
-        // 寻找元素下标
-        findIndex(element) {
-          let current = this.head
-          let index = -1
-          while (current) {
-            if (element === current.element) {
-              return index + 1
-            }
-            index++
-            current = current.next
-          }
-          return -1
-        }
-        // 删除指定文档
-        remove(element) {
-          const index = this.indexOf(element)
-          return this.removeAt(index)
-        }
-        isEmpty() {
-          return !this.length
-        }
-        size() {
-          return this.length
-        }
-        toString() {
-          let current = this.head
-          let string = ''
-          while (current) {
-            string += ` ${current.element}`
-            current = current.next
-          }
-          return string
-        }
       }
-
-      // 链表类的使用
-      const linkedList = new LinkedList()
-      console.log('linkedList1', linkedList)
-      linkedList.append(2)
-      linkedList.append(3)
-      linkedList.append(4)
-      linkedList.append('555')
-      console.log('linkedList2', linkedList)
-      linkedList.insert(2, 3.5)
-      console.log('linkedList3', linkedList)
-      console.log(linkedList.findIndex(4))
+      let doublyLinkedList1 = new doublyLinkedList()
+      doublyLinkedList1.append(1)
+      doublyLinkedList1.append(2)
+      doublyLinkedList1.append(3)
+      console.log('doublyLinkedList1', doublyLinkedList1)
+      // doublyLinkedList1.insert(2, 2.5)
+      // doublyLinkedList1.insert(3, 3.5)
+      // console.log('doublyLinkedList1 222', doublyLinkedList1)
+      // doublyLinkedList1.remove(3)
+      // doublyLinkedList1.remove(2)
     </script>
   </body>
 </html>
