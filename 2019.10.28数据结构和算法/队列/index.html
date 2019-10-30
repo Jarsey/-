@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据结构和算法之队列</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 传统（普通）队列
+        class Queue {
+            constructor(items) {
+                this.items = items || []
+            }
+            // 实例方法
+            enqueue(element) {
+                this.items.push(element)
+            }
+            dequeue() {
+                return this.items.shift()
+            }
+            front() {
+                return this.items[0]
+            }
+            clear() {
+                this.items = []
+            }
+            // 实例属性
+            get size() {
+                return this.items.length
+            }
+            get isEmpty() {
+                return !this.items.length
+            }
+            print() {
+                console.log(this.items.toString())
+            }
+        }
+        // 测试使用队列
+        const queue = new Queue()
+        console.log('isEmpty', queue.isEmpty)
+        queue.enqueue(1)
+        queue.enqueue(2)
+        queue.enqueue(3)
+        queue.enqueue(4)
+        queue.enqueue(5)
+        console.log('dequeue', queue.dequeue())
+        console.log('front', queue.front())
+        queue.print()
+        queue.clear()
+        console.log('after clear isEmpty', queue.isEmpty)
+
+        // 优先队列（即添加了优先级的队列，如军人女士优先等）
+        class PriorityQueue {
+            constructor(items) {
+                this.items = items || []
+            }
+            enqueue(element, priority) {
+                const queueElement = {
+                    element,
+                    priority
+                }
+                if (this.isEmpty) {
+                    this.items.push(queueElement)
+                } else {
+                    // findIndex找到满足条件的第一个index（这个属性用在队列上刚刚好）
+                    const preIndex = this.items.findIndex(item => queueElement.priority < item.priority)
+                    if (preIndex > -1) {
+                        // 队列中存在优先级低于插入元素的
+                        // splice(插入或删除的index，删除元素个数（不删除就是0），插入的元素)
+                        this.items.splice(preIndex, 0, queueElement)
+                    } else {
+                        this.items.push(queueElement)
+                    }
+                }
+            }
+            dequeue() {
+                return this.items.shift()
+            }
+
+            front() {
+                return this.items[0]
+            }
+
+            clear() {
+                this.items = []
+            }
+
+            get size() {
+                return this.items.length
+            }
+
+            get isEmpty() {
+                return !this.items.length
+            }
+
+            print() {
+                console.log(this.items)
+            }
+        }
+        const priorityQueue = new PriorityQueue()
+        priorityQueue.enqueue('朱一龙', 1)
+        priorityQueue.enqueue('D.O', 2)
+        priorityQueue.enqueue('jiajia', 0)
+        priorityQueue.print()
+
+        // 循环队列(首尾相接)
+        class LoopQueue extends Queue {
+            constructor(items) {
+                super(items)
+            }
+            getIndex(index) {
+                const length = this.size
+                return index > length ? index % length : index
+            }
+            find(index) {
+                return !this.isEmpty ? this.items[this.getIndex(index)] : null
+            }
+        }
+        // 访问一个循环队列
+        const loopQueue = new LoopQueue()
+        loopQueue.enqueue(1)
+        loopQueue.enqueue(2)
+        loopQueue.enqueue(7)
+        loopQueue.enqueue(4)
+        loopQueue.enqueue(6)
+        console.log('loopQueue.find(26)', loopQueue.find(26))
+        console.log('loopQueue.find(26)', loopQueue.find(8))
+    </script>
+</body>
+
+</html>
