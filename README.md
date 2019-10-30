@@ -228,3 +228,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《从区块链技术研发者的角度，说说我的区块链从业经历和对它的理解》](https://juejin.im/post/5db528b3e51d456bbe38bc50)
 ## 2019.10.30
 今天又开始看node啦，饿了么的那篇[Node.js面试宝典](https://github.com/ElemeFE/node-interview/tree/master/sections/zh-cn)写得很好，但是对于我这种刚入门的菜鸟来说有丢丢难啦~~ 今天看了这一篇，很适合新手呢：[《一起学 Node.js》](https://github.com/nswbmw/N-blog) 
+
+还有这一篇：[《Node.js 包教不包会》](https://github.com/alsotang/node-lessons) ，先码起来，最近给它啃完。
