@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript数据结构和算法之栈</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 栈就比较好模拟了，直接用数组的push和pop方法即可
+        class stack {
+            constructor(items) {
+                this.items = items || []
+            }
+            push(element) {
+                this.items.push(element)
+            }
+            pop(element) {
+                return this.items.pop(element)
+            }
+            // 末位
+            get peek() {
+                return this.items[this.items.length - 1]
+            }
+            get isEmpty() {
+                return !this.items.length
+            }
+            get size() {
+                return this.items.length
+            }
+            clear() {
+                this.items = []
+            }
+            print() {
+                console.log(this.items.toString())
+            }
+
+        }
+    </script>
+</body>
+
+</html>
