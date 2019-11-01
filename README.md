@@ -232,3 +232,9 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 还有这一篇：[《Node.js 包教不包会》](https://github.com/alsotang/node-lessons) ，先码起来，最近给它啃完。
 ## 2019.10.31
 十月份的最后一天，依旧被技术虐：[《Promise 必知必会（十道题）》](https://zhuanlan.zhihu.com/p/30797777)
+## 2019.11.01
+这篇文章细的很详细，不过是用Objective-C写的例子：[《数据结构7-哈希表》](https://juejin.im/post/5cf7ae7fe51d45773d4685d1#heading-1)
+
+[]()
+
+[]()
