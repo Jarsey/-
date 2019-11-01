@@ -235,6 +235,6 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 ## 2019.11.01
 这篇文章细的很详细，不过是用Objective-C写的例子：[《数据结构7-哈希表》](https://juejin.im/post/5cf7ae7fe51d45773d4685d1#heading-1)
 
-[]()
+这里还有几篇Hash Map应用在JavaScript上的例子，但是这里的Hash和我们在数据结构中说的Hash可能有一点点不同[《详解JavaScript中Hash Map映射结构的实现》](https://www.jb51.net/article/84771.htm)；[《JavaScript中HashMap的实现》](https://www.cnblogs.com/iwaity/p/7891007.html)
 
-[]()
+这一篇使用JavaScript很好的还原了原始概念的HashMap：[《Javascript实现HashMap》](https://blog.csdn.net/gozs_cs_dn/article/details/78012617)
