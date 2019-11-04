@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>每天一点面试题</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 第一题（输出顺序：1 2 6 4 3 5）
+
+        async function async1() {
+            // 一、直接输出1
+            console.log(1);
+            // 二、运行了async2，直接输出2
+            // 但这里需要注意的是result的结果其实是一个promise，所以console.log(3)算是promise.then里面的，所以这里加在微任务中
+            const result = await async2();
+            // 加入微任务
+            console.log(3);
+        }
+
+        async function async2() {
+            // 直接输出
+            console.log(2);
+        }
+        // 第一步，将promise加入微任务queue
+        Promise.resolve().then(() => {
+            console.log(4);
+        });
+        // 第二步，将settimeout加入宏任务queue
+        setTimeout(() => {
+            console.log(5);
+        });
+        // 第三步，执行该函数
+        async1();
+        // 第四步，直接输出6
+        console.log(6);
+
+        // 该题的难点是async，async test1(){}函数会返回一个promise，在调用await test1()之后的代码片段实际上都在test1返回的promise中的then中
+        // 可以这么理解，只有await test1()返回的是resolve才会执行后面的代码片段，那么其实后面的代码片段都在.then中
+    </script>
+</body>
+
+</html>
