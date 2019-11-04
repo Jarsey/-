@@ -238,3 +238,8 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 这里还有几篇Hash Map应用在JavaScript上的例子，但是这里的Hash和我们在数据结构中说的Hash可能有一点点不同[《详解JavaScript中Hash Map映射结构的实现》](https://www.jb51.net/article/84771.htm)；[《JavaScript中HashMap的实现》](https://www.cnblogs.com/iwaity/p/7891007.html)
 
 这一篇使用JavaScript很好的还原了原始概念的HashMap：[《Javascript实现HashMap》](https://blog.csdn.net/gozs_cs_dn/article/details/78012617)
+## 2019.11.04
+[《记一次大厂的面试过程）》](https://juejin.im/post/5db556376fb9a0207a6ddce7)题目1.1
+
+今日主题——JS微任务和宏任务：
+[《前端基本功(五)：了解javascript的运行机制（单线程、任务队列、EventLoop、微任务、宏任务）》](https://juejin.im/post/5d01adb2f265da1b667bd4ad)、[《这一次，彻底弄懂 JavaScript 执行机制》](https://juejin.im/post/59e85eebf265da430d571f89)、[《总结：JavaScript异步、事件循环与消息队列、微任务与宏任务》](https://juejin.im/post/5be5a0b96fb9a049d518febc)
