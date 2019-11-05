@@ -243,3 +243,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 
 今日主题——JS微任务和宏任务：
 [《前端基本功(五)：了解javascript的运行机制（单线程、任务队列、EventLoop、微任务、宏任务）》](https://juejin.im/post/5d01adb2f265da1b667bd4ad)、[《这一次，彻底弄懂 JavaScript 执行机制》](https://juejin.im/post/59e85eebf265da430d571f89)、[《总结：JavaScript异步、事件循环与消息队列、微任务与宏任务》](https://juejin.im/post/5be5a0b96fb9a049d518febc)
+## 2019.11.05
+昨天看了微任务宏任务，今天来实践一遍吧~~ [《Promise 必知必会（十道题）》](https://zhuanlan.zhihu.com/p/30797777)
