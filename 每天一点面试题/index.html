@@ -1,47 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>每天一点面试题</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script type="text/javascript">
-        // 第一题（输出顺序：1 2 6 4 3 5）
+      // ******************第一题（输出顺序：1 2 6 4 3 5）********************
 
-        async function async1() {
-            // 一、直接输出1
-            console.log(1);
-            // 二、运行了async2，直接输出2
-            // 但这里需要注意的是result的结果其实是一个promise，所以console.log(3)算是promise.then里面的，所以这里加在微任务中
-            const result = await async2();
-            // 加入微任务
-            console.log(3);
+      async function async1() {
+        // 一、直接输出1
+        console.log(1)
+        // 二、运行了async2，直接输出2
+        // 但这里需要注意的是result的结果其实是一个promise，所以console.log(3)算是promise.then里面的，所以这里加在微任务中
+        const result = await async2()
+        // 加入微任务
+        console.log(3)
+      }
+
+      async function async2() {
+        // 直接输出
+        console.log(2)
+      }
+      // 第一步，将promise加入微任务queue
+      Promise.resolve().then(() => {
+        console.log(4)
+      })
+      // 第二步，将settimeout加入宏任务queue
+      setTimeout(() => {
+        console.log(5)
+      })
+      // 第三步，执行该函数
+      async1()
+      // 第四步，直接输出6
+      console.log(6)
+
+      // 该题的难点是async，async test1(){}函数会返回一个promise，在调用await test1()之后的代码片段实际上都在test1返回的promise中的then中
+      // 可以这么理解，只有await test1()返回的是resolve才会执行后面的代码片段，那么其实后面的代码片段都在.then中
+
+      // ***********************第二题（打印结果20）***************************
+      let a = { a: 10 }
+      let b = { b: 10 }
+      let obj = {
+        a: 10
+      }
+      // 这里要注意了，obj[b]中b并不是一个字符串，而是一个对象，但属性名表达式是一个对象的话，那么默认情况下会自动将对象转为字符串
+      obj[b] = 20
+      // 所以这里，obj就变成了：
+      // {a: 10, [object Object]: 20}
+      console.log(obj[a])
+      //   打印obj[a]，将a转换为字符串，即[object Object]，所以这里取的值就是20
+
+      // **********************第三题（打印结果20）**************************
+      var a = 10
+      var obj = {
+        a: 20,
+        say: function() {
+          console.log(this.a)
         }
+      }
+      obj.say()
+      // 上面打印结果是20，this指向的问题，在say()中，因为并没有用箭头函数，所以this就指的是调用say()的this，即obj
+      // 怎么才能打印出10呢
 
-        async function async2() {
-            // 直接输出
-            console.log(2);
+      //   方法一:箭头函数
+      var a1 = 10
+      var obj1 = {
+        a: 20,
+        say: () => {
+          console.log(this.a)
         }
-        // 第一步，将promise加入微任务queue
-        Promise.resolve().then(() => {
-            console.log(4);
-        });
-        // 第二步，将settimeout加入宏任务queue
-        setTimeout(() => {
-            console.log(5);
-        });
-        // 第三步，执行该函数
-        async1();
-        // 第四步，直接输出6
-        console.log(6);
+      }
+      obj1.say() // 10
 
-        // 该题的难点是async，async test1(){}函数会返回一个promise，在调用await test1()之后的代码片段实际上都在test1返回的promise中的then中
-        // 可以这么理解，只有await test1()返回的是resolve才会执行后面的代码片段，那么其实后面的代码片段都在.then中
+      // 方法二，apply/call，改变this指向
+      obj.say.apply(this)
+      //   或
+      obj.say.call(this)
+
+      // 方法三，先创建一个临时变量接收say方法，再执行
+      let say = obj.say
+      say()
+
+      // **********************第四题（打印结果）*************************
+      parseInt('2017-07-01') // -> 2017
+      parseInt('2017abcdef') // -> 2017
+      parseInt('abcdef2017') // -> NaN
     </script>
-</body>
-
+  </body>
 </html>
