@@ -253,3 +253,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 这篇可以说有点…“变态”：[《7道简单的 JavaScript 面试题，三个月没招到一个人》](https://juejin.im/post/5dbe818a6fb9a0203c34e4bb)
 
 简历制作tip，先码起来：[《装饰你的敲门砖，离大厂更进一步》](https://juejin.im/post/5dc26364f265da4d0e00a8af)
+## 2019.11.08
+[《JavaScript 中的位运算和权限设计》](https://juejin.im/post/5dc36f39e51d4529ed292910)见识了见识了
