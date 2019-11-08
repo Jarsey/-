@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript数据结构和算法之字典</title>
+</head>
+
+<body>
+    <p>字典：集合、字典、散列表都可以存储不重复的数据。字典和集合很像，我们模拟集合时，是以{value: value}形式存在，但是字典是以{key: value}形式存在</p>
+    <script type="text/javascript">
+        // 字典，顾名思义，就是查  
+        class Dictionary {
+            constructor() {
+                this.items = {}
+            }
+            set(key, value) {
+                this.items[key] = value
+            }
+            get(key) {
+                return this.items[key]
+            }
+            remove(key) {
+                delete this.items[key]
+            }
+            get keys() {
+                return Object.keys(this.items)
+            }
+            get values() {
+                return Object.values(this.items)
+            }
+        }
+    </script>
+</body>
+
+</html>
