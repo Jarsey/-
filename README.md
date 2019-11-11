@@ -255,3 +255,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 简历制作tip，先码起来：[《装饰你的敲门砖，离大厂更进一步》](https://juejin.im/post/5dc26364f265da4d0e00a8af)
 ## 2019.11.08
 [《JavaScript 中的位运算和权限设计》](https://juejin.im/post/5dc36f39e51d4529ed292910)见识了见识了
+## 2019.11.11
+[《V8 是怎么跑起来的 —— V8 的 JavaScript 执行管道》](https://juejin.im/post/5dc4d823f265da4d4c202d3b)（好文是好文，但是我…有点…看不懂）
