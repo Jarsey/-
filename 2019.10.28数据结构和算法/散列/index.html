@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据结构和算法之散列（哈希表）</title>
+</head>
+
+<body>
+    <p>HashTable 类，也叫 HashMap 类，是 Dictionary 类的一种散列表实现方式。</p>
+    <p>散列算法的作用是尽可能快地在数据结构中找到一个值。</p>
+    <script type="text/javascript">
+        class HashTable {
+            constructor() {
+                this.table = []
+            }
+            static loselossHashCode(key) {
+                let hash = 0
+                // 这里注意，of也可以遍历字符串
+                for (let codePoint of key) {
+                    // charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。这个返回值是 0 - 65535 之间的整数。
+                    // 这里也可以更换成其他算法，来降低散列的冲突
+                    hash += codePoint.charCodeAt()
+                }
+                return hash % 37
+            }
+            put(key, value) {
+                // 这里不能用this.loselossHashCode(key)，因为put是实例方法，由实例调用，而loselossHashCode是静态方法，由类HashTable直接调用，this指向不同
+                const position = HashTable.loselossHashCode(key)
+                this.table[position] = value
+            }
+            get(key) {
+                return this.table[HashTable.loselossHashCode(key)]
+            }
+            remove(key) {
+                // 直接将数组对应位置上的清空
+                this.table[HashTable.loselossHashCode] = undefined
+            }
+        }
+        const hash = new HashTable()
+        hash.put('Surmon', 'surmon.me@email.com') // 19 - Surmon
+        hash.put('John', 'johnsnow@email.com') // 29 - John
+        hash.put('Tyrion', 'tyrion@email.com') // 16 - Tyrion
+
+        // 测试get方法
+        console.log(hash.get('Surmon')) // surmon.me@email.com
+        console.log(hash.get('Loiane')) // undefined
+        console.log(hash)
+    </script>
+</body>
+
+</html>
