@@ -255,3 +255,13 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 简历制作tip，先码起来：[《装饰你的敲门砖，离大厂更进一步》](https://juejin.im/post/5dc26364f265da4d0e00a8af)
 ## 2019.11.08
 [《JavaScript 中的位运算和权限设计》](https://juejin.im/post/5dc36f39e51d4529ed292910)见识了见识了
+## 2019.11.11
+[《V8 是怎么跑起来的 —— V8 的 JavaScript 执行管道》](https://juejin.im/post/5dc4d823f265da4d4c202d3b)（好文是好文，但是我…有点…看不懂）
+
+[《快看，前端开发者都收藏了这几张图表！》](https://juejin.im/post/5dc43b6b6fb9a04a945dd6b2)（很全，很用心的整理）
+
+[《async/await 原理及执行顺序分析》](https://juejin.im/post/5dc28ea66fb9a04a881d1ac0)（写得很棒了，不知道为啥，最近很喜欢看promise的文章，绕过来绕过去很有意思）
+## 2019.11.12
+[《一文搞懂Web中暗藏的密码学》](https://juejin.im/post/5dc8e4efe51d45502e03f2f6)（有点……蒙）
+
+这个应该是原文，周末把它啃下来：[《How Secure Are Encryption, Hashing, Encoding and Obfuscation?》](https://auth0.com/blog/how-secure-are-encryption-hashing-encoding-and-obfuscation/#What-is-Encoding-)
