@@ -263,3 +263,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《async/await 原理及执行顺序分析》](https://juejin.im/post/5dc28ea66fb9a04a881d1ac0)（写得很棒了，不知道为啥，最近很喜欢看promise的文章，绕过来绕过去很有意思）
 ## 2019.11.12
 [《一文搞懂Web中暗藏的密码学》](https://juejin.im/post/5dc8e4efe51d45502e03f2f6)（有点……蒙）
+
+这个应该是原文，周末把它啃下来：[《How Secure Are Encryption, Hashing, Encoding and Obfuscation?》](https://auth0.com/blog/how-secure-are-encryption-hashing-encoding-and-obfuscation/#What-is-Encoding-)
