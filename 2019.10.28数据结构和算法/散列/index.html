@@ -11,6 +11,7 @@
 <body>
     <p>HashTable 类，也叫 HashMap 类，是 Dictionary 类的一种散列表实现方式。</p>
     <p>散列算法的作用是尽可能快地在数据结构中找到一个值。</p>
+    <p>该篇文章包括处理散列冲突的两种方式和更好的散列函数djb2</p>
     <script type="text/javascript">
         class HashTable {
             constructor() {
@@ -48,6 +49,25 @@
         console.log(hash.get('Surmon')) // surmon.me@email.com
         console.log(hash.get('Loiane')) // undefined
         console.log(hash)
+
+
+        // 处理散列冲突
+        // 方法一：分离链接，分离链接法包括为散列表的每一个位置创建一个链表并将元素存储在里面。
+        // 下面加入链表类重写，见hashLink.html
+
+        // 方法二：线性探查，当想向表中某个位置加人一个新元素的时候，如果索引为 index 的位置已经被占据了，就尝试 index+1的位置。如果index+1 的位置也被占据了，就尝试 index+2 的位置，以此类推。
+        // 下面加入线性探查重写，见searchFor.html
+
+
+
+        // 比loselose更好的散列函数 ———— djb2
+        // static djb2HashCode(key) {
+        //     let hash = 5381
+        //     for (let codePoint of key) {
+        //         hash = hash * 33 + codePoint.charCodeAt()
+        //     }
+        //     return hash % 1013
+        // }
     </script>
 </body>
 

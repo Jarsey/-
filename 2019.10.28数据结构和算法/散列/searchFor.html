@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>线性探查</title>
+</head>
+
+<body>
+    <h>处理散列冲突</h>
+    <h2>方法一：分离链接</h2>
+    <p>分离链接法包括为散列表的每一个位置创建一个链表并将元素存储在里面。</p>
+    <script type="text/javascript">
+        class HashTable {
+            constructor() {
+                this.table = []
+            }
+            static loseloseHashCode(key) {
+                let hash = 0
+                for (let codePoint of key) {
+                    hash += codePoint.charCodeAt()
+                }
+                return hash % 37
+            }
+            put(key, value) {
+                const position = HashTable.loseloseHashCode(key)
+                if (this.table[postion] === undefined) {
+                    this.table[position] = {
+                        key,
+                        value
+                    }
+                } else {
+                    let index = ++position
+                    while (this.table[index] !== undefined) {
+                        index++
+                    }
+                    this.table[index] = {
+                        key,
+                        value
+                    }
+                }
+            }
+            get(key) {
+                const position = HashTable.loseloseHashCode(key)
+                if (this.table[position] === undefined) return undefined
+                const getElementValue = index => {
+                    if (this.table[index] === undefined) return undefined
+                    if (Object.is(this.table[index].key, key)) {
+                        return this.table[index]
+                    } else {
+                        return getElementValue(index + 1)
+                    }
+                }
+                return getElementValue(postion)
+            }
+            remove(key) {
+                const position = HashTable.loseloseHashCode(key)
+                if (this.table[position] === undefined) return undefined
+                const getElementValue = index => {
+                    if (this.table[index] === undefined) return undefined
+                    if (Object.is(this.table[index].key, key)) {
+                        this.table[index] = undefined
+                        return true
+                    } else {
+                        return getElementValue(index + 1)
+                    }
+                }
+                return getElementValue(position)
+            }
+        }
+    </script>
+</body>
+
+</html>

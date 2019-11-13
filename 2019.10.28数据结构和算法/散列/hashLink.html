@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分离链接</title>
+</head>
+
+<body>
+    <h>处理散列冲突</h>
+    <h2>方法一：分离链接</h2>
+    <p>分离链接法包括为散列表的每一个位置创建一个链表并将元素存储在里面。</p>
+    <script type="text/javascript">
+        // 链表类
+        class Node {
+            constructor(element) {
+                // 链表中的每一个节点保存元素本身和指向下一个元素的引用
+                this.element = element
+                this.next = null
+            }
+        }
+        class LinkedList {
+            constructor() {
+                this.head = null
+                this.length = 0
+            }
+            // 追加元素（在末尾添加）
+            append(element) {
+                const node = new Node(element)
+                let current = null
+                if (this.head === null) {
+                    this.head = node
+                } else {
+                    current = this.head
+                    while (current.next) {
+                        // 一直遍历链表，直到当前元素的下一个为null（即当前元素是最后一个元素）
+                        current = current.next
+                    }
+                    // 在当前元素后面（即下一个）添加一个元素
+                    current.next = node
+                }
+                // 手动扩张长度
+                this.length++
+            }
+            // 插入元素
+            insert(position, element) {
+                if (position >= 0 && position <= this.length) {
+                    const node = new Node(element)
+                    let previous = null
+                    let current = this.head
+                    let index = 0
+                    if (position === 0) {
+                        // 直接在链表最前面插入
+                        this.head = node
+                    } else {
+                        // 从头开始找位置
+                        while (index++ < position) {
+                            previous = current
+                            current = current.next
+                        }
+                        node.next = current
+                        previous.next = node
+                    }
+                    this.length++
+                    return true
+                }
+                return false
+            }
+            // 移除指定位置元素
+            removeAt(position) {
+                if (position > -1 && position < length) {
+                    let current = this.head
+                    let previous = null
+                    let index = 0
+                    if (position === 0) {
+                        this.head = current.next
+                    } else {
+                        while (index++ < position) {
+                            previous = current
+                            current = current.next
+                        }
+                        // 通过引用的指向，删除current这个节点
+                        previous.next = current.next
+                    }
+
+                    this.length--
+                    // 返回删除的元素
+                    return current.element
+                }
+                return null
+            }
+            // 寻找元素下标
+            findIndex(element) {
+                let current = this.head
+                let index = -1
+                while (current) {
+                    if (element === current.element) {
+                        return index + 1
+                    }
+                    index++
+                    current = current.next
+                }
+                return -1
+            }
+            // 删除指定文档
+            remove(element) {
+                const index = this.indexOf(element)
+                return this.removeAt(index)
+            }
+            isEmpty() {
+                return !this.length
+            }
+            size() {
+                return this.length
+            }
+            toString() {
+                let current = this.head
+                let string = ''
+                while (current) {
+                    string += ` ${current.element}`
+                    current = current.next
+                }
+                return string
+            }
+        }
+        class HashTable {
+            constructor() {
+                this.table = []
+            }
+            static loseloseHashCode(key) {
+                let hash = 0
+                for (let codePoint of key) {
+                    hash += codePoint.charCodeAt()
+                }
+                return hash % 37
+            }
+            put(key, value) {
+                const position = HashTable.loseloseHashCode(key)
+                if (this.table[postion] === undefined) {
+                    this.table[position] = new linkedList()
+                }
+                this.table[position].append({
+                    key,
+                    value
+                })
+            }
+            get(key) {
+                const position = HashTable.loseloseHashCode(key)
+                if (this.table[position] === undefined) return undefined
+                const getElementValue = node => {
+                    if (!node && !node.element) return undefined
+                    if (Object.is(node.element.key, key)) {
+                        return node.element.value
+                    } else {
+                        return getElementValue(node.next)
+                    }
+                }
+                return getElementValue(this.table[position].head)
+            }
+            remove(key) {
+                const position = HashTable.loseloseHashCode(key)
+                if (this.table[position] === undefined) return undefined
+                const getElementValue = node => {
+                    if (!node && !node.element) return undefined
+                    if (Object.is(node.element.key, key)) {
+                        this.table[position].remove(node.element)
+                        if (this.table[position].isEmpty()) {
+                            this.table[position] = undefined
+                        }
+                        return true
+                    } else {
+                        return getElementValue(node.next)
+                    }
+                }
+                return getElementValue(this.table[position].head)
+            }
+        }
+    </script>
+</body>
+
+</html>
