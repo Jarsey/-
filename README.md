@@ -265,3 +265,6 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《一文搞懂Web中暗藏的密码学》](https://juejin.im/post/5dc8e4efe51d45502e03f2f6)（有点……蒙）
 
 这个应该是原文，周末把它啃下来：[《How Secure Are Encryption, Hashing, Encoding and Obfuscation?》](https://auth0.com/blog/how-secure-are-encryption-hashing-encoding-and-obfuscation/#What-is-Encoding-)
+## 2019.11.13
+[《通过 20 个棘手的ES6面试问题来提高咱们的 JS 技能》](https://juejin.im/post/5dc8a231f265da4d40712f8a)
+今天又看面试文章了……看来我得再开个项目来总结面试文章
