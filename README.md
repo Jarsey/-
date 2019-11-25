@@ -276,3 +276,10 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《ES6的Symbol竟然那么强大，面试中的加分点啊》](https://juejin.im/post/5bdbb3406fb9a022752c319e)
 ## 2019.11.14
 今天继续啃[《通过 20 个棘手的ES6面试问题来提高咱们的 JS 技能》](https://juejin.im/post/5dc8a231f265da4d40712f8a)
+
+出差一周，落下了不少功课，回来继续————
+
+## 2019.11.24
+[《JavaScript 创建对象之原型模式》](https://juejin.im/entry/587d89ce2f301e00579f8294)
+
+[《从JavaScript学习设计模式-01原型模式》](https://juejin.im/post/5b728d61518825613f7f3992)
