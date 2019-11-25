@@ -1,989 +1,1022 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>JS开发中常见的几种设计模式</title>
-  </head>
 
-  <body>
-    <h3>结果见控制台</h3>
-    <script type="text/javascript">
-      // ***************单例模式：一个类只有一个实例对象*******************
-      class CreateUser {
-        constructor(name) {
-          this.name = name
-          this.getName()
-        }
-        getName() {
-          return this.name
-        }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>JS开发中常见的几种设计模式</title>
+</head>
+
+<body>
+  <h3>结果见控制台</h3>
+  <script type="text/javascript">
+    // ***************单例模式：一个类只有一个实例对象*******************
+    class CreateUser {
+      constructor(name) {
+        this.name = name
+        this.getName()
       }
-      // 采用闭包的方式
-      // 利用的就是闭包引用着外部环境的变量，所以闭包一直存在，所以闭包里面的状态也一直存在
-      var ProxyMode = (function() {
-        var instance = null
-        console.log(1)
-        return function(name) {
-          console.log(12)
-          if (!instance) {
-            console.log(13)
-            instance = new CreateUser(name)
-          }
-          return instance
-        }
-      })()
-      // 到这里，变量ProxyMode直接就是function (name){}这个函数，所以只打印一次1
-
-      var a = new ProxyMode('jiajia')
-      // 这里instance已经存在，所以直接返回
-      var b = new ProxyMode('dodo')
-      console.log('a', a)
-      console.log('b', b)
-      // 打印结果：
-      // 1 12 13 12
-      // a CreateUser {name: "jiajia"}
-      // b CreateUser {name: "jiajia"}
-
-      // ***************策略模式：实现和使用分开，可减少if判断*******************
-      let levelList = {
-        A: function(flower) {
-          return flower * 4
-        },
-        B: function(flower) {
-          return flower * 3
-        },
-        C: function(flower) {
-          return flower * 2
-        }
+      getName() {
+        return this.name
       }
-
-      function calculateF1(level, flower) {
-        return levelList[level](flower)
+    }
+    // 采用闭包的方式
+    // 利用的就是闭包引用着外部环境的变量，所以闭包一直存在，所以闭包里面的状态也一直存在
+    var ProxyMode = (function () {
+      var instance = null
+      console.log(1)
+      return function (name) {
+        console.log(12)
+        if (!instance) {
+          console.log(13)
+          instance = new CreateUser(name)
+        }
+        return instance
       }
-      console.log('A班的同学', calculateF1('A', 5))
-      console.log('B班的同学', calculateF1('B', 4))
+    })()
+    // 到这里，变量ProxyMode直接就是function (name){}这个函数，所以只打印一次1
 
-      // 也可以这么写：
-      function A(flower) {
+    var a = new ProxyMode('jiajia')
+    // 这里instance已经存在，所以直接返回
+    var b = new ProxyMode('dodo')
+    console.log('a', a)
+    console.log('b', b)
+    // 打印结果：
+    // 1 12 13 12
+    // a CreateUser {name: "jiajia"}
+    // b CreateUser {name: "jiajia"}
+
+    // ***************策略模式：实现和使用分开，可减少if判断*******************
+    let levelList = {
+      A: function (flower) {
         return flower * 4
-      }
-
-      function B(flower) {
+      },
+      B: function (flower) {
         return flower * 3
-      }
-
-      function C(flower) {
+      },
+      C: function (flower) {
         return flower * 2
       }
+    }
 
-      function calculateF2(level, flower) {
-        return level(flower)
+    function calculateF1(level, flower) {
+      return levelList[level](flower)
+    }
+    console.log('A班的同学', calculateF1('A', 5))
+    console.log('B班的同学', calculateF1('B', 4))
+
+    // 也可以这么写：
+    function A(flower) {
+      return flower * 4
+    }
+
+    function B(flower) {
+      return flower * 3
+    }
+
+    function C(flower) {
+      return flower * 2
+    }
+
+    function calculateF2(level, flower) {
+      return level(flower)
+    }
+    console.log('A班的同学', calculateF2(A, 5))
+    console.log('B班的同学', calculateF2(B, 4))
+
+    // ***************代理模式：用一个代用品对原对象实现控制*******************
+    // JS中常见的是虚拟代理和缓存代理
+
+    // 一、虚拟代理实现图片预加载：（当图片未加载完，在页面显示本地loading图，加载完之后显示完整图片）
+
+    // imageFunc为原对象:表示将某一图片插入到dom中
+    var imageFunc = (function () {
+      // 先创建img标签
+      var imgNode = document.createElement('img')
+      document.body.appendChild(imgNode)
+      return {
+        setSrc: function (src) {
+          imgNode.src = src
+        }
       }
-      console.log('A班的同学', calculateF2(A, 5))
-      console.log('B班的同学', calculateF2(B, 4))
-
-      // ***************代理模式：用一个代用品对原对象实现控制*******************
-      // JS中常见的是虚拟代理和缓存代理
-
-      // 一、虚拟代理实现图片预加载：（当图片未加载完，在页面显示本地loading图，加载完之后显示完整图片）
-
-      // imageFunc为原对象:表示将某一图片插入到dom中
-      var imageFunc = (function() {
-        // 先创建img标签
-        var imgNode = document.createElement('img')
-        document.body.appendChild(imgNode)
-        return {
-          setSrc: function(src) {
-            imgNode.src = src
-          }
-        }
-      })()
-      // proxyImage为代理对象：将图片分别分为loading和完整图片显示在页面中
-      var proxyImage = (function() {
-        const img = new Image()
-        // 图片加载完成后才会执行
-        img.onload = function() {
-          console.log(1)
-          imageFunc.setSrc(this.src)
-        }
-        return {
-          setSrc: function(src) {
-            console.log(2)
-            imageFunc.setSrc('loading.gif') // 本地loading图片
-            img.src = src // http图片
-          }
-        }
-      })()
-      proxyImage.setSrc(
-        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3240075065,3793995044&fm=26&gp=0.jpg'
-      )
-
-      // 二、缓存代理实现乘积计算
-      const mult = function() {
-        let a = 1
-        for (let i = 0, l; (l = arguments[i++]); ) {
-          a = a * l
-        }
-        return a
+    })()
+    // proxyImage为代理对象：将图片分别分为loading和完整图片显示在页面中
+    var proxyImage = (function () {
+      const img = new Image()
+      // 图片加载完成后才会执行
+      img.onload = function () {
+        console.log(1)
+        imageFunc.setSrc(this.src)
       }
-      const proxyMult = (function() {
-        const cache = {}
-        return function() {
-          const tag = Array.prototype.join.call(arguments, ',')
-          if (cache[tag]) {
-            return cache[tag]
-          }
-          cache[tag] = mult.apply(this, arguments)
-          console.log(6666)
+      return {
+        setSrc: function (src) {
+          console.log(2)
+          imageFunc.setSrc('loading.gif') // 本地loading图片
+          img.src = src // http图片
+        }
+      }
+    })()
+    proxyImage.setSrc(
+      'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3240075065,3793995044&fm=26&gp=0.jpg'
+    )
+
+    // 二、缓存代理实现乘积计算
+    const mult = function () {
+      let a = 1
+      for (let i = 0, l;
+        (l = arguments[i++]);) {
+        a = a * l
+      }
+      return a
+    }
+    const proxyMult = (function () {
+      const cache = {}
+      return function () {
+        const tag = Array.prototype.join.call(arguments, ',')
+        if (cache[tag]) {
           return cache[tag]
         }
-      })()
-      console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
-      console.log('proxyMult(5, 6)', proxyMult(5, 6))
-      console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
+        cache[tag] = mult.apply(this, arguments)
+        console.log(6666)
+        return cache[tag]
+      }
+    })()
+    console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
+    console.log('proxyMult(5, 6)', proxyMult(5, 6))
+    console.log('proxyMult(1, 2, 3, 4)', proxyMult(1, 2, 3, 4))
 
-      // ***************中介者模式：所有对象只用和中介者联系（通信）即可，不用和每个对象联系*******************
+    // ***************中介者模式：所有对象只用和中介者联系（通信）即可，不用和每个对象联系*******************
 
-      // 一场测试结束后, 公布结果: 告知解答出题目的人挑战成功, 否则挑战失败。
-      const player = function(name) {
-        this.name = name
-        playerMiddle.add(name)
-      }
-      player.prototype.win = function() {
-        playerMiddle.win(this.name)
-      }
-      player.prototype.lose = function() {
-        playerMiddle.lose(this.name)
-      }
-      const playerMiddle = (function() {
-        const players = []
-        const winArr = []
-        const loseArr = []
-        return {
-          add: function(name) {
-            players.push(name)
-          },
-          win: function(name) {
-            winArr.push(name)
-            if (winArr.length + loseArr.length === players.length) {
-              this.show()
-            }
-          },
-          lose: function(name) {
-            loseArr.push(name)
-            if (winArr.length + loseArr.length === players.length) {
-              this.show()
-            }
-          },
-          show: function() {
-            for (let i in winArr) {
-              console.log(`${winArr[i]}挑战成功`)
-            }
-            for (let i in loseArr) {
-              console.log(`${loseArr[i]}挑战失败`)
-            }
+    // 一场测试结束后, 公布结果: 告知解答出题目的人挑战成功, 否则挑战失败。
+    const player = function (name) {
+      this.name = name
+      playerMiddle.add(name)
+    }
+    player.prototype.win = function () {
+      playerMiddle.win(this.name)
+    }
+    player.prototype.lose = function () {
+      playerMiddle.lose(this.name)
+    }
+    const playerMiddle = (function () {
+      const players = []
+      const winArr = []
+      const loseArr = []
+      return {
+        add: function (name) {
+          players.push(name)
+        },
+        win: function (name) {
+          winArr.push(name)
+          if (winArr.length + loseArr.length === players.length) {
+            this.show()
+          }
+        },
+        lose: function (name) {
+          loseArr.push(name)
+          if (winArr.length + loseArr.length === players.length) {
+            this.show()
+          }
+        },
+        show: function () {
+          for (let i in winArr) {
+            console.log(`${winArr[i]}挑战成功`)
+          }
+          for (let i in loseArr) {
+            console.log(`${loseArr[i]}挑战失败`)
           }
         }
-      })()
-      let player1 = new player('朱一龙')
-      let player2 = new player('都暻秀')
-      player1.lose()
-      player2.win()
+      }
+    })()
+    let player1 = new player('朱一龙')
+    let player2 = new player('都暻秀')
+    player1.lose()
+    player2.win()
 
-      // ***************装饰者模式：动态地给对象增添特性（不修改原对象的代码和其调用方式）*******************
-      // 理解起来也很简单，就是写个装饰，然后应用在原对象上
-      // es7中的装饰着模式（需要配置es7相关，不然无法使用）
-      // 装饰
-      // function decorateArmour(target, key, descriptor) {
-      //   const method = descriptor.value
-      //   let moreDef = 100
-      //   let ret
-      //   descriptor.value = (...args) => {
-      //     args[0] += moreDef
-      //     ret = method.apply(target, args)
-      //     return ret
-      //   }
-      //   return descriptor
-      // }
-      // class Man {
-      //   constructor(def = 2, atk = 3, hp = 3) {
-      //     this.init(def, atk, hp)
-      //   }
-      //   @decorateArmour
-      //   init(def, atk, hp) {
-      //     this.def = def
-      //     this.atk = atk
-      //     this.hp = hp
-      //   }
-      //   // 对象转成json时的json序列化
-      //   toString() {
-      //     return `防御力:${this.def},攻击力:${this.atk},血量:${this.hp}`
-      //   }
-      // }
-      // var tony = new Man()
-      // console.log(`当前状态 ===> ${tony}`)
+    // ***************装饰者模式：动态地给对象增添特性（不修改原对象的代码和其调用方式）*******************
+    // 理解起来也很简单，就是写个装饰，然后应用在原对象上
+    // es7中的装饰着模式（需要配置es7相关，不然无法使用）
+    // 装饰
+    // function decorateArmour(target, key, descriptor) {
+    //   const method = descriptor.value
+    //   let moreDef = 100
+    //   let ret
+    //   descriptor.value = (...args) => {
+    //     args[0] += moreDef
+    //     ret = method.apply(target, args)
+    //     return ret
+    //   }
+    //   return descriptor
+    // }
+    // class Man {
+    //   constructor(def = 2, atk = 3, hp = 3) {
+    //     this.init(def, atk, hp)
+    //   }
+    //   @decorateArmour
+    //   init(def, atk, hp) {
+    //     this.def = def
+    //     this.atk = atk
+    //     this.hp = hp
+    //   }
+    //   // 对象转成json时的json序列化
+    //   toString() {
+    //     return `防御力:${this.def},攻击力:${this.atk},血量:${this.hp}`
+    //   }
+    // }
+    // var tony = new Man()
+    // console.log(`当前状态 ===> ${tony}`)
 
-      // 普通装饰者模式的说明
-      // 应用在函数上（为某一函数写一个装饰器，来测试其执行时间）：
-      function func() {
-        var num = 10
-        var res = 0
-        for (let i = 0; i++; i < num) {
-          res = res + i
-        }
-        setTimeout(() => 1, 1000)
-        console.log('decoration test')
+    // 普通装饰者模式的说明
+    // 应用在函数上（为某一函数写一个装饰器，来测试其执行时间）：
+    function func() {
+      var num = 10
+      var res = 0
+      for (let i = 0; i++; i < num) {
+        res = res + i
       }
-      // 注意这里，装饰者返回的是一个方法，因为装饰着不是直接执行的，而是需要有一个装饰的过程
-      function timeProfileDecorator(func) {
-        return function(...args) {
-          const startTime = new Date().getTime()
-          func.call(this, ...args)
-          const elapserdTime = new Date().getTime() - startTime
-          console.log(`该函数消耗了${elapserdTime}ms`)
-        }
+      setTimeout(() => 1, 1000)
+      console.log('decoration test')
+    }
+    // 注意这里，装饰者返回的是一个方法，因为装饰着不是直接执行的，而是需要有一个装饰的过程
+    function timeProfileDecorator(func) {
+      return function (...args) {
+        const startTime = new Date().getTime()
+        func.call(this, ...args)
+        const elapserdTime = new Date().getTime() - startTime
+        console.log(`该函数消耗了${elapserdTime}ms`)
       }
-      // timeProfileDecorator(func)就是装饰的过程，newFunc就是被装饰过的
-      const newFunc = timeProfileDecorator(func)
-      newFunc()
+    }
+    // timeProfileDecorator(func)就是装饰的过程，newFunc就是被装饰过的
+    const newFunc = timeProfileDecorator(func)
+    newFunc()
 
-      // 应用在类上（实现自行车装饰）：
-      // 自行车基类
-      class Bicycle {
-        wash() {}
-        ride() {}
-        getPrice() {
-          return 200
-        }
+    // 应用在类上（实现自行车装饰）：
+    // 自行车基类
+    class Bicycle {
+      wash() {}
+      ride() {}
+      getPrice() {
+        return 200
       }
-      // 自行车装饰基类（便于各种装饰类的扩展）
-      class BicycleDecoration {
-        constructor(bicycle) {
-          this.bicycle = bicycle
-        }
-        wash() {
-          return this.bicycle.wash()
-        }
-        ride() {
-          return this.bicycle.ride()
-        }
-        getPrice() {
-          return this.bicycle.getPrice()
-        }
+    }
+    // 自行车装饰基类（便于各种装饰类的扩展）
+    class BicycleDecoration {
+      constructor(bicycle) {
+        this.bicycle = bicycle
       }
-      // 前车灯装饰类（扩展于装饰者基类）
-      class HeadLightDecorator extends BicycleDecoration {
-        constructor(bicycle) {
-          super(bicycle)
-        }
-        getPrice() {
-          return this.bicycle.getPrice() * 2
-        }
+      wash() {
+        return this.bicycle.wash()
       }
-      // 尾灯
-      class TailLightDecorator extends BicycleDecoration {
-        constructor(bicycle) {
-          super(bicycle)
-        }
-        getPrice() {
-          return this.bicycle.getPrice() * 3
-        }
+      ride() {
+        return this.bicycle.ride()
       }
-      let bicycle = new Bicycle()
-      console.log('低配版的：', bicycle.getPrice())
-      let newBicycle1 = new HeadLightDecorator(bicycle)
-      console.log('中配版的：', newBicycle1.getPrice())
-      let newBicycle2 = new TailLightDecorator(bicycle)
-      console.log('中高配版的：', newBicycle2.getPrice())
+      getPrice() {
+        return this.bicycle.getPrice()
+      }
+    }
+    // 前车灯装饰类（扩展于装饰者基类）
+    class HeadLightDecorator extends BicycleDecoration {
+      constructor(bicycle) {
+        super(bicycle)
+      }
+      getPrice() {
+        return this.bicycle.getPrice() * 2
+      }
+    }
+    // 尾灯
+    class TailLightDecorator extends BicycleDecoration {
+      constructor(bicycle) {
+        super(bicycle)
+      }
+      getPrice() {
+        return this.bicycle.getPrice() * 3
+      }
+    }
+    let bicycle = new Bicycle()
+    console.log('低配版的：', bicycle.getPrice())
+    let newBicycle1 = new HeadLightDecorator(bicycle)
+    console.log('中配版的：', newBicycle1.getPrice())
+    let newBicycle2 = new TailLightDecorator(bicycle)
+    console.log('中高配版的：', newBicycle2.getPrice())
 
-      // ***************迭代器模式：能访问聚合对象的顺序与元素*******************
-      // 内部迭代器
-      // 缺点：遍历在内部实现，有时可能需要运用遍历，这时使用者只能在回调函数中做文章，不能直接使用遍历
-      function each(arr, func) {
-        // 迭代器
+    // ***************迭代器模式：能访问聚合对象的顺序与元素*******************
+    // 内部迭代器
+    // 缺点：遍历在内部实现，有时可能需要运用遍历，这时使用者只能在回调函数中做文章，不能直接使用遍历
+    function each(arr, func) {
+      // 迭代器
+      for (let i = 0; i < arr.length; i++) {
+        func(i, arr[i])
+      }
+    }
+    each([1, 2, 3], function (index, value) {
+      console.log(`这是第个${index}元素，值为${value}`)
+    })
+
+    // const compare = function(arr1, arr2) {
+    //   each(arr1, function(i, n) {
+    //     if (arr2[i] !== n) {
+    //       console.log('两数组不等')
+    //       return
+    //     }
+    //   })
+    //   console.log('两数组相等')
+    // }
+
+    // const insideArr1 = [1, 2, 4]
+    // const insideArr2 = [1, 2, 3]
+    // compare(insideArr1, insideArr2) // 两数组相等
+
+    // 外部迭代器
+    // 特点：将遍历的权利转移到外部
+    function iterator(arr) {
+      // 迭代器
+      let current = 0
+      const next = function () {
+        current = current + 1
+      }
+      const done = function () {
+        return current >= arr.length
+      }
+      const value = function () {
+        return arr[current]
+      }
+      return {
+        next,
+        done,
+        value
+      }
+    }
+    let arr1 = [1, 2, 3, 4]
+    let arr2 = [1, 2, 3, 5]
+    let iterator1 = iterator(arr1)
+    let iterator2 = iterator(arr2)
+    // 判断arr1和arr2是否相等
+    function judgingEquel() {
+      while (!iterator1.done() && !iterator2.done()) {
+        if (iterator1.value() !== iterator2.value()) {
+          console.log('arr1和arr2不相等')
+          return
+        }
+        // 将遍历权限放在迭代器外面
+        iterator1.next()
+        iterator2.next()
+      }
+      console.log('arr1和arr2相等')
+    }
+    judgingEquel()
+
+    // ***************发布订阅模式：在异步编程中实现更深的解耦*******************
+    // 用类的方式实现一个发布订阅模式
+    class Event {
+      constructor() {
+        this.obj = {}
+      }
+      on(eventType, fn) {
+        if (!this.obj[eventType]) {
+          this.obj[eventType] = []
+        }
+        this.obj[eventType].push(fn)
+      }
+      emit() {
+        let eventType = Array.prototype.shift.call(arguments)
+        let arr = this.obj[eventType]
         for (let i = 0; i < arr.length; i++) {
-          func(i, arr[i])
+          arr[i].apply(arr[i], arguments)
         }
       }
-      each([1, 2, 3], function(index, value) {
-        console.log(`这是第个${index}元素，值为${value}`)
-      })
+    }
+    let event = new Event()
+    event.on('click', function (a) {
+      console.log(a)
+    })
+    event.emit('click', '触发了点击事件')
 
-      // const compare = function(arr1, arr2) {
-      //   each(arr1, function(i, n) {
-      //     if (arr2[i] !== n) {
-      //       console.log('两数组不等')
-      //       return
-      //     }
-      //   })
-      //   console.log('两数组相等')
-      // }
-
-      // const insideArr1 = [1, 2, 4]
-      // const insideArr2 = [1, 2, 3]
-      // compare(insideArr1, insideArr2) // 两数组相等
-
-      // 外部迭代器
-      // 特点：将遍历的权利转移到外部
-      function iterator(arr) {
-        // 迭代器
-        let current = 0
-        const next = function() {
-          current = current + 1
+    // 按照常理，应该先订阅后发布，但是由于异步编程特性，有时候订阅在发布之后执行完成
+    // 模拟发布在订阅之后：
+    class Event2 {
+      constructor() {
+        this.obj = {}
+        this.cacheList = []
+      }
+      on(eventType, fn) {
+        if (!this.obj[eventType]) {
+          this.obj[eventType] = []
         }
-        const done = function() {
-          return current >= arr.length
-        }
-        const value = function() {
-          return arr[current]
-        }
-        return {
-          next,
-          done,
-          value
+        console.log('on', this.cacheList)
+        this.obj[eventType].push(fn)
+        for (let i = 0; i < this.cacheList.length; i++) {
+          this.cacheList[i]()
         }
       }
-      let arr1 = [1, 2, 3, 4]
-      let arr2 = [1, 2, 3, 5]
-      let iterator1 = iterator(arr1)
-      let iterator2 = iterator(arr2)
-      // 判断arr1和arr2是否相等
-      function judgingEquel() {
-        while (!iterator1.done() && !iterator2.done()) {
-          if (iterator1.value() !== iterator2.value()) {
-            console.log('arr1和arr2不相等')
-            return
-          }
-          // 将遍历权限放在迭代器外面
-          iterator1.next()
-          iterator2.next()
-        }
-        console.log('arr1和arr2相等')
-      }
-      judgingEquel()
+      emit() {
+        let arg = arguments
+        let that = this
 
-      // ***************发布订阅模式：在异步编程中实现更深的解耦*******************
-      // 用类的方式实现一个发布订阅模式
-      class Event {
-        constructor() {
-          this.obj = {}
-        }
-        on(eventType, fn) {
-          if (!this.obj[eventType]) {
-            this.obj[eventType] = []
-          }
-          this.obj[eventType].push(fn)
-        }
-        emit() {
-          let eventType = Array.prototype.shift.call(arguments)
-          let arr = this.obj[eventType]
+        function cache() {
+          let eventType = Array.prototype.shift.call(arg)
+          let arr = that.obj[eventType]
           for (let i = 0; i < arr.length; i++) {
-            arr[i].apply(arr[i], arguments)
+            arr[i].apply(arr[i], arg)
           }
         }
+        this.cacheList.push(cache)
       }
-      let event = new Event()
-      event.on('click', function(a) {
-        console.log(a)
-      })
-      event.emit('click', '触发了点击事件')
+    }
+    // 以上代码实现思路就是把原本在 emit 里触发的函数存到 cacheList, 再转交到 on 中触发。从而实现了发布函数先于订阅函数执行。
+    // 但是上述思路有缺陷，把原本在 emit 里触发的函数存到 cacheList，并不能触发on的再次运行，只能通过再次代码触发on
+    let event2 = new Event2()
+    event2.on('click', function (a) {
+      console.log(a)
+    })
+    event2.emit('click', '在发布中才触发了点击事件')
+    event2.on('click', function (a) {
+      console.log(a)
+    })
 
-      // 按照常理，应该先订阅后发布，但是由于异步编程特性，有时候订阅在发布之后执行完成
-      // 模拟发布在订阅之后：
-      class Event2 {
-        constructor() {
-          this.obj = {}
-          this.cacheList = []
-        }
-        on(eventType, fn) {
-          if (!this.obj[eventType]) {
-            this.obj[eventType] = []
-          }
-          console.log('on', this.cacheList)
-          this.obj[eventType].push(fn)
-          for (let i = 0; i < this.cacheList.length; i++) {
-            this.cacheList[i]()
-          }
-        }
-        emit() {
-          let arg = arguments
-          let that = this
+    // ***************命令模式：将界面代码和功能代码分离*******************
+    // 界面代码
+    // const setCommand = function(button, command) {
+    //   button.onclick = function() {
+    //     command.excute()
+    //   }
+    // }
+    // // 功能代码
+    // const menu = {
+    //   updateMenu: function() {
+    //     console.log('更新菜单')
+    //   }
+    // }
+    // const UpdateCommand = function(receive) {
+    //   return {
+    //     excute: receive.updateMenu
+    //   }
+    // }
+    // const updateCommand = UpdateCommand(menu)
+    // const button1 = document.getElementById('button1')
+    // setCommand(button1, updateCommand)
 
-          function cache() {
-            let eventType = Array.prototype.shift.call(arg)
-            let arr = that.obj[eventType]
-            for (let i = 0; i < arr.length; i++) {
-              arr[i].apply(arr[i], arg)
-            }
-          }
-          this.cacheList.push(cache)
-        }
-      }
-      // 以上代码实现思路就是把原本在 emit 里触发的函数存到 cacheList, 再转交到 on 中触发。从而实现了发布函数先于订阅函数执行。
-      // 但是上述思路有缺陷，把原本在 emit 里触发的函数存到 cacheList，并不能触发on的再次运行，只能通过再次代码触发on
-      let event2 = new Event2()
-      event2.on('click', function(a) {
-        console.log(a)
-      })
-      event2.emit('click', '在发布中才触发了点击事件')
-      event2.on('click', function(a) {
-        console.log(a)
-      })
+    // 感觉这个模式在现在的代码中用的不多，况且像上面这样写，感觉很鸡肋啊
 
-      // ***************命令模式：将界面代码和功能代码分离*******************
-      // 界面代码
-      // const setCommand = function(button, command) {
-      //   button.onclick = function() {
-      //     command.excute()
-      //   }
-      // }
-      // // 功能代码
-      // const menu = {
-      //   updateMenu: function() {
-      //     console.log('更新菜单')
-      //   }
-      // }
-      // const UpdateCommand = function(receive) {
-      //   return {
-      //     excute: receive.updateMenu
-      //   }
-      // }
-      // const updateCommand = UpdateCommand(menu)
-      // const button1 = document.getElementById('button1')
-      // setCommand(button1, updateCommand)
+    // ***************组合模式：在对象间形成树形结构，不管对象有多少层，只在根部进行调用*******************
+    // demo1：宏命令，按下开关，执行这三件事：
+    // 1. 煮咖啡
+    // 2. 打开电视、打开音响
+    // 3. 打开空调、打开电脑
+    // 如上可看出：每一件大事可能后面还有几项小事
+    class MacroCommand {
+      constructor() {
+        this.list = []
+      }
+      add(task) {
+        this.list.push(task)
+      }
+      excute() {
+        for (let i in this.list) {
+          this.list[i].excute()
+        }
+      }
+    }
+    // 将每个根对象下面的各个子任务添加进去
+    const command1 = new MacroCommand()
+    command1.add({
+      excute: () => console.log('煮咖啡')
+    })
+    const command2 = new MacroCommand()
+    command2.add({
+      excute: () => console.log('打开电视')
+    })
+    command2.add({
+      excute: () => console.log('打开音响')
+    })
+    const command3 = new MacroCommand()
+    command3.add({
+      excute: () => console.log('打开空调')
+    })
+    command3.add({
+      excute: () => console.log('打开电脑')
+    })
+    // 执行每个根对象
+    command1.excute()
+    command2.excute()
+    command3.excute()
 
-      // 感觉这个模式在现在的代码中用的不多，况且像上面这样写，感觉很鸡肋啊
+    // demo2：扫描文件夹，文件夹中还可以再嵌套文件夹
+    class Folder {
+      constructor(folder) {
+        this.folder = folder
+        this.folderList = []
+      }
+      add(resource) {
+        this.folderList.push(resource)
+      }
+      scan() {
+        console.log('开始扫描文件夹:', this.folder)
+        for (let i in this.folderList) {
+          this.folderList[i].scan()
+        }
+      }
+    }
+    class File {
+      constructor(file) {
+        this.file = file
+      }
+      add() {
+        throw Error('文件下不能添加其它文件夹或文件')
+      }
+      scan() {
+        console.log('开始扫描文件:', this.file)
+      }
+    }
+    const folder1 = new Folder('程序设计')
+    const file1 = new File('《JavaScript高级程序语言设计》')
+    const file2 = new File('《JavaScript设计模式》')
+    folder1.add(file1)
+    folder1.add(file2)
+    const folder2 = new Folder('小说')
+    const file3 = new File('《十年一品温如言》')
+    const file4 = new File('《然后，爱情随遇而安》')
+    folder2.add(file3)
+    folder2.add(file4)
 
-      // ***************组合模式：在对象间形成树形结构，不管对象有多少层，只在根部进行调用*******************
-      // demo1：宏命令，按下开关，执行这三件事：
-      // 1. 煮咖啡
-      // 2. 打开电视、打开音响
-      // 3. 打开空调、打开电脑
-      // 如上可看出：每一件大事可能后面还有几项小事
-      class MacroCommand {
-        constructor() {
-          this.list = []
-        }
-        add(task) {
-          this.list.push(task)
-        }
-        excute() {
-          for (let i in this.list) {
-            this.list[i].excute()
-          }
-        }
-      }
-      // 将每个根对象下面的各个子任务添加进去
-      const command1 = new MacroCommand()
-      command1.add({
-        excute: () => console.log('煮咖啡')
-      })
-      const command2 = new MacroCommand()
-      command2.add({
-        excute: () => console.log('打开电视')
-      })
-      command2.add({
-        excute: () => console.log('打开音响')
-      })
-      const command3 = new MacroCommand()
-      command3.add({
-        excute: () => console.log('打开空调')
-      })
-      command3.add({
-        excute: () => console.log('打开电脑')
-      })
-      // 执行每个根对象
-      command1.excute()
-      command2.excute()
-      command3.excute()
+    // 执行组合对象方法
+    folder1.scan()
+    folder2.scan()
+    // 组合模式，在我的理解就是，将对象中的每个对象的子对象公共的方法抽出来统一在根部调用，组合对象和基本对象一致对待，即每一个小对象都是一样的。
 
-      // demo2：扫描文件夹，文件夹中还可以再嵌套文件夹
-      class Folder {
-        constructor(folder) {
-          this.folder = folder
-          this.folderList = []
-        }
-        add(resource) {
-          this.folderList.push(resource)
-        }
-        scan() {
-          console.log('开始扫描文件夹:', this.folder)
-          for (let i in this.folderList) {
-            this.folderList[i].scan()
-          }
+    // ***************模板方法模式：在继承的基础上，在父类定义好执行的算法，有区别的直接在子类修改*******************
+    class Drinks {
+      firstStep() {
+        console.log('烧开水')
+      }
+      secondStep() {}
+      thirdStep() {
+        console.log('倒入杯子')
+      }
+      forthStep() {}
+      ifNeedFlavour() {
+        return true
+      }
+      // 模板方法模式核心: 在父类上定义好所有的执行算法
+      init() {
+        this.firstStep()
+        this.secondStep()
+        this.thirdStep()
+        if (this.ifNeedFlavour()) {
+          this.forthStep()
         }
       }
-      class File {
-        constructor(file) {
-          this.file = file
-        }
-        add() {
-          throw Error('文件下不能添加其它文件夹或文件')
-        }
-        scan() {
-          console.log('开始扫描文件:', this.file)
-        }
+    }
+    class Tea extends Drinks {
+      secondStep() {
+        console.log('浸泡茶叶')
       }
-      const folder1 = new Folder('程序设计')
-      const file1 = new File('《JavaScript高级程序语言设计》')
-      const file2 = new File('《JavaScript设计模式》')
-      folder1.add(file1)
-      folder1.add(file2)
-      const folder2 = new Folder('小说')
-      const file3 = new File('《十年一品温如言》')
-      const file4 = new File('《然后，爱情随遇而安》')
-      folder2.add(file3)
-      folder2.add(file4)
+      forthStep() {
+        console.log('加柠檬')
+      }
+    }
+    class Coffee extends Drinks {
+      secondStep() {
+        console.log('冲泡咖啡')
+      }
+      forthStep() {
+        console.log('加糖')
+      }
+      ifNeedFlavour() {
+        return window.confirm('是否需要佐料吗？')
+      }
+    }
+    const tea = new Tea()
+    const coffee = new Coffee()
+    tea.init()
+    coffee.init()
+    // 引入钩子，假如客人不想加佐料(糖、柠檬)怎么办, 这时可以引人钩子来实现之, 即在上面代码中加入ifNeedFlavour方法
 
-      // 执行组合对象方法
-      folder1.scan()
-      folder2.scan()
-      // 组合模式，在我的理解就是，将对象中的每个对象的子对象公共的方法抽出来统一在根部调用，组合对象和基本对象一致对待，即每一个小对象都是一样的。
+    // ***************享元模式：减少对象的创建，优化程序性能*******************
+    // demo：某商家有50款男内衣和50款女内衣，要展示他们：
+    // 下面不用class来写，用原型的方法实现
+    // 方案一：分别创建50个男模特和50个女模特来展示这些内衣
+    function Model1(gender, underwear) {
+      this.gender = gender
+      this.underwear = underwear
+    }
+    Model1.prototype.takePhoto = function () {
+      console.log(`${this.gender}穿着${this.underwear}`)
+    }
+    for (let i = 0; i < 50; i++) {
+      const maleModel = new Model1('male', `第${i}款衣服`)
+      maleModel.takePhoto()
+    }
+    for (let i = 0; i < 50; i++) {
+      const femaleModel = new Model1('female', `第${i}款衣服`)
+      femaleModel.takePhoto()
+    }
+    // 方案二，只创建一个男模和一个女模
+    // gender是内部属性，underwear是外部属性
+    function Model2(gender) {
+      this.gender = gender
+    }
+    Model2.prototype.takePhoto = function () {
+      console.log(`${this.gender}穿着${this.underwear}`)
+    }
+    const maleModel2 = new Model2('male')
+    const femaleModel2 = new Model2('female')
+    for (let i = 0; i < 50; i++) {
+      maleModel2.underwear = `第${i}款衣服`
+      maleModel2.takePhoto()
+    }
+    for (let i = 0; i < 50; i++) {
+      femaleModel2.underwear = `第${i}款衣服`
+      femaleModel2.takePhoto()
+    }
+    // 在方案二的基础上进行修改
+    // 1.一开始就通过构造函数显示地创建实例，可用工厂模式将其升级为可控生成
+    // 2.在实例上手动添加underwear不是很优雅，可以在外部单独写个manager函数
+    const Model3 = function (gender) {
+      this.gender = gender
+    }
+    Model3.prototype.takePhoto = function () {
+      console.log(`${this.gender}穿着${this.underwear}`)
+    }
+    const modelFactory = (function () {
+      const modelGender = {}
+      return {
+        createModel: function (gender) {
+          if (modelGender[gender]) {
+            return modelGender[gender]
+          }
+          return (modelGender[gender] = new Model3(gender))
+        }
+      }
+    })()
+    const modelManager = (function () {
+      const modelObj = {}
+      return {
+        add: function (gender, i) {
+          modelObj[i] = {
+            underwear: `第${i}款衣服`
+          }
+          return modelFactory.createModel(gender)
+        },
+        copy: function (model, i) {
+          model.underwear = modelObj[i].underwear
+        }
+      }
+    })()
+    for (let i = 0; i < 50; i++) {
+      const maleModel3 = modelManager.add('male', i)
+      modelManager.copy(maleModel3, i)
+      maleModel3.takePhoto()
+    }
+    for (let i = 0; i < 50; i++) {
+      const femaleModel3 = modelManager.add('female', i)
+      modelManager.copy(femaleModel3, i)
+      femaleModel3.takePhoto()
+    }
+    // 这样写，扩展性更强
 
-      // ***************模板方法模式：在继承的基础上，在父类定义好执行的算法，有区别的直接在子类修改*******************
-      class Drinks {
-        firstStep() {
-          console.log('烧开水')
-        }
-        secondStep() {}
-        thirdStep() {
-          console.log('倒入杯子')
-        }
-        forthStep() {}
-        ifNeedFlavour() {
-          return true
-        }
-        // 模板方法模式核心: 在父类上定义好所有的执行算法
-        init() {
-          this.firstStep()
-          this.secondStep()
-          this.thirdStep()
-          if (this.ifNeedFlavour()) {
-            this.forthStep()
-          }
-        }
-      }
-      class Tea extends Drinks {
-        secondStep() {
-          console.log('浸泡茶叶')
-        }
-        forthStep() {
-          console.log('加柠檬')
-        }
-      }
-      class Coffee extends Drinks {
-        secondStep() {
-          console.log('冲泡咖啡')
-        }
-        forthStep() {
-          console.log('加糖')
-        }
-        ifNeedFlavour() {
-          return window.confirm('是否需要佐料吗？')
-        }
-      }
-      const tea = new Tea()
-      const coffee = new Coffee()
-      tea.init()
-      coffee.init()
-      // 引入钩子，假如客人不想加佐料(糖、柠檬)怎么办, 这时可以引人钩子来实现之, 即在上面代码中加入ifNeedFlavour方法
-
-      // ***************享元模式：减少对象的创建，优化程序性能*******************
-      // demo：某商家有50款男内衣和50款女内衣，要展示他们：
-      // 下面不用class来写，用原型的方法实现
-      // 方案一：分别创建50个男模特和50个女模特来展示这些内衣
-      function Model1(gender, underwear) {
-        this.gender = gender
-        this.underwear = underwear
-      }
-      Model1.prototype.takePhoto = function() {
-        console.log(`${this.gender}穿着${this.underwear}`)
-      }
-      for (let i = 0; i < 50; i++) {
-        const maleModel = new Model1('male', `第${i}款衣服`)
-        maleModel.takePhoto()
-      }
-      for (let i = 0; i < 50; i++) {
-        const femaleModel = new Model1('female', `第${i}款衣服`)
-        femaleModel.takePhoto()
-      }
-      // 方案二，只创建一个男模和一个女模
-      // gender是内部属性，underwear是外部属性
-      function Model2(gender) {
-        this.gender = gender
-      }
-      Model2.prototype.takePhoto = function() {
-        console.log(`${this.gender}穿着${this.underwear}`)
-      }
-      const maleModel2 = new Model2('male')
-      const femaleModel2 = new Model2('female')
-      for (let i = 0; i < 50; i++) {
-        maleModel2.underwear = `第${i}款衣服`
-        maleModel2.takePhoto()
-      }
-      for (let i = 0; i < 50; i++) {
-        femaleModel2.underwear = `第${i}款衣服`
-        femaleModel2.takePhoto()
-      }
-      // 在方案二的基础上进行修改
-      // 1.一开始就通过构造函数显示地创建实例，可用工厂模式将其升级为可控生成
-      // 2.在实例上手动添加underwear不是很优雅，可以在外部单独写个manager函数
-      const Model3 = function(gender) {
-        this.gender = gender
-      }
-      Model3.prototype.takePhoto = function() {
-        console.log(`${this.gender}穿着${this.underwear}`)
-      }
-      const modelFactory = (function() {
-        const modelGender = {}
-        return {
-          createModel: function(gender) {
-            if (modelGender[gender]) {
-              return modelGender[gender]
-            }
-            return (modelGender[gender] = new Model3(gender))
-          }
-        }
-      })()
-      const modelManager = (function() {
-        const modelObj = {}
-        return {
-          add: function(gender, i) {
-            modelObj[i] = {
-              underwear: `第${i}款衣服`
-            }
-            return modelFactory.createModel(gender)
-          },
-          copy: function(model, i) {
-            model.underwear = modelObj[i].underwear
-          }
-        }
-      })()
-      for (let i = 0; i < 50; i++) {
-        const maleModel3 = modelManager.add('male', i)
-        modelManager.copy(maleModel3, i)
-        maleModel3.takePhoto()
-      }
-      for (let i = 0; i < 50; i++) {
-        const femaleModel3 = modelManager.add('female', i)
-        modelManager.copy(femaleModel3, i)
-        femaleModel3.takePhoto()
-      }
-      // 这样写，扩展性更强
-
-      // ***************职责链模式：强调链式反应，常用来简化嵌套的条件判断语句*******************
-      // 场景 demo
-      // 场景: 某电商针对已付过定金的用户有优惠政策, 在正式购买后, 已经支付过 500 元定金的用户会收到 100 元的优惠券, 200 元定金的用户可以收到 50 元优惠券, 没有支付过定金的用户只能正常购买。
-      // orderType: 表示订单类型, 1: 500 元定金用户；2: 200 元定金用户；3: 普通购买用户
-      // pay: 表示用户是否已经支付定金, true: 已支付；false: 未支付
-      // stock: 表示当前用于普通购买的手机库存数量, 已支付过定金的用户不受此限制
-      const order = function(orderType, pay, stock) {
-        if (orderType === 1) {
-          if (pay) {
-            console.log('500 元定金预购, 得到 100 元优惠券')
-          } else {
-            if (stock > 0) {
-              console.log('普通购买, 无优惠券')
-            } else {
-              console.log('库存不够, 无法购买')
-            }
-          }
-        } else if (orderType === 2) {
-          if (pay) {
-            console.log('200 元定金预购, 得到 50 元优惠券')
-          } else {
-            if (stock > 0) {
-              console.log('普通购买, 无优惠券')
-            } else {
-              console.log('库存不够, 无法购买')
-            }
-          }
-        } else if (orderType === 3) {
+    // ***************职责链模式：强调链式反应，常用来简化嵌套的条件判断语句*******************
+    // 场景 demo
+    // 场景: 某电商针对已付过定金的用户有优惠政策, 在正式购买后, 已经支付过 500 元定金的用户会收到 100 元的优惠券, 200 元定金的用户可以收到 50 元优惠券, 没有支付过定金的用户只能正常购买。
+    // orderType: 表示订单类型, 1: 500 元定金用户；2: 200 元定金用户；3: 普通购买用户
+    // pay: 表示用户是否已经支付定金, true: 已支付；false: 未支付
+    // stock: 表示当前用于普通购买的手机库存数量, 已支付过定金的用户不受此限制
+    const order = function (orderType, pay, stock) {
+      if (orderType === 1) {
+        if (pay) {
+          console.log('500 元定金预购, 得到 100 元优惠券')
+        } else {
           if (stock > 0) {
             console.log('普通购买, 无优惠券')
           } else {
             console.log('库存不够, 无法购买')
           }
         }
-      }
-      order(3, true, 500)
-
-      // 改造成职责链模式
-      const order500 = function(orderType, pay, stock) {
-        if (orderType === 1 && pay) {
-          console.log('500 元定金预购, 得到 100 元优惠券')
-        } else {
-          order200(orderType, pay, stock)
-        }
-      }
-      const order200 = function(orderType, pay, stock) {
-        if (orderType === 2 && pay) {
+      } else if (orderType === 2) {
+        if (pay) {
           console.log('200 元定金预购, 得到 50 元优惠券')
         } else {
-          orderCommon(orderType, pay, stock)
+          if (stock > 0) {
+            console.log('普通购买, 无优惠券')
+          } else {
+            console.log('库存不够, 无法购买')
+          }
         }
-      }
-      const orderCommon = function(orderType, pay, stock) {
-        if (orderType === 3 && stock > 0) {
+      } else if (orderType === 3) {
+        if (stock > 0) {
           console.log('普通购买, 无优惠券')
         } else {
           console.log('库存不够, 无法购买')
         }
       }
-      order500(3, true, 500)
+    }
+    order(3, true, 500)
 
-      // 如上代码，已经实现了链式调用，但是链路代码和业务代码依然耦合在一起，进一步优化：
-      // 业务代码
-      const order500Update = function(orderType, pay, stock) {
-        if (orderType === 1 && pay) {
-          console.log('500 元定金预购, 得到 100 元优惠券')
-        } else {
-          return 'next'
-        }
+    // 改造成职责链模式
+    const order500 = function (orderType, pay, stock) {
+      if (orderType === 1 && pay) {
+        console.log('500 元定金预购, 得到 100 元优惠券')
+      } else {
+        order200(orderType, pay, stock)
       }
-      const order200Update = function(orderType, pay, stock) {
-        if (orderType === 2 && pay) {
-          console.log('200 元定金预购, 得到 50 元优惠券')
-        } else {
-          return 'next'
-        }
+    }
+    const order200 = function (orderType, pay, stock) {
+      if (orderType === 2 && pay) {
+        console.log('200 元定金预购, 得到 50 元优惠券')
+      } else {
+        orderCommon(orderType, pay, stock)
       }
-      const orderCommonUpdate = function(orderType, pay, stock) {
-        if (orderType === 3 && stock > 0) {
-          console.log('普通购买, 无优惠券')
-        } else {
-          console.log('库存不够, 无法购买')
-        }
+    }
+    const orderCommon = function (orderType, pay, stock) {
+      if (orderType === 3 && stock > 0) {
+        console.log('普通购买, 无优惠券')
+      } else {
+        console.log('库存不够, 无法购买')
       }
+    }
+    order500(3, true, 500)
 
-      // 链路代码
-      const chain = function(fn) {
-        this.fn = fn
-        this.next = null
+    // 如上代码，已经实现了链式调用，但是链路代码和业务代码依然耦合在一起，进一步优化：
+    // 业务代码
+    const order500Update = function (orderType, pay, stock) {
+      if (orderType === 1 && pay) {
+        console.log('500 元定金预购, 得到 100 元优惠券')
+      } else {
+        return 'next'
       }
-      chain.prototype.setNext = function(sucessor) {
-        this.sucessor = sucessor
+    }
+    const order200Update = function (orderType, pay, stock) {
+      if (orderType === 2 && pay) {
+        console.log('200 元定金预购, 得到 50 元优惠券')
+      } else {
+        return 'next'
       }
-      chain.prototype.init = function() {
-        const result = this.fn.apply(this, arguments)
+    }
+    const orderCommonUpdate = function (orderType, pay, stock) {
+      if (orderType === 3 && stock > 0) {
+        console.log('普通购买, 无优惠券')
+      } else {
+        console.log('库存不够, 无法购买')
+      }
+    }
+
+    // 链路代码
+    const chain = function (fn) {
+      this.fn = fn
+      this.next = null
+    }
+    chain.prototype.setNext = function (sucessor) {
+      this.sucessor = sucessor
+    }
+    chain.prototype.init = function () {
+      const result = this.fn.apply(this, arguments)
+      if (result === 'next') {
+        this.sucessor.init.apply(this.sucessor, arguments)
+      }
+    }
+    // 这一步初始化
+    const order500UpdateChain = new chain(order500Update)
+    const order200UpdateChain = new chain(order200Update)
+    const orderCommonUpdateChain = new chain(orderCommonUpdate)
+
+    order500UpdateChain.setNext(order200UpdateChain)
+    order200UpdateChain.setNext(orderCommonUpdateChain)
+    order500UpdateChain.init(3, true, 500)
+
+    // 当然，在链路代码这里，我们还可以进行改造，结合AOP还能简化上述链路代码
+    Function.prototype.after = function (fn) {
+      const self = this
+      return function () {
+        const result = self.apply(self, arguments)
         if (result === 'next') {
-          this.sucessor.init.apply(this.sucessor, arguments)
+          return fn.apply(self, arguments)
         }
       }
-      // 这一步初始化
-      const order500UpdateChain = new chain(order500Update)
-      const order200UpdateChain = new chain(order200Update)
-      const orderCommonUpdateChain = new chain(orderCommonUpdate)
+    }
 
-      order500UpdateChain.setNext(order200UpdateChain)
-      order200UpdateChain.setNext(orderCommonUpdateChain)
-      order500UpdateChain.init(3, true, 500)
+    const orderNew = order500Update
+      .after(order200Update)
+      .after(orderCommonUpdate)
+    orderNew(3, true, 500)
 
-      // 当然，在链路代码这里，我们还可以进行改造，结合AOP还能简化上述链路代码
-      Function.prototype.after = function(fn) {
-        const self = this
-        return function() {
-          const result = self.apply(self, arguments)
-          if (result === 'next') {
-            return fn.apply(self, arguments)
-          }
-        }
-      }
-
-      const orderNew = order500Update
-        .after(order200Update)
-        .after(orderCommonUpdate)
-      orderNew(3, true, 500)
-
-      // ***************状态模式：将事物内部的每个状态分别封装成类, 内部状态改变会产生不同行为。*******************
-      // 场景 demo
-      // 某某牌电灯, 按一下按钮打开弱光, 按两下按钮打开强光, 按三下按钮关闭灯光。
-      // 不要用传统的观念：用if来判断点击次数，这样很容易出错，用链式的反应很棒
-      const weakLight = function(light) {
-        this.light = light
-      }
-      weakLight.prototype.press = function() {
-        console.log('打开强光')
-        this.light.setState(this.light.strongLight)
-      }
-      const strongLight = function(light) {
-        this.light = light
-      }
-      strongLight.prototype.press = function() {
-        console.log('关闭灯光')
-        this.light.setState(this.light.offLight)
-      }
-      const offLight = function(light) {
-        this.light = light
-      }
-      offLight.prototype.press = function() {
-        console.log('打开弱光')
-        this.light.setState(this.light.weakLight)
-      }
-      const Light = function() {
-        this.weakLight = new weakLight(this)
-        this.strongLight = new strongLight(this)
-        this.offLight = new offLight(this)
-        this.currentState = this.offLight
-      }
-      Light.prototype.init = function() {
-        const btn = document.createElement('button')
-        btn.innerHTML = '按钮'
-        document.body.append(btn)
-        const self = this
-        btn.addEventListener('click', function() {
-          self.currentState.press()
-        })
-      }
-      Light.prototype.setState = function(state) {
-        this.currentState = state
-      }
-      const light = new Light()
-      light.init()
-
-      // 非面向对象实现的状态模式
-      const obj = {
-        weakLight: {
-          press: function() {
-            console.log('打开强光')
-            this.currentState = obj.strongLight
-          }
-        },
-        strongLight: {
-          press: function() {
-            console.log('关闭灯光')
-            this.currentState = obj.offLight
-          }
-        },
-        offLight: {
-          press: function() {
-            console.log('打开弱光')
-            this.currentState = obj.weakLight
-          }
-        }
-      }
-      const Light1 = function() {
-        this.currentState = obj.offLight
-      }
-      Light1.prototype.init = function() {
-        const btn = document.createElement('button')
-        btn.innerHTML = '按钮(新)'
-        document.body.append(btn)
-        const self = this
-        btn.addEventListener('click', function() {
-          self.currentState.press.call(self)
-        })
-      }
-      const light1 = new Light1()
-      light1.init()
-
-      // ***************适配者模式：主要解决两个接口之间不匹配的问题*******************
-      // 老接口
-      const zhejiangCityOld = (function() {
-        return [
-          {
-            name: 'hangzhou',
-            id: 11
-          },
-          {
-            name: 'jinhua',
-            id: 12
-          }
-        ]
-      })()
-
-      console.log(zhejiangCityOld)
-
-      // 新接口希望是下面形式
-      // {
-      //   hangzhou: 11,
-      //   jinhua: 12,
-      // }
-
-      // 适配者模式
-      const adaptor = (function() {
-        const obj = {}
-        for (let city of zhejiangCityOld) {
-          obj[city.name] = city.id
-        }
-        return obj
-      })()
-      // 适配器的理念应该就是：不改动接口代码，只在外层将一个接口适配为其他接口的形式
-
-      // ***************观察者模式：顾名思义，观察某一数据对象发生变化或反应，做出相应的操作*******************
-      // 用Object.defineProperty方式：
-      var objWatcher = {
-        data: 1
-      }
-      let value
-      Object.defineProperty(objWatcher, 'data', {
-        get() {
-          return value
-        },
-        set(val) {
-          console.log('值改变了')
-          // 可以在这里面做一些操作
-          value = val
-        }
+    // ***************状态模式：将事物内部的每个状态分别封装成类, 内部状态改变会产生不同行为。*******************
+    // 场景 demo
+    // 某某牌电灯, 按一下按钮打开弱光, 按两下按钮打开强光, 按三下按钮关闭灯光。
+    // 不要用传统的观念：用if来判断点击次数，这样很容易出错，用链式的反应很棒
+    const weakLight = function (light) {
+      this.light = light
+    }
+    weakLight.prototype.press = function () {
+      console.log('打开强光')
+      this.light.setState(this.light.strongLight)
+    }
+    const strongLight = function (light) {
+      this.light = light
+    }
+    strongLight.prototype.press = function () {
+      console.log('关闭灯光')
+      this.light.setState(this.light.offLight)
+    }
+    const offLight = function (light) {
+      this.light = light
+    }
+    offLight.prototype.press = function () {
+      console.log('打开弱光')
+      this.light.setState(this.light.weakLight)
+    }
+    const Light = function () {
+      this.weakLight = new weakLight(this)
+      this.strongLight = new strongLight(this)
+      this.offLight = new offLight(this)
+      this.currentState = this.offLight
+    }
+    Light.prototype.init = function () {
+      const btn = document.createElement('button')
+      btn.innerHTML = '按钮'
+      document.body.append(btn)
+      const self = this
+      btn.addEventListener('click', function () {
+        self.currentState.press()
       })
-      objWatcher.data = 123
-      console.log('改变后的值：', objWatcher.data)
+    }
+    Light.prototype.setState = function (state) {
+      this.currentState = state
+    }
+    const light = new Light()
+    light.init()
 
-      // 用proxy方式：
-      var objWatcher1 = {
-        data: 2,
-        test: {
-          data: 3
-        },
-        arr: [1]
-      }
-      var proxy = new Proxy(objWatcher1, {
-        set: function(target, key, value, receiver) {
-          console.log('proxy中改变了值')
-          // 一定要加Reflect.set，不然值不会改变
-          Reflect.set(target, key, value, receiver)
+    // 非面向对象实现的状态模式
+    const obj = {
+      weakLight: {
+        press: function () {
+          console.log('打开强光')
+          this.currentState = obj.strongLight
         }
+      },
+      strongLight: {
+        press: function () {
+          console.log('关闭灯光')
+          this.currentState = obj.offLight
+        }
+      },
+      offLight: {
+        press: function () {
+          console.log('打开弱光')
+          this.currentState = obj.weakLight
+        }
+      }
+    }
+    const Light1 = function () {
+      this.currentState = obj.offLight
+    }
+    Light1.prototype.init = function () {
+      const btn = document.createElement('button')
+      btn.innerHTML = '按钮(新)'
+      document.body.append(btn)
+      const self = this
+      btn.addEventListener('click', function () {
+        self.currentState.press.call(self)
       })
-      // 可以监听
-      proxy.data = 123456
-      // 不能监听
-      proxy.test.data = 156
-      // 不能监听
-      proxy.arr.push(2)
-      // 可以监听
-      proxy.arr = [123]
-      console.log('proxy.test.data', proxy.arr)
+    }
+    const light1 = new Light1()
+    light1.init()
 
-      // 实现 sinon 框架的 spy 函数:
-      const sinon = {
-        analyze: {},
-        spy: function(obj, fnName) {
-          const that = this
-          const oldFn = Object.getOwnPropertyDescriptor(obj, fnName).name
-          Object.defineProperty(obj, fnName, {
-            // 这里不能用get，get是取值，而这里是函数执行
-            value() {
-              if (that.analyze[fnName]) {
-                that.analyze[fnName].num = that.analyze[fnName].num + 1
-              } else {
-                that.analyze[fnName] = {}
-                that.analyze[fnName].num = 1
-              }
-              console.log(`${fnName} 被调用了 ${that.analyze[fnName].num} 次`)
+    // ***************适配者模式：主要解决两个接口之间不匹配的问题*******************
+    // 老接口
+    const zhejiangCityOld = (function () {
+      return [{
+          name: 'hangzhou',
+          id: 11
+        },
+        {
+          name: 'jinhua',
+          id: 12
+        }
+      ]
+    })()
+
+    console.log(zhejiangCityOld)
+
+    // 新接口希望是下面形式
+    // {
+    //   hangzhou: 11,
+    //   jinhua: 12,
+    // }
+
+    // 适配者模式
+    const adaptor = (function () {
+      const obj = {}
+      for (let city of zhejiangCityOld) {
+        obj[city.name] = city.id
+      }
+      return obj
+    })()
+    // 适配器的理念应该就是：不改动接口代码，只在外层将一个接口适配为其他接口的形式
+
+    // ***************观察者模式：顾名思义，观察某一数据对象发生变化或反应，做出相应的操作*******************
+    // 用Object.defineProperty方式：
+    var objWatcher = {
+      data: 1
+    }
+    let value
+    Object.defineProperty(objWatcher, 'data', {
+      get() {
+        return value
+      },
+      set(val) {
+        console.log('值改变了')
+        // 可以在这里面做一些操作
+        value = val
+      }
+    })
+    objWatcher.data = 123
+    console.log('改变后的值：', objWatcher.data)
+
+    // 用proxy方式：
+    var objWatcher1 = {
+      data: 2,
+      test: {
+        data: 3
+      },
+      arr: [1]
+    }
+    var proxy = new Proxy(objWatcher1, {
+      set: function (target, key, value, receiver) {
+        console.log('proxy中改变了值')
+        // 一定要加Reflect.set，不然值不会改变
+        Reflect.set(target, key, value, receiver)
+      }
+    })
+    // 可以监听
+    proxy.data = 123456
+    // 不能监听
+    proxy.test.data = 156
+    // 不能监听
+    proxy.arr.push(2)
+    // 可以监听
+    proxy.arr = [123]
+    console.log('proxy.test.data', proxy.arr)
+
+    // 实现 sinon 框架的 spy 函数:
+    const sinon = {
+      analyze: {},
+      spy: function (obj, fnName) {
+        const that = this
+        const oldFn = Object.getOwnPropertyDescriptor(obj, fnName).name
+        Object.defineProperty(obj, fnName, {
+          // 这里不能用get，get是取值，而这里是函数执行
+          value() {
+            if (that.analyze[fnName]) {
+              that.analyze[fnName].num = that.analyze[fnName].num + 1
+            } else {
+              that.analyze[fnName] = {}
+              that.analyze[fnName].num = 1
             }
-          })
-        }
+            console.log(`${fnName} 被调用了 ${that.analyze[fnName].num} 次`)
+          }
+        })
       }
-      const objWatcher3 = {
-        someFn: () => {
-          console.log('testing function')
-        }
+    }
+    const objWatcher3 = {
+      someFn: () => {
+        console.log('testing function')
       }
-      sinon.spy(objWatcher3, 'someFn')
-      objWatcher3.someFn()
-      objWatcher3.someFn()
-    </script>
-  </body>
+    }
+    sinon.spy(objWatcher3, 'someFn')
+    objWatcher3.someFn()
+    objWatcher3.someFn()
+
+    // ***************原型模式：用原型实例指向创建对象的种类，并且通过拷贝这些原型创建新的对象*******************
+    // 过程： 创建一个原型 => new一个原型实例 => 拷贝原型实例到新的对象
+
+    // 一、创建一个原型并且为其添加属性
+    function Person() {
+      this.name = 'Uzi'
+      this.sex = '21'
+      this.age = '男'
+      this.getName = function () {
+        return `姓名:${this.name}`
+      }
+    }
+    // 在原型上添加一个方法
+    Person.prototype.getMsg = function () {
+      return `姓名: ${this.name}, 年龄: ${this.age}, 性别:${this.sex}`
+    }
+
+    // 二、new一个原型实例
+    const proto = new Person()
+
+    // 三、通过Object.create 拷贝原型实例
+    const person1 = Object.create(proto)
+    const person2 = Object.create(proto)
+    person2.name = 'Ming'
+    person2.sex = '20'
+    person2.age = '男'
+    console.log(person1.getName()) // 姓名: Uzi
+    console.log(person2.getName()) // 姓名: Ming
+    console.log(person1.getMsg()) // 姓名: Uzi, 年龄: 男, 性别:21
+    console.log(person2.getMsg()) // 姓名: Ming, 年龄: 男, 性别:20
+  </script>
+</body>
+
 </html>
