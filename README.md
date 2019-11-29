@@ -279,7 +279,21 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 
 出差一周，落下了不少功课，回来继续————
 
-## 2019.11.24
+## 2019.11.25
 [《JavaScript 创建对象之原型模式》](https://juejin.im/entry/587d89ce2f301e00579f8294)
 
 [《从JavaScript学习设计模式-01原型模式》](https://juejin.im/post/5b728d61518825613f7f3992)
+## 2019.11.27
+许久不巩固，很多概念都模糊了：
+
+[《JS原型链与继承别再被问倒了》](https://juejin.im/post/58f94c9bb123db411953691b)
+
+[《三张图搞懂JavaScript的原型对象与原型链》](https://juejin.im/post/5835853f570c35005e413b19)
+## 2019.11.28
+完成昨天剩下的：[《JS原型链与继承别再被问倒了》](https://juejin.im/post/58f94c9bb123db411953691b)
+
+[《聊聊TypeScript中类、接口之间相互继承与实现的那些事儿》](https://juejin.im/post/5c386a156fb9a049fb43e109)
+## 2019.11.29
+专业，是每一个职场人应该具备的素质：
+
+[《【译】什么才是优秀的代码》](https://juejin.im/post/5ddfdd436fb9a0715c2f9e3a)
