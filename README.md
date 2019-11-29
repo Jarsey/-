@@ -293,3 +293,7 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 完成昨天剩下的：[《JS原型链与继承别再被问倒了》](https://juejin.im/post/58f94c9bb123db411953691b)
 
 [《聊聊TypeScript中类、接口之间相互继承与实现的那些事儿》](https://juejin.im/post/5c386a156fb9a049fb43e109)
+## 2019.11.29
+专业，是每一个职场人应该具备的素质：
+
+[《【译】什么才是优秀的代码》](https://juejin.im/post/5ddfdd436fb9a0715c2f9e3a)
