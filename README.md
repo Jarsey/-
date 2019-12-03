@@ -304,6 +304,6 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 
 [《【ES6基础】Map与WeakMap》](https://juejin.im/post/5cce38e55188257a9f46962d)
 ## 2019.12.03
-[《[前端漫谈_5] 从 IIFE 聊到 Babel 带你深入了解前端模块化发展体系》](https://juejin.im/post/5cb9e563f265da03712999e8#heading-6)
+[《[前端漫谈_5] 从 IIFE 聊到 Babel 带你深入了解前端模块化发展体系》](https://juejin.im/post/5cb9e563f265da03712999e8#heading-6)（写得很棒的一篇文，但是有很多细节还是有点模糊，再一次为自己的基础捉急）
 
 [《揭秘 IIFE 语法》](https://github.com/xitu/gold-miner/blob/master/TODO/disassembling-javascripts-iife-syntax.md)
