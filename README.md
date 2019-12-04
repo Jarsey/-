@@ -313,3 +313,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《JS设计模式三：模块模式》](https://juejin.im/post/5c071f68e51d451dcd3c3077)
 
 [《【译】简单理解 JavaScript 中的设计模式》](https://juejin.im/post/5bd02c2ef265da0aa74f6881)
+
+[《JavaScript面向对象精要》之六：对象模式》](https://juejin.im/post/5c15e00be51d45453c1cdbcc)
