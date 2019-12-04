@@ -308,4 +308,8 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 
 [《揭秘 IIFE 语法》](https://github.com/xitu/gold-miner/blob/master/TODO/disassembling-javascripts-iife-syntax.md)
 ## 2019.12.04
+今天是学习“模块模式”的一天~
+
 [《JS设计模式三：模块模式》](https://juejin.im/post/5c071f68e51d451dcd3c3077)
+
+[《【译】简单理解 JavaScript 中的设计模式》](https://juejin.im/post/5bd02c2ef265da0aa74f6881)
