@@ -315,3 +315,5 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《【译】简单理解 JavaScript 中的设计模式》](https://juejin.im/post/5bd02c2ef265da0aa74f6881)
 
 [《JavaScript面向对象精要》之六：对象模式》](https://juejin.im/post/5c15e00be51d45453c1cdbcc)
+## 2019.12.05
+[《「前端进阶」彻底弄懂函数柯里化》](https://juejin.im/post/5d2299faf265da1bb67a3b65#comment)
