@@ -317,3 +317,7 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《JavaScript面向对象精要》之六：对象模式》](https://juejin.im/post/5c15e00be51d45453c1cdbcc)
 ## 2019.12.05
 [《「前端进阶」彻底弄懂函数柯里化》](https://juejin.im/post/5d2299faf265da1bb67a3b65#comment)
+## 2019.12.09
+[《Vue前端开发规范》](https://juejin.im/post/5ada9b586fb9a07aaf34c746)（和官网差不多，只不过更直观而已）
+
+贴一下官网的：[风格指南（Vue官网）](https://cn.vuejs.org/v2/style-guide/)
