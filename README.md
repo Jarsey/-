@@ -335,3 +335,6 @@ created : 初始化完成时的事件写在这里，如在这结束loading事件
 mounted : 挂载元素，获取到DOM节点 updated : 如果对数据统一处理，在这里写上相应函数
 
 beforeDestroy : 可以做一个确认停止事件的确认框
+
+最近在学SQL,和Sequelize结合，这篇文章虽短，但写的还是很适合我这种小白的：
+[《sequelize中的association使用讲解，nodejs》](https://www.cnblogs.com/codor/p/4719142.html)
