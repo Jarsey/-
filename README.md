@@ -325,3 +325,13 @@ Tip：这一篇和上周（8.30号）的那一篇内容有重叠，略过一遍
 [《你要的Vue面试题都在这里》](https://juejin.im/post/5d13436f6fb9a07eca698ba0)
 ## 2019.12.10
 今天继续：[《你要的Vue面试题都在这里》](https://juejin.im/post/5d13436f6fb9a07eca698ba0)
+
+Vue每个周期适合的场景（平常在编码的时候真的很少注意这些应该成为规范的东西）：
+
+beforecreate : 可以在这加个loading事件，在加载实例时触发
+
+created : 初始化完成时的事件写在这里，如在这结束loading事件，异步请求也适宜在这里调用
+
+mounted : 挂载元素，获取到DOM节点 updated : 如果对数据统一处理，在这里写上相应函数
+
+beforeDestroy : 可以做一个确认停止事件的确认框
