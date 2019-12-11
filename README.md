@@ -340,3 +340,5 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 [《sequelize中的association使用讲解，nodejs》](https://www.cnblogs.com/codor/p/4719142.html)
 ## 2019.12.11
 很有意思的库，这才是理想中的前端开发啊……[《颜值即正义！这几个库颠覆你对数据交互的想象》](https://juejin.im/post/5de53fa15188256ed6123a1d)
+
+[《前端API层架构，也许你做得还不够》](https://juejin.im/post/5de7169451882512454b18d8)
