@@ -346,3 +346,5 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 说来惭愧，写了两年前端，第一次听说分区响应图……
 
 [《如何创建客户端分区响应图》](https://www.cnblogs.com/enjoymylift/p/5984338.html)
+
+今天又学到了一个新知识，开心！！问题：如何设置背景图片不随着文本内容的滚动而滚动？答：直接使用background-attachment: fixed;即可。
