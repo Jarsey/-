@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2019.12.12</title>
+    <style>
+        body {
+            background: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1576126409136&di=4bf8650c94e1bfc18e1f4344b7e651b7&imgtype=0&src=http%3A%2F%2Fdl.ppt123.net%2Fpptbj%2F201201%2F2012011411275485.jpg') no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            /* width: 100%;
+            height: 100%; */
+        }
+
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 16px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        @font-face {
+            font-family: 'iconfont';
+            /* project id 1559385 */
+            src: url('//at.alicdn.com/t/font_1559385_ldkemk6ahb.eot');
+            src: url('//at.alicdn.com/t/font_1559385_ldkemk6ahb.eot?#iefix') format('embedded-opentype'),
+                url('//at.alicdn.com/t/font_1559385_ldkemk6ahb.woff2') format('woff2'),
+                url('//at.alicdn.com/t/font_1559385_ldkemk6ahb.woff') format('woff'),
+                url('//at.alicdn.com/t/font_1559385_ldkemk6ahb.ttf') format('truetype'),
+                url('//at.alicdn.com/t/font_1559385_ldkemk6ahb.svg#iconfont') format('svg');
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+        1.第240天 如何设置背景图片不随着文本内容的滚动而滚动？
+    </h2>
+    <h2>实现计算器</h2>
+    <div id="calculator">
+        <input id="calc-result" type="text" readonly value="">
+        <div id="calc-keys"></div>
+    </div>
+    <script type="text/javascript">
+        var caclNum, caclEvent
+        var keysArr = [
+            [{
+                value: '&#xe6ce;',
+                method: clearResult
+            }, {
+                value: '&#xe715;',
+                method: positiveNumber
+            }, {
+                value: '&#xe624;',
+                method: negativeNumber
+            }, {
+                value: '&#xe61d;',
+                method: divideNumber
+            }],
+            [{
+                value: 7
+            }, {
+                value: 8
+            }, {
+                value: 9
+            }, {
+                value: '&#xe62a;',
+                method: multiplyNumber
+            }],
+            [{
+                value: 4
+            }, {
+                value: 5
+            }, {
+                value: 6
+            }, {
+                value: '&#xe624;',
+                method: minusNumber
+            }],
+            [{
+                value: 1
+            }, {
+                value: 2
+            }, {
+                value: 3
+            }, {
+                value: '&#xe715;',
+                method: addNumber
+            }],
+            [{
+                value: '&#xe6c0;',
+                method: percentNumber
+            }, {
+                value: 0
+            }, {
+                value: '&#xec1e;',
+                method: decimalNumber
+            }, {
+                value: '&#xe61b;',
+                method: getResult
+            }]
+        ]
+        // 清零
+        function clearResult() {
+
+        }
+        // 求正数
+        function positiveNumber() {
+
+        }
+        // 求负数
+        function negativeNumber() {
+
+        }
+        // 加
+        function addNumber() {
+
+        }
+        // 减
+        function minusNumber() {
+
+        }
+        // 除
+        function divideNumber() {
+
+        }
+        // 乘
+        function multiplyNumber() {
+
+        }
+        // 取百分比
+        function percentNumber() {
+
+        }
+        // 取小数
+        function decimalNumber() {
+
+        }
+        // 求值
+        function getResult() {
+
+        }
+        // 初始化
+        function init() {
+            var keysTable = document.getElementById('calc-keys')
+            keysArr.forEach((item, index) => {
+                keysTable.appendChild(`<div class="row_${index}"></div>`)
+                item.forEach((each) => {
+                    var eachRow = document.getElementById(`row_${index}`)
+                    if (typeof (each.value) === 'number') {
+                        eachRow.appendChild(
+                            `<div class="col" @click="${getEachNumber(each.value)}">${each.value}</div>`
+                        )
+                    } else {
+                        eachRow.appendChild(
+                            `<div class="col"><i class="iconfont" @click="${each.method}">${each.value}</i></div>`
+                        )
+                    }
+                })
+            })
+        }
+
+        function getEachNumber(num) {
+            caclNum = num
+        }
+
+        function getEvent(num) {
+            caclEvent
+        }
+    </script>
+</body>
+
+</html>
