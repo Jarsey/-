@@ -362,3 +362,5 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 [《驳《慎用 try catch》》](https://juejin.im/post/5c199882f265da617464c745)
 
 [《嘿，不要给 async 函数写那么多 try/catch 了》](https://juejin.im/post/5d25b39bf265da1bb67a4176) 这篇，我……我我我不太看得懂哎，哭泣
+
+[《前端魔法堂——异常不仅仅是try/catch》](https://segmentfault.com/a/1190000011602203)
