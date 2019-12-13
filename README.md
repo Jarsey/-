@@ -354,3 +354,7 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 [《谈谈CSS3的长度单位（vh、vw、rem）》](http://ghmagical.com/article/page/id/XMzbRAPw6rba)
 
 [《CSS视口单位:快速入门》](https://juejin.im/post/590091c81b69e60058b715c5)
+
+[《基于排版的视口单位》](https://zellwk.com/blog/viewport-based-typography/)
+
+学到了学到了~~
