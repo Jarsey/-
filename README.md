@@ -368,3 +368,7 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 今天看看iframe~~
 
 这篇文章写的不错：[《iframe,我们来谈一谈》](https://segmentfault.com/a/1190000004502619)
+## 2019.12.19
+今天继续来看iframe~~
+
+[《使用 postMessage 解决 iframe 跨域通信问题》](https://juejin.im/post/590c3983ac502e006531df11)
