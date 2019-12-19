@@ -372,3 +372,7 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 今天继续来看iframe~~
 
 [《使用 postMessage 解决 iframe 跨域通信问题》](https://juejin.im/post/590c3983ac502e006531df11)
+
+[《正确面对跨域，别慌》](https://juejin.im/post/5a2f92c65188253e2470f16d)
+
+[《前端跨域整理》](https://juejin.im/post/5815f4abbf22ec006893b431)
