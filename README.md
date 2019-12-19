@@ -376,3 +376,11 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 [《正确面对跨域，别慌》](https://juejin.im/post/5a2f92c65188253e2470f16d)
 
 [《前端跨域整理》](https://juejin.im/post/5815f4abbf22ec006893b431)
+
+[《由同源策略到前端跨域》](https://juejin.im/post/58f816198d6d81005874fd97)
+
+来看看学习方法八~~
+
+[《学习方法分享：为何一年半就能拿到大厂 offer》](https://juejin.im/post/5d439ade6fb9a06b233ca089)
+
+[《大揭秘！“恐怖”的阿里一面，我究竟想问什么》](https://juejin.im/post/5d4cd42a6fb9a06aea618155)
