@@ -390,3 +390,5 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 再来一篇postcss：[《postcss系列-初识postcss》](https://xgfe.github.io/2016/01/05/scliuyang/postcss-one/)
 
 [《让CSS更完美:PostCSS-modules》](https://www.zcfy.cc/article/postcss-modules-make-css-great-again-2303.html)
+
+[《ES6、ES7、ES8特性一锅炖(ES6、ES7、ES8学习指南)》](https://juejin.im/post/5b9cb3336fb9a05d290ee47e)
