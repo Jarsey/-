@@ -384,3 +384,5 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 [《学习方法分享：为何一年半就能拿到大厂 offer》](https://juejin.im/post/5d439ade6fb9a06b233ca089)
 
 [《大揭秘！“恐怖”的阿里一面，我究竟想问什么》](https://juejin.im/post/5d4cd42a6fb9a06aea618155)
+## 2019.12.23
+好久没看canvas了，来复习一下下：[《canvas学习之API整理笔记》](http://luckykun.com/work/2016-09-01/canvas-study01.html)
