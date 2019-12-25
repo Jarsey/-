@@ -392,3 +392,6 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 [《让CSS更完美:PostCSS-modules》](https://www.zcfy.cc/article/postcss-modules-make-css-great-again-2303.html)
 
 [《ES6、ES7、ES8特性一锅炖(ES6、ES7、ES8学习指南)》](https://juejin.im/post/5b9cb3336fb9a05d290ee47e)
+## 2019.12.25
+[《自从学会了 Array.reduce() ，再也离不开它》](https://juejin.im/post/5dfd9d27e51d455825129ec3)
+ 为了巩固，来手写一遍吧
