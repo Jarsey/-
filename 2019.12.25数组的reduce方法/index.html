@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>数组的reduce方法</title>
+  </head>
+
+  <body>
+    <h3>具体结果见工作台</h3>
+    <p>
+      本文件涉及到数组的reduce方法。和reduce一样的，还有一个reduceRight方法，reduce从前向后遍历，reduceRight从后向前遍历数组
+    </p>
+    <p>
+      其中，在prev, cur, index,
+      array四个参数中，prev是每次返回的结果，而cur则是每次遍历的结果
+    </p>
+    <p>下面是reduce方法的应用</p>
+    <ol>
+      <li>reduce实现数组求和</li>
+      <li>用reduce来筛选满足条件的数组，再组合数组</li>
+      <li>从数组生成 HTML 标签</li>
+      <li>
+        数组元素分组(即用reduce实现lodash
+        groupBy()方法，可以将数组元素按照某个标准分组。)
+      </li>
+      <li>合并数据到单个数组</li>
+      <li>合并数据到单个对象</li>
+    </ol>
+    <script type="text/javascript">
+      // 和reduce一样的，还有一个reduceRight方法，reduce从前向后遍历，reduceRight从后向前遍历数组
+      // 应用一：reduce实现数组求和
+      const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      var total = arr.reduce(function(prev, cur, index, array) {
+        // 在这里，prev其实就是每次返回的prev + cur，第一次为初始值0，第二次迭代为0+1的结果1，第三次为1+2的结果3
+        return prev + cur
+        // 第二个参数0可以省略，这里指：给total赋一个初始值0。
+      }, 0)
+      console.log('total', total) // 45
+
+      // 应用二：筛选数组
+      var superStar = [
+        {
+          name: '林志颖',
+          time: 2007
+        },
+        {
+          name: '罗志祥',
+          time: 2009
+        },
+        {
+          name: '池昌旭',
+          time: 2014
+        },
+        {
+          name: '黄致列',
+          time: 2015
+        },
+        {
+          name: '朱一龙',
+          time: 2018
+        },
+        {
+          name: '都暻秀',
+          time: 2019
+        }
+      ]
+      // 从上面数组中筛选2014年以后（包括2014年）喜欢的明星，输出这些明星的名字
+      // 我们可以先用filter找到上述满足条件的数组，再用map将名字挑选出来，如下：
+      let newStar1 = superStar
+        .filter(item => item.time >= 2014)
+        .map(item => item.name)
+      console.log('newStar1', newStar1)
+      let newStar2 = superStar.reduce((prev, cur) => {
+        if (cur.time >= 2014) {
+          prev.push(cur.name)
+        }
+        // console.log('prev', prev)
+        // 返回prev的值
+        return prev
+      }, [])
+      console.log('newStar2', newStar2)
+
+      // 应用三：生成HTML标签
+      // 如应用二，reduce可以将新数组再次组合成数组，其实我们也可以将新数组组合成字符串
+      // 还是用上面的superstar，我们现在组合一下每个名字，将他们用li列出来
+      let newHtml =
+        '<ul>' +
+        superStar.reduce((prev, cur) => {
+          if (cur.time >= 2014) {
+            prev += '<li>' + cur.name + '</li>'
+          }
+          return prev
+        }, '') +
+        '</ul>'
+      console.log('newHtml', newHtml)
+
+      // 应用四 数组元素分组(即用reduce实现lodash groupBy()方法，可以将数组元素按照某个标准分组。)
+      // 使用lodash
+      var numbers = [6.1, 4.2, 6.3]
+      // 返回 {'4':4.2, '6':6.3 }
+      // 用lodash _.groupBy(numbers, Math.floor);
+      // 用reduce方法来实现groupBy功能
+      var groupBy = function(arr, criteria) {
+        return arr.reduce((obj, item) => {
+          // obj就是prev，item就是curr
+          var key =
+            typeof criteria === 'function' ? criteria(item) : item[criteria]
+          if (!obj.hasOwnProperty(key)) {
+            obj[key] = []
+          }
+          obj[key].push(item)
+          return obj
+        }, {})
+      }
+      console.log('Math.floor', groupBy(numbers, Math.floor))
+      // 应用五 合并数据到单个数组
+      //   依旧用superStar这个变量
+      //   现在增加一个对象，爱心表，将爱心表上的每个数据分别增加到superStar数组中
+      const love = {
+        林志颖: 10,
+        罗志祥: 10,
+        池昌旭: 20,
+        黄致列: 5,
+        朱一龙: 100,
+        都暻秀: 99
+      }
+      let superStarWithLove = superStar.reduce((arr, item) => {
+        if (love[item.name]) {
+          item['love'] = love[item.name]
+        } else {
+          item['love'] = 0
+        }
+        arr.push(item)
+        return arr
+      }, [])
+      console.log('superStarWithLove', superStarWithLove)
+      //   应用六 合并数据到单个对象
+      //   根据应用五，将应用五的数组改成对象，以明星姓名为对象名
+      let superStarWithLoveObj = superStar.reduce((obj, item) => {
+        const name = item.name
+        if (love[name]) {
+          item['love'] = love[name]
+        } else {
+          item['love'] = 0
+        }
+        delete item.name
+        obj[name] = item
+        return obj
+      }, {})
+      console.log('superStarWithLoveObj', superStarWithLoveObj)
+    </script>
+  </body>
+</html>
