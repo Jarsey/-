@@ -384,3 +384,22 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 [《学习方法分享：为何一年半就能拿到大厂 offer》](https://juejin.im/post/5d439ade6fb9a06b233ca089)
 
 [《大揭秘！“恐怖”的阿里一面，我究竟想问什么》](https://juejin.im/post/5d4cd42a6fb9a06aea618155)
+## 2019.12.23
+好久没看canvas了，来复习一下下：[《canvas学习之API整理笔记》](http://luckykun.com/work/2016-09-01/canvas-study01.html)
+
+再来一篇postcss：[《postcss系列-初识postcss》](https://xgfe.github.io/2016/01/05/scliuyang/postcss-one/)
+
+[《让CSS更完美:PostCSS-modules》](https://www.zcfy.cc/article/postcss-modules-make-css-great-again-2303.html)
+
+[《ES6、ES7、ES8特性一锅炖(ES6、ES7、ES8学习指南)》](https://juejin.im/post/5b9cb3336fb9a05d290ee47e)
+## 2019.12.25
+[《自从学会了 Array.reduce() ，再也离不开它》](https://juejin.im/post/5dfd9d27e51d455825129ec3)
+ 为了巩固，来手写一遍吧
+## 2019.12.26
+[《「圣诞特辑」纯前端实现人脸识别自动佩戴圣诞帽》](https://juejin.im/post/5e02b73fe51d455807699b1f)，哇这个真的是666了
+
+再把[《TensorFlow.js》](https://tensorflow.google.cn/js/tutorials)的链接贴上，以备不时之需。
+
+[《【译PPT/必读】尤雨溪：Vue 3.0的设计原则》](https://juejin.im/post/5e02043f6fb9a0163a48412f)
+
+今天就算是开阔眼界了……
