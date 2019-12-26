@@ -399,3 +399,7 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 [《「圣诞特辑」纯前端实现人脸识别自动佩戴圣诞帽》](https://juejin.im/post/5e02b73fe51d455807699b1f)，哇这个真的是666了
 
 再把[《TensorFlow.js》](https://tensorflow.google.cn/js/tutorials)的链接贴上，以备不时之需。
+
+[《【译PPT/必读】尤雨溪：Vue 3.0的设计原则》](https://juejin.im/post/5e02043f6fb9a0163a48412f)
+
+今天就算是开阔眼界了……
