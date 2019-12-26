@@ -395,3 +395,7 @@ beforeDestroy : 可以做一个确认停止事件的确认框
 ## 2019.12.25
 [《自从学会了 Array.reduce() ，再也离不开它》](https://juejin.im/post/5dfd9d27e51d455825129ec3)
  为了巩固，来手写一遍吧
+## 2019.12.26
+[《「圣诞特辑」纯前端实现人脸识别自动佩戴圣诞帽》](https://juejin.im/post/5e02b73fe51d455807699b1f)，哇这个真的是666了
+
+再把[《TensorFlow.js》](https://tensorflow.google.cn/js/tutorials)的链接贴上，以备不时之需。
